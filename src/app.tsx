@@ -1,4 +1,5 @@
 import { useEffect } from "preact/hooks"
+import { redditAppId, redditAppSecret } from "./env"
 import { redditAuthUrl, redirectUri } from "./reddit"
 import { useRoute } from "./router"
 import { encodeUriParams } from "./url"
@@ -22,10 +23,7 @@ export const App = () => {
 }
 
 function AuthRedirectHandler(props: { authCode: string }) {
-	const { VITE_REDDIT_APP_ID, VITE_REDDIT_APP_SECRET } = import.meta.env
-	const authCredentials = btoa(
-		`${VITE_REDDIT_APP_ID}:${VITE_REDDIT_APP_SECRET}`,
-	)
+	const authCredentials = btoa(`${redditAppId}:${redditAppSecret}`)
 
 	useEffect(() => {
 		fetch(`https://www.reddit.com/api/v1/access_token`, {
