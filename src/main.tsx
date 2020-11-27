@@ -1,4 +1,10 @@
 import { render } from "preact"
+import { QueryClient, QueryClientProvider } from "react-query"
 import { App } from "./app"
 
-render(<App />, document.getElementById("app")!)
+render(
+	<QueryClientProvider client={new QueryClient()}>
+		<App />
+	</QueryClientProvider>,
+	document.getElementById("app")!,
+)
