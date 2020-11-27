@@ -29,7 +29,7 @@ function AuthRedirectHandler(props: { authCode: string }) {
 		fetch(`https://www.reddit.com/api/v1/access_token`, {
 			method: "post",
 			headers: {
-				Authorization: `Basic ${authCredentials}`,
+				"Authorization": `Basic ${authCredentials}`,
 				"Content-Type": "application/x-www-form-urlencoded",
 			},
 			body: encodeUriParams({
