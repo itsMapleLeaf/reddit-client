@@ -1,1 +1,7 @@
-export const App = () => <h1>nailed it</h1>
+import { redditAuthUrl } from "./reddit"
+
+export const App = () => (
+	<main>
+		<a href={redditAuthUrl}>Login</a>
+	</main>
+)
