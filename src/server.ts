@@ -78,10 +78,4 @@ app.get("/api/session", async (request) => {
 })
 
 const port = process.env.PORT || 4000
-app.listen(port, (error, address) => {
-	if (error) {
-		app.log.error(String(error))
-		process.exit(1)
-	}
-	console.info(`listening on ${address}`)
-})
+app.listen(port).catch(console.error)
