@@ -1,8 +1,11 @@
 import { useQuery } from "react-query"
-import { sessionDtoSchema } from "./schemas"
+
+type SessionResponse = {
+	redditTokens: { access_token: string; refresh_token: string }
+}
 
 export function useSessionQuery() {
-	return useQuery(
+	return useQuery<SessionResponse>(
 		["session"],
 		async () => {
 			const res = await fetch(`/api/session`, {
@@ -16,7 +19,7 @@ export function useSessionQuery() {
 				throw new Error(data.error || `Request failed`)
 			}
 
-			return sessionDtoSchema.parse(data)
+			return data
 		},
 		{ retry: false },
 	)

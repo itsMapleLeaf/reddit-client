@@ -3,7 +3,7 @@ import fastify from "fastify"
 import fastifyCookie from "fastify-cookie"
 import fastifySession from "fastify-session"
 import fetch from "isomorphic-fetch"
-import { loginBodySchema } from "./auth/schemas"
+import * as z from "zod"
 import { encodeUriParams } from "./common/url"
 import { redditRedirectUri } from "./reddit"
 
@@ -36,6 +36,9 @@ app.register(fastifySession, {
 })
 
 app.post("/api/login", async (request, reply) => {
+	const loginBodySchema = z.object({
+		authCode: z.string(),
+	})
 	const body = loginBodySchema.parse(request.body)
 
 	try {
@@ -62,7 +65,7 @@ app.post("/api/login", async (request, reply) => {
 			throw new Error(`Auth failed: ${data.error}`)
 		}
 
-		request.session.redditAuth = data
+		request.session.redditTokens = data
 		return data
 	} catch (error) {
 		reply.status(401)
@@ -71,7 +74,7 @@ app.post("/api/login", async (request, reply) => {
 })
 
 app.get("/api/session", async (request) => {
-	return { session: request.session.redditAuth }
+	return { redditTokens: request.session.redditTokens }
 })
 
 const port = process.env.PORT || 4000

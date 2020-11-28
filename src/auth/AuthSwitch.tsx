@@ -21,5 +21,9 @@ export function AuthSwitch() {
 		},
 	)}`
 
-	return data.session ? <LoggedInRoutes /> : <a href={redditAuthUrl}>Login</a>
+	return data?.redditTokens ? (
+		<LoggedInRoutes />
+	) : (
+		<a href={redditAuthUrl}>Login</a>
+	)
 }

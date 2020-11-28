@@ -1,7 +1,6 @@
 import { useEffect } from "preact/hooks"
 import { useMutation } from "react-query"
 import { routes } from "../router"
-import { LoginBody } from "./schemas"
 
 export function AuthRedirectHandler(props: { authCode: string }) {
 	const { mutate, isSuccess, isError } = useLoginMutation()
@@ -24,11 +23,9 @@ export function AuthRedirectHandler(props: { authCode: string }) {
 function useLoginMutation() {
 	return useMutation(
 		async (authCode: string) => {
-			const body: LoginBody = { authCode }
-
 			const res = await fetch(`/api/login`, {
 				method: "post",
-				body: JSON.stringify(body),
+				body: JSON.stringify({ authCode }),
 				headers: { "Content-Type": "application/json" },
 				credentials: "include",
 			})
