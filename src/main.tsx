@@ -8,3 +8,9 @@ render(
 	</QueryClientProvider>,
 	document.getElementById("app")!,
 )
+
+declare global {
+	interface ImportMeta {
+		env: { [key: string]: string | undefined }
+	}
+}

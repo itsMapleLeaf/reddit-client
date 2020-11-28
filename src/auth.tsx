@@ -1,46 +1,36 @@
-import { useQuery } from "react-query"
-import { redditAppId, redditAppSecret } from "./env"
-import { redirectUri } from "./reddit"
-import { encodeUriParams } from "./url"
+import { useEffect } from "preact/hooks"
+import { useMutation } from "react-query"
+import { useRouterSession } from "./router"
 
 export function AuthRedirectHandler(props: { authCode: string }) {
-	const { isSuccess, isError } = useQuery(
-		["getAuthToken", props.authCode],
-		() => {
-			const authCredentials = btoa(`${redditAppId}:${redditAppSecret}`)
-			const controller = new AbortController()
+	const router = useRouterSession()
 
-			const promise = fetch(`https://www.reddit.com/api/v1/access_token`, {
+	const { mutate, isSuccess, isError } = useMutation(
+		async (authCode: string) => {
+			const res = await fetch(`/api/login`, {
 				method: "post",
-				headers: {
-					"Authorization": `Basic ${authCredentials}`,
-					"Content-Type": "application/x-www-form-urlencoded",
-				},
-				body: encodeUriParams({
-					grant_type: "authorization_code",
-					code: props.authCode,
-					redirect_uri: redirectUri,
-				}),
-				signal: controller.signal,
+				body: JSON.stringify({ authCode }),
+				headers: { "Content-Type": "application/json" },
 			})
-				.then((res) => {
-					if (!res.ok) {
-						throw new Error(`Request failed`)
-					}
-					return res.json()
-				})
-				.then((data) => {
-					if (data.error) {
-						throw new Error(`Auth failed: ${data.error}`)
-					}
-					return data
-				})
 
-			;(promise as any).cancel = () => controller.abort()
+			const data = await res.json()
 
-			return promise
+			if (!res.ok) {
+				throw new Error(data.error || `Request failed`)
+			}
+
+			return data
+		},
+		{
+			onSuccess: () => {
+				router.replace("/")
+			},
 		},
 	)
+
+	useEffect(() => {
+		mutate(props.authCode)
+	}, [mutate, props.authCode])
 
 	if (isSuccess) {
 		return <p>Success!</p>

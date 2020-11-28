@@ -10,6 +10,10 @@ const router = createRouter({
 	),
 })
 
+export function useRouterSession() {
+	return router.session
+}
+
 export function useRoute() {
 	const [route, setRoute] = useState(router.session.getInitialRoute())
 	useEffect(() => router.session.listen(setRoute))
