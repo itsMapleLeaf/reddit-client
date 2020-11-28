@@ -16,7 +16,8 @@
 		"preact": "^10.5.7",
 		"react-query": "^3.2.0-beta.29",
 		"ts-node": "^9.0.0",
-		"type-route": "^0.6.0"
+		"type-route": "^0.6.0",
+		"zod": "^1.11.10"
 	},
 	"devDependencies": {
 		"@prefresh/vite": "^1.2.1",

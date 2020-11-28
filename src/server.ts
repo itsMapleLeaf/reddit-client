@@ -3,8 +3,9 @@ import fastify from "fastify"
 import fastifyCookie from "fastify-cookie"
 import fastifySession from "fastify-session"
 import fetch from "isomorphic-fetch"
+import { loginBodySchema } from "./auth/schemas"
+import { encodeUriParams } from "./common/url"
 import { redditRedirectUri } from "./reddit"
-import { encodeUriParams } from "./url"
 
 function getEnv(name: string) {
 	const value = process.env[name]
@@ -35,6 +36,8 @@ app.register(fastifySession, {
 })
 
 app.post("/api/login", async (request, reply) => {
+	const body = loginBodySchema.parse(request.body)
+
 	try {
 		const authCredentials = Buffer.from(
 			`${redditAppId}:${redditAppSecret}`,
@@ -48,7 +51,7 @@ app.post("/api/login", async (request, reply) => {
 			},
 			body: encodeUriParams({
 				grant_type: "authorization_code",
-				code: request.body.authCode,
+				code: body.authCode,
 				redirect_uri: redditRedirectUri,
 			}),
 		})
