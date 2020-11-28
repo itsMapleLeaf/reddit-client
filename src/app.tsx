@@ -15,11 +15,12 @@ export function App() {
 }
 
 function AuthSwitch() {
-	const { data: session, isLoading } = useQuery(
+	const { data, isLoading } = useQuery(
 		["session"],
 		async () => {
 			const res = await fetch(`/api/session`, {
 				headers: { "Content-Type": "application/json" },
+				credentials: "include",
 			})
 
 			const data = await res.json()
@@ -39,7 +40,7 @@ function AuthSwitch() {
 
 	const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams(
 		{
-			client_id: import.meta.env.REDDIT_APP_ID!,
+			client_id: import.meta.env.VITE_REDDIT_APP_ID!,
 			response_type: `code`,
 			state: `.`,
 			redirect_uri: redditRedirectUri,
@@ -48,7 +49,7 @@ function AuthSwitch() {
 		},
 	)}`
 
-	return session ? <LoggedInRoutes /> : <a href={redditAuthUrl}>Login</a>
+	return data.session ? <LoggedInRoutes /> : <a href={redditAuthUrl}>Login</a>
 }
 
 function LoggedInRoutes() {

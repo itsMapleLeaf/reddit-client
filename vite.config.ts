@@ -9,13 +9,14 @@ const config: UserConfig = {
 		"react-dom": "preact/compat",
 	},
 	proxy: {
-		"/api/*": "https://localhost:4000",
+		"/api/*": { target: "http://localhost:4000/", changeOrigin: true },
 	},
 	optimizeDeps: {
 		exclude: [
 			"dotenv",
-			"express",
-			"express-session",
+			"fastify",
+			"fastify-session",
+			"fastify-cookie",
 			"isomorphic-fetch",
 			"ts-node",
 		],

@@ -11,6 +11,7 @@ export function AuthRedirectHandler(props: { authCode: string }) {
 				method: "post",
 				body: JSON.stringify({ authCode }),
 				headers: { "Content-Type": "application/json" },
+				credentials: "include",
 			})
 
 			const data = await res.json()

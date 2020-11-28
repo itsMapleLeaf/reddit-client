@@ -1,6 +1,7 @@
 import "dotenv/config"
-import express from "express"
-import expressSession from "express-session"
+import fastify from "fastify"
+import fastifyCookie from "fastify-cookie"
+import fastifySession from "fastify-session"
 import fetch from "isomorphic-fetch"
 import { redditRedirectUri } from "./reddit"
 import { encodeUriParams } from "./url"
@@ -15,25 +16,25 @@ const redditAppId = getEnv("VITE_REDDIT_APP_ID")
 const redditAppSecret = getEnv("REDDIT_APP_SECRET")
 const sessionSecret = getEnv("SESSION_SECRET")
 
-const app = express()
+const app = fastify({
+	logger: {
+		prettyPrint: true,
+	},
+})
 
-app.use(express.json())
+app.register(fastifyCookie)
 
-app.set("trust proxy", 1) // trust first proxy
-app.use(
-	expressSession({
-		secret: sessionSecret,
-		resave: false,
-		saveUninitialized: true,
-		cookie: {
-			httpOnly: true,
-			secure: true,
-			path: "/",
-		},
-	}),
-)
+app.register(fastifySession, {
+	secret: sessionSecret,
+	cookie: {
+		httpOnly: true,
+		secure: process.env.NODE_ENV === "production",
+		path: "/",
+		sameSite: "lax",
+	},
+})
 
-app.post("/api/login", async (req, res) => {
+app.post("/api/login", async (request, reply) => {
 	try {
 		const authCredentials = Buffer.from(
 			`${redditAppId}:${redditAppSecret}`,
@@ -47,7 +48,7 @@ app.post("/api/login", async (req, res) => {
 			},
 			body: encodeUriParams({
 				grant_type: "authorization_code",
-				code: req.body.authCode,
+				code: request.body.authCode,
 				redirect_uri: redditRedirectUri,
 			}),
 		})
@@ -58,20 +59,23 @@ app.post("/api/login", async (req, res) => {
 			throw new Error(`Auth failed: ${data.error}`)
 		}
 
-		req.session.redditAuth = data
-		res.send(data)
+		request.session.redditAuth = data
+		return data
 	} catch (error) {
-		res
-			.status(401)
-			.send({ error: error instanceof Error ? error.message : String(error) })
+		reply.status(401)
+		return { error: error instanceof Error ? error.message : String(error) }
 	}
 })
 
-app.get("/api/session", async (req, res) => {
-	res.send({ session: req.session.redditAuth })
+app.get("/api/session", async (request) => {
+	return { session: request.session.redditAuth }
 })
 
 const port = process.env.PORT || 4000
-app.listen(port, () => {
-	console.info(`listening on http://localhost:${port}`)
+app.listen(port, (error, address) => {
+	if (error) {
+		app.log.error(String(error))
+		process.exit(1)
+	}
+	console.info(`listening on ${address}`)
 })
