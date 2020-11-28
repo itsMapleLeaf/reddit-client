@@ -1,7 +1,6 @@
-import { useEffect, useState } from "preact/hooks"
 import { createRouter, defineRoute, param } from "type-route"
 
-const router = createRouter({
+export const { routes, RouteProvider, useRoute } = createRouter({
 	home: defineRoute("/"),
 
 	authRedirect: defineRoute(
@@ -9,13 +8,3 @@ const router = createRouter({
 		() => "/auth_redirect",
 	),
 })
-
-export function useRouterSession() {
-	return router.session
-}
-
-export function useRoute() {
-	const [route, setRoute] = useState(router.session.getInitialRoute())
-	useEffect(() => router.session.listen(setRoute))
-	return route
-}
