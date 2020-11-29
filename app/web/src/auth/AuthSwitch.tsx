@@ -25,6 +25,13 @@ export function AuthSwitch() {
 			<LoggedInRoutes />
 		</SessionProvider>
 	) : (
-		<a href={redditAuthUrl}>Login</a>
+		<main class="p-4 container mx-auto">
+			<a
+				href={redditAuthUrl}
+				class="bg-gradient-to-br from-blue-500 to-purple-500 text-white p-3 rounded inline-block font-medium tracking-wide leading-none shadow-md hover:from-blue-600 hover:to-purple-600 transition duration-200"
+			>
+				Login
+			</a>
+		</main>
 	)
 }

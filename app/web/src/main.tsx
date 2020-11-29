@@ -2,6 +2,7 @@ import { render } from "preact"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { App } from "./app/App"
 import { RouteProvider } from "./router"
+import "./styles.css"
 
 const queryClient = new QueryClient({
 	defaultOptions: {
