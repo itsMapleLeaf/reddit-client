@@ -55,7 +55,7 @@ async function main() {
 	})
 
 	app.get("/api/session", async (request) => {
-		if (!request.session) {
+		if (!request.session.redditTokens) {
 			return { session: undefined }
 		}
 
