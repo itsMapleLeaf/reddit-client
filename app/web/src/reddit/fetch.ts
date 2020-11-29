@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useState } from "preact/hooks"
-import { useQuery } from "react-query"
+import { useEffect, useMemo, useState } from "preact/hooks"
+import { useInfiniteQuery, useQuery } from "react-query"
 import { useSessionContext } from "../auth/session"
+import { encodeUriParams, UriParamsObject } from "../common/url"
+import { ListingResponse } from "./listing"
 
 function useRedditFetch() {
 	const session = useSessionContext()
@@ -8,14 +10,19 @@ function useRedditFetch() {
 	const [abortController] = useState(() => new AbortController())
 	useEffect(() => {
 		return () => abortController.abort()
-	}, [])
+	}, [abortController])
 
-	// remove leading slashes
-	return useCallback(
-		async <T>(endpoint: string): Promise<T> => {
-			const url = `https://oauth.reddit.com/${endpoint.replace(/^\/+/, "")}`
+	// useCallback broke weirdly with hot reload for some reason ?? ? ????
+	return useMemo(() => {
+		return async function redditFetch<T>(
+			endpoint: string,
+			params?: UriParamsObject,
+		): Promise<T> {
+			const url = new URL(`https://oauth.reddit.com`)
+			url.pathname = endpoint
+			url.search = params ? `?${encodeUriParams(params)}` : ""
 
-			const res = await fetch(url, {
+			const res = await fetch(url.toString(), {
 				headers: {
 					"Authorization": `Bearer ${session.redditAccessToken}`,
 					"Content-Type": "application/json",
@@ -28,12 +35,29 @@ function useRedditFetch() {
 			}
 
 			return res.json()
-		},
-		[session.redditAccessToken, abortController.signal],
-	)
+		}
+	}, [session.redditAccessToken, abortController.signal])
 }
 
 export function useRedditQuery<T>(endpoint: string) {
 	const redditFetch = useRedditFetch()
-	return useQuery(["redditQuery", endpoint], () => redditFetch<T>(endpoint))
+
+	return useQuery<T>({
+		queryKey: ["redditQuery", endpoint],
+		queryFn: () => redditFetch<T>(endpoint),
+	})
+}
+
+export function useRedditInfiniteQuery<T extends ListingResponse>(
+	endpoint: string,
+) {
+	const redditFetch = useRedditFetch()
+
+	return useInfiniteQuery<T>({
+		queryKey: ["redditInfiniteQuery", endpoint],
+		queryFn: ({ pageParam }) => {
+			return redditFetch<T>(endpoint, { limit: 10, after: pageParam })
+		},
+		getNextPageParam: (response) => response.data.after,
+	})
 }

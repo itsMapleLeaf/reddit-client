@@ -1,4 +1,5 @@
 import { LoggedInRoutes } from "../app/LoggedInRoutes"
+import { encodeUriParams } from "../common/url"
 import { SessionProvider, useSessionQuery } from "./session"
 
 export function AuthSwitch() {
@@ -26,10 +27,4 @@ export function AuthSwitch() {
 	) : (
 		<a href={redditAuthUrl}>Login</a>
 	)
-}
-
-function encodeUriParams(params: { [key: string]: string }) {
-	return Object.entries(params)
-		.map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-		.join("&")
 }
