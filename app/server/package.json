@@ -4,9 +4,9 @@
 	"private": true,
 	"scripts": {
 		"dev": "npm-run-all --parallel --print-label dev-*",
-		"dev-server": "ts-node-dev --transpile-only ./src/server.ts",
+		"dev-server": "ts-node-dev --transpile-only ./src/main.ts",
 		"dev-redis": "cd ./data && redis-server",
-		"start": "ts-node ./src/server.ts",
+		"start": "ts-node ./src/main.ts",
 		"format": "prettier --write ."
 	},
 	"dependencies": {
