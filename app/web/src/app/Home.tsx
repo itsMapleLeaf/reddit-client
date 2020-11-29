@@ -1,9 +1,8 @@
-import { useQuery } from "react-query"
-import { useSessionContext } from "../auth/session"
+import { useRedditQuery } from "../reddit/fetch"
 import { ListingResponse } from "../reddit/listing"
 
 export function Home() {
-	const { data, error, isLoading } = useRedditHotQuery()
+	const { data, error, isLoading } = useRedditQuery<ListingResponse>("/hot")
 
 	return (
 		<main>
@@ -11,26 +10,5 @@ export function Home() {
 			{error && <p>{String(error)}</p>}
 			{data && <pre>{JSON.stringify(data, null, 2)}</pre>}
 		</main>
-	)
-}
-
-function useRedditHotQuery() {
-	const session = useSessionContext()
-	return useQuery<ListingResponse>(
-		["hot", session.redditAccessToken],
-		async () => {
-			const res = await fetch(`https://oauth.reddit.com/hot`, {
-				headers: {
-					"Authorization": `Bearer ${session.redditAccessToken}`,
-					"Content-Type": "application/json",
-				},
-			})
-
-			if (!res.ok) {
-				throw new Error(`An error occurred (${res.status})`)
-			}
-
-			return res.json()
-		},
 	)
 }
