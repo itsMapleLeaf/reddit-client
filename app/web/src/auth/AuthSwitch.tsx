@@ -1,8 +1,8 @@
 import { LoggedInRoutes } from "../app/LoggedInRoutes"
-import { useSessionQuery } from "./useSessionQuery"
+import { SessionProvider, useSessionQuery } from "./session"
 
 export function AuthSwitch() {
-	const { data, isLoading } = useSessionQuery()
+	const { data: session, isLoading } = useSessionQuery()
 
 	if (isLoading) {
 		return <p>Loading...</p>
@@ -19,8 +19,10 @@ export function AuthSwitch() {
 		},
 	)}`
 
-	return data?.redditTokens ? (
-		<LoggedInRoutes />
+	return session?.redditTokens ? (
+		<SessionProvider session={session}>
+			<LoggedInRoutes />
+		</SessionProvider>
 	) : (
 		<a href={redditAuthUrl}>Login</a>
 	)
