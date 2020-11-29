@@ -11,6 +11,7 @@ const config: UserConfig = {
 	proxy: {
 		"/api/*": { target: "http://localhost:4000/", changeOrigin: true },
 	},
+	sourcemap: true,
 }
 
 export default config
