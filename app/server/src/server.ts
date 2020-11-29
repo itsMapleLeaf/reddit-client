@@ -1,12 +1,19 @@
-import "dotenv/config"
+import dotenv from "dotenv"
 import fastify from "fastify"
 import fastifyCookie from "fastify-cookie"
 import fastifySession from "fastify-session"
 import Redis from "ioredis"
 import fetch from "isomorphic-fetch"
+import { join } from "path"
 import * as z from "zod"
-import { encodeUriParams } from "./common/url"
-import { redditRedirectUri } from "./reddit"
+
+function encodeUriParams(params: { [key: string]: string }) {
+	return Object.entries(params)
+		.map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+		.join("&")
+}
+
+dotenv.config({ path: join(__dirname, "../../../.env") })
 
 function getEnv(name: string) {
 	const value = process.env[name]
@@ -16,6 +23,7 @@ function getEnv(name: string) {
 
 const redditAppId = getEnv("VITE_REDDIT_APP_ID")
 const redditAppSecret = getEnv("REDDIT_APP_SECRET")
+const redditRedirectUri = getEnv("VITE_REDDIT_APP_REDIRECT_URI")
 const sessionSecret = getEnv("SESSION_SECRET")
 
 const redis = new Redis()

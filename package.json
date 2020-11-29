@@ -1,39 +1,16 @@
 {
 	"name": "reddit-client",
 	"private": true,
+	"workspaces": [
+		"app/*"
+	],
 	"scripts": {
-		"dev": "npm-run-all --parallel --print-label dev-*",
-		"dev-web": "vite",
-		"dev-server": "ts-node-dev --project ./tsconfig.server.json --transpile-only ./src/server.ts",
-		"dev-redis": "cd ./data && redis-server",
-		"build": "tsc && vite build",
+		"dev": "wsrun dev",
 		"format": "prettier --write ."
 	},
-	"dependencies": {
-		"dotenv": "^8.2.0",
-		"fastify": "^3.8.0",
-		"fastify-cookie": "^4.1.0",
-		"fastify-session": "^5.2.1",
-		"ioredis": "^4.19.2",
-		"isomorphic-fetch": "^3.0.0",
-		"preact": "^10.5.7",
-		"react-query": "^3.2.0-beta.29",
-		"ts-node": "^9.0.0",
-		"type-route": "^0.6.0",
-		"zod": "^1.11.10"
-	},
 	"devDependencies": {
-		"@prefresh/vite": "^1.2.1",
-		"@types/express-session": "^1.17.3",
-		"@types/ioredis": "^4.17.8",
-		"@types/isomorphic-fetch": "0.0.35",
-		"@types/react": "^17.0.0",
-		"npm-run-all": "^4.1.5",
-		"pino-pretty": "^4.3.0",
 		"prettier": "^2.2.0",
-		"ts-node-dev": "^1.0.0",
-		"typescript": "^4.1.2",
-		"vite": "^1.0.0-rc.13"
+		"wsrun": "^5.2.2"
 	},
 	"prettier": {
 		"semi": false,

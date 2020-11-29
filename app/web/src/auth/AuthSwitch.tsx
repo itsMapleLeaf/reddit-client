@@ -1,6 +1,4 @@
 import { LoggedInRoutes } from "../app/LoggedInRoutes"
-import { encodeUriParams } from "../common/url"
-import { redditRedirectUri } from "../reddit"
 import { useSessionQuery } from "./useSessionQuery"
 
 export function AuthSwitch() {
@@ -15,7 +13,7 @@ export function AuthSwitch() {
 			client_id: import.meta.env.VITE_REDDIT_APP_ID!,
 			response_type: `code`,
 			state: `.`,
-			redirect_uri: redditRedirectUri,
+			redirect_uri: import.meta.env.VITE_REDDIT_APP_REDIRECT_URI!,
 			duration: `permanent`,
 			scope: "identity read",
 		},
@@ -26,4 +24,10 @@ export function AuthSwitch() {
 	) : (
 		<a href={redditAuthUrl}>Login</a>
 	)
+}
+
+function encodeUriParams(params: { [key: string]: string }) {
+	return Object.entries(params)
+		.map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+		.join("&")
 }

@@ -1,0 +1,31 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"dev": "npm-run-all --parallel --print-label dev-*",
+		"dev-server": "ts-node-dev --transpile-only ./src/server.ts",
+		"dev-redis": "cd ./data && redis-server",
+		"start": "ts-node ./src/server.ts",
+		"format": "prettier --write ."
+	},
+	"dependencies": {
+		"dotenv": "^8.2.0",
+		"fastify": "^3.8.0",
+		"fastify-cookie": "^4.1.0",
+		"fastify-session": "^5.2.1",
+		"ioredis": "^4.19.2",
+		"isomorphic-fetch": "^3.0.0",
+		"ts-node": "^9.0.0",
+		"zod": "^1.11.10"
+	},
+	"devDependencies": {
+		"@types/node": "^14.14.10",
+		"@types/ioredis": "^4.17.8",
+		"@types/isomorphic-fetch": "0.0.35",
+		"npm-run-all": "^4.1.5",
+		"pino-pretty": "^4.3.0",
+		"ts-node-dev": "^1.0.0",
+		"typescript": "^4.1.2"
+	}
+}

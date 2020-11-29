@@ -6,3 +6,4 @@ dist
 .env
 /data/*
 !/data/.gitkeep
+*.code-workspace

@@ -11,20 +11,6 @@ const config: UserConfig = {
 	proxy: {
 		"/api/*": { target: "http://localhost:4000/", changeOrigin: true },
 	},
-	optimizeDeps: {
-		exclude: [
-			"dotenv",
-			"fastify",
-			"fastify-session",
-			"fastify-cookie",
-			"isomorphic-fetch",
-			"ts-node",
-			"@keyv/sqlite",
-			"keyv",
-			"sqlite",
-			"ioredis",
-		],
-	},
 }
 
 export default config
