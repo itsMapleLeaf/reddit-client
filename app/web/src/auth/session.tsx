@@ -4,11 +4,11 @@ import { useQuery } from "react-query"
 import { raise } from "../common/error"
 
 type Session = {
-	redditTokens: { access_token: string; refresh_token: string }
+	redditAccessToken: string
 }
 
 export function useSessionQuery() {
-	return useQuery<Session>(
+	return useQuery<{ session: Session }>(
 		["session"],
 		async () => {
 			const res = await fetch(`/api/session`, {
@@ -24,7 +24,10 @@ export function useSessionQuery() {
 
 			return data
 		},
-		{ retry: false },
+		{
+			retry: false,
+			refetchInterval: 30 * 60 * 1000, // 30 minutes
+		},
 	)
 }
 

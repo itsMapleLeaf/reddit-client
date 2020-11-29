@@ -17,11 +17,11 @@ export function Home() {
 function useRedditHotQuery() {
 	const session = useSessionContext()
 	return useQuery<ListingResponse>(
-		["hot", session.redditTokens.access_token],
+		["hot", session.redditAccessToken],
 		async () => {
 			const res = await fetch(`https://oauth.reddit.com/hot`, {
 				headers: {
-					"Authorization": `Bearer ${session.redditTokens.access_token}`,
+					"Authorization": `Bearer ${session.redditAccessToken}`,
 					"Content-Type": "application/json",
 				},
 			})

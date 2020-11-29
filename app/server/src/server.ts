@@ -94,6 +94,11 @@ app.post("/api/login", async (request, reply) => {
 		}
 
 		request.session.redditTokens = data
+
+		// expire in a bit of time before the actual expiration date
+		request.session.expirationDate =
+			Date.now() + data.expires_in * 1000 - 5 * 60 * 1000
+
 		return data
 	} catch (error) {
 		reply.status(401)
@@ -102,7 +107,46 @@ app.post("/api/login", async (request, reply) => {
 })
 
 app.get("/api/session", async (request) => {
-	return { redditTokens: request.session.redditTokens }
+	if (!request.session) {
+		return { session: undefined }
+	}
+
+	if (
+		!request.session.expirationDate ||
+		Date.now() > request.session.expirationDate
+	) {
+		const authCredentials = Buffer.from(
+			`${redditAppId}:${redditAppSecret}`,
+		).toString("base64")
+
+		const response = await fetch(`https://www.reddit.com/api/v1/access_token`, {
+			method: "post",
+			headers: {
+				"Authorization": `Basic ${authCredentials}`,
+				"Content-Type": "application/x-www-form-urlencoded",
+			},
+			body: encodeUriParams({
+				grant_type: "refresh_token",
+				refresh_token: request.session.redditTokens.refresh_token,
+			}),
+		})
+
+		const data = await response.json()
+
+		request.session.redditTokens = data
+
+		// expire in a bit of time before the actual expiration date
+		request.session.expirationDate =
+			Date.now() + data.expires_in * 1000 - 5 * 60 * 1000
+	}
+
+	const session = request.session
+		? {
+				redditAccessToken: request.session.redditTokens.access_token,
+		  }
+		: undefined
+
+	return { session }
 })
 
 const port = process.env.PORT || 4000
