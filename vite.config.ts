@@ -19,6 +19,10 @@ const config: UserConfig = {
 			"fastify-cookie",
 			"isomorphic-fetch",
 			"ts-node",
+			"@keyv/sqlite",
+			"keyv",
+			"sqlite",
+			"ioredis",
 		],
 	},
 }

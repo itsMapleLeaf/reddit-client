@@ -2,6 +2,7 @@ import "dotenv/config"
 import fastify from "fastify"
 import fastifyCookie from "fastify-cookie"
 import fastifySession from "fastify-session"
+import Redis from "ioredis"
 import fetch from "isomorphic-fetch"
 import * as z from "zod"
 import { encodeUriParams } from "./common/url"
@@ -16,6 +17,8 @@ function getEnv(name: string) {
 const redditAppId = getEnv("VITE_REDDIT_APP_ID")
 const redditAppSecret = getEnv("REDDIT_APP_SECRET")
 const sessionSecret = getEnv("SESSION_SECRET")
+
+const redis = new Redis()
 
 const app = fastify({
 	logger: {
@@ -32,6 +35,23 @@ app.register(fastifySession, {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "lax",
+	},
+	store: {
+		get: (id, callback) => {
+			redis.get(id, (err, res) => {
+				callback(err || undefined, res && JSON.parse(res))
+			})
+		},
+
+		set: (id, session, callback) => {
+			redis.set(id, JSON.stringify(session), (err) => {
+				callback(err || undefined)
+			})
+		},
+
+		destroy: (id, callback) => {
+			redis.del(id, (err) => callback(err || undefined))
+		},
 	},
 })
 
