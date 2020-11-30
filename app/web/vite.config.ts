@@ -5,8 +5,10 @@ const config: UserConfig = {
 	jsx: "preact",
 	plugins: [preactRefresh()],
 	alias: {
-		"react": "preact/compat",
-		"react-dom": "preact/compat",
+		"preact": "preact/src/index.js",
+		"preact/hooks": "preact/hooks/src/index.js",
+		"react": "preact/compat/src/index.js",
+		"react-dom": "preact/compat/src/index.js",
 	},
 	proxy: {
 		"/api/*": { target: "http://localhost:4000/", changeOrigin: true },
