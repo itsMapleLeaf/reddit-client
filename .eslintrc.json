@@ -18,7 +18,7 @@
 		"react/react-in-jsx-scope": "off",
 		"react/no-unknown-property": ["error", { "ignore": ["class"] }]
 	},
-	"ignorePatterns": ["**/dist/**"],
+	"ignorePatterns": ["**/build/**", "**/dist/**"],
 	"settings": {
 		"react": {
 			"version": "latest"

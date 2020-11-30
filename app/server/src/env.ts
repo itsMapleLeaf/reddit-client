@@ -9,7 +9,9 @@ function getEnv(name: string) {
 	return value
 }
 
-export const redditAppId = getEnv("VITE_REDDIT_APP_ID")
+export const redditAppId = getEnv("SNOWPACK_PUBLIC_REDDIT_APP_ID")
 export const redditAppSecret = getEnv("REDDIT_APP_SECRET")
-export const redditRedirectUri = getEnv("VITE_REDDIT_APP_REDIRECT_URI")
+export const redditRedirectUri = getEnv(
+	"SNOWPACK_PUBLIC_REDDIT_APP_REDIRECT_URI",
+)
 export const sessionSecret = getEnv("SESSION_SECRET")
