@@ -1,5 +1,6 @@
 import { LoggedInRoutes } from "../app/LoggedInRoutes"
 import { encodeUriParams } from "../common/url"
+import { redditAppId, redditRedirectUri } from "../env"
 import { SessionProvider, useSessionQuery } from "./session"
 
 export function AuthSwitch() {
@@ -11,10 +12,10 @@ export function AuthSwitch() {
 
 	const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams(
 		{
-			client_id: import.meta.env.VITE_REDDIT_APP_ID!,
+			client_id: redditAppId,
 			response_type: `code`,
 			state: `.`,
-			redirect_uri: import.meta.env.VITE_REDDIT_APP_REDIRECT_URI!,
+			redirect_uri: redditRedirectUri,
 			duration: `permanent`,
 			scope: "identity read",
 		},
