@@ -1,5 +1,5 @@
 import { createRouter, defineRoute, param } from "type-route"
-import { redditRedirectUri } from "../env"
+import { redditRedirectUri } from "./env"
 
 export const { routes, RouteProvider, useRoute } = createRouter({
 	home: defineRoute("/"),

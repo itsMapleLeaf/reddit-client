@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext } from "react"
 import { useQuery } from "react-query"
-import { raise } from "../common/error"
+import { raise } from "./common/error"
 
 type Session = {
 	redditAccessToken: string

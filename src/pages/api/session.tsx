@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { parseCookies, setCookie } from "nookies"
-import { getRefreshedTokens, RedditAuthData } from "../../server/reddit/auth"
+import { getRefreshedTokens, RedditAuthData } from "../../app/reddit/auth"
 
 type Session = {
 	redditAuth: RedditAuthData

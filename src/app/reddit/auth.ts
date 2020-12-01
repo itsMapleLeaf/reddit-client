@@ -1,5 +1,5 @@
 import fetch from "isomorphic-fetch"
-import * as env from "../../env"
+import * as env from "../env"
 
 export type RedditAuthData = {
 	access_token: string

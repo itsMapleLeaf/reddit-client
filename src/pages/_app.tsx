@@ -2,8 +2,8 @@ import { AppProps } from "next/app"
 import React from "react"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query-devtools"
-import { RouteProvider } from "../client/router"
-import "../client/styles.css"
+import { RouteProvider } from "../app/router"
+import "../app/styles.css"
 
 const queryClient = new QueryClient({
 	defaultOptions: {

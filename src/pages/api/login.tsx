@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { setCookie } from "nookies"
 import * as z from "zod"
-import * as reddit from "../../server/reddit/auth"
+import * as reddit from "../../app/reddit/auth"
 
 const loginBodySchema = z.object({
 	authCode: z.string(),

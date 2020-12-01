@@ -1,6 +1,6 @@
-import { useSessionQuery } from "../client/client-session"
-import { encodeUriParams } from "../common/url"
-import { redditAppId, redditRedirectUri } from "../env"
+import { useSessionQuery } from "../app/client-session"
+import { encodeUriParams } from "../app/common/url"
+import { redditAppId, redditRedirectUri } from "../app/env"
 
 const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams(
 	{
