@@ -7,6 +7,11 @@ module.exports = {
 		extend: {
 			colors: {
 				blue: colors.lightBlue,
+				gray: colors.blueGray,
+			},
+			fontFamily: {
+				sans: `"Fira Sans", sans-serif`,
+				condensed: `"Fira Sans Condensed", sans-serif`,
 			},
 		},
 	},

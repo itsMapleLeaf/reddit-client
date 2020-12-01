@@ -1,7 +1,7 @@
 @tailwind base;
 
 :root {
-	@apply text-gray-100 bg-gray-900;
+	@apply text-gray-100 break-words bg-gray-900;
 }
 
 @tailwind components;

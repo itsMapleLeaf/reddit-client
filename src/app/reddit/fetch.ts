@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { useInfiniteQuery, useQuery } from "react-query"
 import { useSessionContext } from "../client-session"
 import { encodeUriParams, UriParamsObject } from "../common/url"
@@ -8,9 +8,9 @@ function useRedditFetch() {
 	const session = useSessionContext()
 
 	const [abortController] = useState(() => new AbortController())
-	useEffect(() => {
-		return () => abortController.abort()
-	}, [abortController])
+	// useEffect(() => {
+	// 	return () => abortController.abort()
+	// }, [abortController])
 
 	// useCallback broke weirdly with hot reload for some reason ?? ? ????
 	return useMemo(() => {

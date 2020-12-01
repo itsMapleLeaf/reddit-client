@@ -1,3 +1,4 @@
+import marked from "marked"
 import React from "react"
 import { SessionProvider, useSessionQuery } from "../app/client-session"
 import { encodeUriParams } from "../app/common/url"
@@ -40,7 +41,7 @@ export default function Index() {
 		<SessionProvider session={data.session}>
 			<div className="space-y-4">
 				<header
-					className="sticky top-0 flex bg-gray-700 bg-opacity-50 shadow-md"
+					className="sticky top-0 flex bg-gray-800 shadow-md bg-opacity-80"
 					style={{ backdropFilter: `blur(4px)` }}
 				>
 					<button type="button" className="p-2" title="Menu">
@@ -61,7 +62,7 @@ export default function Index() {
 					</button>
 
 					<div className="py-2 space-y-1">
-						<h1 className="text-lg font-medium leading-none">Home</h1>
+						<h1 className="text-lg leading-none font-condensed">Home</h1>
 						<p className="text-sm leading-none text-gray-400">Best</p>
 					</div>
 				</header>
@@ -87,8 +88,18 @@ function HotList() {
 						.flatMap((page) => page.data.children)
 						.map((post) => (
 							<li key={post.data.id}>
-								<div className="p-3 bg-gray-800 shadow-md">
-									<h1 className="text-2xl">{post.data.title}</h1>
+								<div className="p-3 space-y-4 bg-gray-800 shadow-md">
+									<h1 className="text-2xl font-light font-condensed">
+										{post.data.title}
+									</h1>
+									{post.data.selftext && (
+										<div
+											className="space-y-4"
+											dangerouslySetInnerHTML={{
+												__html: marked(post.data.selftext),
+											}}
+										/>
+									)}
 								</div>
 							</li>
 						))}
