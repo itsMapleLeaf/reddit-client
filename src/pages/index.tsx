@@ -1,7 +1,9 @@
 import React from "react"
-import { useSessionQuery } from "../app/client-session"
+import { SessionProvider, useSessionQuery } from "../app/client-session"
 import { encodeUriParams } from "../app/common/url"
 import { redditAppId, redditRedirectUri } from "../app/env"
+import { useRedditInfiniteQuery } from "../app/reddit/fetch"
+import { ListingResponse } from "../app/reddit/listing"
 
 const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams(
 	{
@@ -35,30 +37,64 @@ export default function Index() {
 	}
 
 	return (
-		<div>
-			<header className="flex bg-gray-800">
-				<button type="button" className="p-2">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-						className="w-6"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth={2}
-							d="M4 6h16M4 12h16M4 18h16"
-						/>
-					</svg>
-				</button>
+		<SessionProvider session={data.session}>
+			<div className="space-y-4">
+				<header
+					className="sticky top-0 flex bg-gray-700 bg-opacity-50 shadow-md"
+					style={{ backdropFilter: `blur(4px)` }}
+				>
+					<button type="button" className="p-2" title="Menu">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							className="w-6"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M4 6h16M4 12h16M4 18h16"
+							/>
+						</svg>
+					</button>
 
-				<div className="py-2 space-y-1">
-					<h1 className="text-lg font-medium leading-none">Home</h1>
-					<p className="text-sm leading-none text-gray-400">Best</p>
-				</div>
-			</header>
-		</div>
+					<div className="py-2 space-y-1">
+						<h1 className="text-lg font-medium leading-none">Home</h1>
+						<p className="text-sm leading-none text-gray-400">Best</p>
+					</div>
+				</header>
+
+				<main>
+					<HotList />
+				</main>
+			</div>
+		</SessionProvider>
+	)
+}
+
+function HotList() {
+	const query = useRedditInfiniteQuery<ListingResponse>("/hot")
+
+	return (
+		<>
+			{query.isLoading && <p>Loading...</p>}
+			{query.error && <p>{String(query.error)}</p>}
+			{query.data && (
+				<ul className="space-y-4">
+					{query.data.pages
+						.flatMap((page) => page.data.children)
+						.map((post) => (
+							<li key={post.data.id}>
+								<div className="p-3 bg-gray-800 shadow-md">
+									<h1 className="text-2xl">{post.data.title}</h1>
+								</div>
+							</li>
+						))}
+				</ul>
+			)}
+			<button onClick={() => query.fetchNextPage()}>load more</button>
+		</>
 	)
 }
