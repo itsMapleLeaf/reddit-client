@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { useInfiniteQuery, useQuery } from "react-query"
-import { useSessionContext } from "../client/client-session"
-import { encodeUriParams, UriParamsObject } from "../common/url"
+import { encodeUriParams, UriParamsObject } from "../../common/url"
+import { useSessionContext } from "../client-session"
 import { ListingResponse } from "./listing"
 
 function useRedditFetch() {
