@@ -25,17 +25,18 @@ export default function PostCard(props: Post) {
 				</h1>
 			</div>
 
-			<AspectRatio ratio={1 / 1}>
-				<div class="h-full bg-black bg-opacity-25">
-					{props.data.post_hint === "image" && (
-						<img
-							src={props.data.url}
-							role="presentation"
-							class="w-full h-full object-contain"
-						/>
-					)}
+			<div class="bg-black bg-opacity-25">
+				{props.data.post_hint === "image" && (
+					<img
+						src={props.data.url}
+						role="presentation"
+						class="w-full object-contain"
+						style={{ maxHeight: "24rem" }}
+					/>
+				)}
 
-					{props.data.is_gallery && (
+				{props.data.gallery_data && (
+					<AspectRatio ratio={1 / 1}>
 						<Gallery<string>
 							items={props.data.gallery_data.items.map(
 								({ media_id }: { media_id: string }) => {
@@ -47,16 +48,18 @@ export default function PostCard(props: Post) {
 							)}
 							renderItem={(url) => <img src={url} role="presentation" />}
 						/>
-					)}
+					</AspectRatio>
+				)}
 
-					{props.data.is_video && (
+				{props.data.secure_media?.reddit_video && (
+					<AspectRatio ratio={1 / 1}>
 						<video controls class="w-full h-full object-contain">
 							<source src={props.data.secure_media.reddit_video.hls_url} />
 							<source src={props.data.secure_media.reddit_video.fallback_url} />
 						</video>
-					)}
-				</div>
-			</AspectRatio>
+					</AspectRatio>
+				)}
+			</div>
 		</article>
 	)
 }
