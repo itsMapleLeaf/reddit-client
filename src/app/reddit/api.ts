@@ -50,16 +50,14 @@ export function useRedditQuery<T>(endpoint: string) {
 	})
 }
 
-export function useRedditInfiniteQuery<T extends ListingResponse>(
-	endpoint: string,
-) {
+export function useRedditListingQuery<T>(endpoint: string) {
 	const session = useSessionQuery()
 	const token = session.data?.session?.redditAccessToken
 
-	return useInfiniteQuery<T>({
+	return useInfiniteQuery<ListingResponse<T>>({
 		queryKey: ["redditInfiniteQuery", endpoint, token],
 		async queryFn({ pageParam }) {
-			return redditFetch<T>(endpoint, token, {
+			return redditFetch(endpoint, token, {
 				limit: 10,
 				after: pageParam,
 			})
