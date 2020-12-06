@@ -1,5 +1,5 @@
-import { useInfiniteQuery, useQuery, useQueryClient } from "react-query"
-import { sessionQuery } from "../client-session"
+import { useInfiniteQuery, useQuery } from "react-query"
+import { useSessionQuery } from "../client-session"
 import { encodeUriParams, UriParamsObject } from "../common/url"
 import { ListingResponse } from "./types"
 
@@ -41,13 +41,13 @@ async function redditFetch<T>(
 }
 
 export function useRedditQuery<T>(endpoint: string) {
-	const client = useQueryClient()
+	const session = useSessionQuery()
+	const token = session.data?.session?.redditAccessToken
 
 	return useQuery<T>({
-		queryKey: ["redditQuery", endpoint],
+		queryKey: ["redditQuery", endpoint, token],
 		async queryFn() {
-			const { session } = await client.fetchQuery(sessionQuery())
-			return redditFetch<T>(endpoint, session?.redditAccessToken)
+			return redditFetch<T>(endpoint, token)
 		},
 	})
 }
@@ -55,13 +55,13 @@ export function useRedditQuery<T>(endpoint: string) {
 export function useRedditInfiniteQuery<T extends ListingResponse>(
 	endpoint: string,
 ) {
-	const client = useQueryClient()
+	const session = useSessionQuery()
+	const token = session.data?.session?.redditAccessToken
 
 	return useInfiniteQuery<T>({
-		queryKey: ["redditInfiniteQuery", endpoint],
+		queryKey: ["redditInfiniteQuery", endpoint, token],
 		async queryFn({ pageParam }) {
-			const { session } = await client.fetchQuery(sessionQuery())
-			return redditFetch<T>(endpoint, session?.redditAccessToken, {
+			return redditFetch<T>(endpoint, token, {
 				limit: 10,
 				after: pageParam,
 			})
