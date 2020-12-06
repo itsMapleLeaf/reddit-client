@@ -2,7 +2,7 @@ import { serialize } from "cookie"
 import { NextApiRequest, NextApiResponse } from "next"
 import { RedditAuthData } from "./reddit/auth"
 
-export type ApiSession = {
+type ApiSession = {
 	redditAuth: RedditAuthData
 	expirationDate: number
 }
