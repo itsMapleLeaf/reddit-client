@@ -7,12 +7,15 @@
 		"lint": "eslint \"./**/*.@(js|ts|tsx)\""
 	},
 	"dependencies": {
+		"cookie": "^0.4.1",
 		"isomorphic-fetch": "^3.0.0",
 		"marked": "^1.2.5",
 		"next": "^10.0.3",
-		"cookie": "^0.4.1",
-		"react": "^17.0.1",
-		"react-dom": "^17.0.1",
+		"next-plugin-preact": "^3.0.3",
+		"preact": "^10.5.7",
+		"preact-render-to-string": "^5.1.12",
+		"react": "npm:@preact/compat@0.0.3",
+		"react-dom": "npm:@preact/compat@0.0.3",
 		"react-query": "^3.2.0-beta.29",
 		"react-query-devtools": "^3.0.0-beta.1",
 		"zod": "^1.11.11"
