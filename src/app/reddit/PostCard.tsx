@@ -1,3 +1,4 @@
+import AspectRatio from "app/ui/AspectRatio"
 import Gallery from "app/ui/Gallery"
 import { formatDistanceToNow } from "date-fns"
 import { Post } from "./types"
@@ -24,23 +25,38 @@ export default function PostCard(props: Post) {
 				</h1>
 			</div>
 
-			{props.data.post_hint === "image" && (
-				<img src={props.data.url} role="presentation" />
-			)}
-
-			{props.data.is_gallery && (
-				<Gallery<string>
-					items={props.data.gallery_data.items.map(
-						({ media_id }: { media_id: string }) => {
-							return props.data.media_metadata[media_id].s.u.replaceAll(
-								"&amp;",
-								"&",
-							)
-						},
+			<AspectRatio ratio={1 / 1}>
+				<div class="h-full bg-black bg-opacity-25">
+					{props.data.post_hint === "image" && (
+						<img
+							src={props.data.url}
+							role="presentation"
+							class="w-full h-full object-contain"
+						/>
 					)}
-					renderItem={(url) => <img src={url} role="presentation" />}
-				/>
-			)}
+
+					{props.data.is_gallery && (
+						<Gallery<string>
+							items={props.data.gallery_data.items.map(
+								({ media_id }: { media_id: string }) => {
+									return props.data.media_metadata[media_id].s.u.replaceAll(
+										"&amp;",
+										"&",
+									)
+								},
+							)}
+							renderItem={(url) => <img src={url} role="presentation" />}
+						/>
+					)}
+
+					{props.data.is_video && (
+						<video controls class="w-full h-full object-contain">
+							<source src={props.data.secure_media.reddit_video.hls_url} />
+							<source src={props.data.secure_media.reddit_video.fallback_url} />
+						</video>
+					)}
+				</div>
+			</AspectRatio>
 		</article>
 	)
 }

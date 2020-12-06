@@ -12,7 +12,7 @@ export default function Gallery<T>(props: {
 	const buttonClass = "rounded-full bg-gray-700 shadow-md p-1"
 
 	return (
-		<div class="flex items-center">
+		<div class="flex items-center justify-center h-full">
 			{currentItem != null ? props.renderItem(currentItem) : null}
 
 			<button
