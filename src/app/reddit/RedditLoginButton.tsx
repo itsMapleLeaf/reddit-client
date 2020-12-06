@@ -1,5 +1,5 @@
 import { encodeUriParams } from "../common/url"
-import { redditAppId, redditRedirectUri } from "../env"
+import { redditAppId, redditRedirectUri } from "./constants"
 
 const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams(
 	{

@@ -1,5 +1,6 @@
+import { encodeUriParams, UriParamsObject } from "app/common/url"
 import fetch from "isomorphic-fetch"
-import * as env from "../env"
+import * as constants from "./constants"
 
 export type RedditAuthData = {
 	access_token: string
@@ -11,7 +12,7 @@ export function getAccessToken(authCode: string) {
 	return authFetch({
 		grant_type: "authorization_code",
 		code: authCode,
-		redirect_uri: env.redditRedirectUri(),
+		redirect_uri: constants.redditRedirectUri(),
 	})
 }
 
@@ -23,15 +24,16 @@ export function getRefreshedTokens(refreshToken: string) {
 }
 
 async function authFetch(body: UriParamsObject): Promise<RedditAuthData> {
-	const authCredentials = Buffer.from(
-		`${env.redditAppId()}:${env.redditAppSecret()}`,
-	).toString("base64")
+	const authCredentials = `${constants.redditAppId()}:${constants.redditAppSecret()}`
 
 	const response = await fetch(`https://www.reddit.com/api/v1/access_token`, {
 		method: "post",
 		headers: {
-			"Authorization": `Basic ${authCredentials}`,
+			"Authorization": `Basic ${Buffer.from(authCredentials).toString(
+				"base64",
+			)}`,
 			"Content-Type": "application/x-www-form-urlencoded",
+			"User-Agent": constants.redditAppUserAgent(),
 		},
 		body: encodeUriParams(body),
 	})
@@ -43,14 +45,4 @@ async function authFetch(body: UriParamsObject): Promise<RedditAuthData> {
 	}
 
 	return data
-}
-
-type UriParamsObject = {
-	[key: string]: string | number | boolean
-}
-
-function encodeUriParams(params: UriParamsObject) {
-	return Object.entries(params)
-		.map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-		.join("&")
 }

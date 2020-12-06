@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useQuery } from "react-query"
 import { useSessionQuery } from "../client-session"
 import { encodeUriParams, UriParamsObject } from "../common/url"
+import { redditAppUserAgent } from "./constants"
 import { ListingResponse } from "./types"
 
 const redditErrorUnauthenticated = Symbol("unauthenticated")
@@ -15,16 +16,13 @@ async function redditFetch<T>(
 		token ? `https://oauth.reddit.com` : `https://www.reddit.com`,
 	)
 	url.pathname = endpoint
-	url.search = params ? `?${encodeUriParams(params)}` : ""
+	if (params) url.search = encodeUriParams(params)
 
 	const headers: { [header: string]: string } = {
-		"User-Agent": "web:net.kingdaro.awesomeredditapp:v0.0.0 (by /u/kingdaro)",
-		// "Content-Type": "application/json",
+		"User-Agent": redditAppUserAgent(),
 	}
 
-	if (token) {
-		headers.Authorization = `Bearer ${token}`
-	}
+	if (token) headers.Authorization = `Bearer ${token}`
 
 	const res = await fetch(url.toString(), {
 		headers,
