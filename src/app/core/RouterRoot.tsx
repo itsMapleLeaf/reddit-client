@@ -1,6 +1,6 @@
 import marked from "marked"
-import { useRedditInfiniteQuery } from "../reddit/fetch"
-import { ListingResponse } from "../reddit/listing"
+import { useRedditInfiniteQuery } from "../reddit/api"
+import { ListingResponse } from "../reddit/types"
 
 export default function RouterRoot() {
 	return (

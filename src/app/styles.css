@@ -1,8 +1,22 @@
 @tailwind base;
-
-:root {
-	@apply text-gray-100 break-words bg-gray-900;
-}
-
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	:root {
+		@apply text-gray-100 break-words bg-gray-900;
+	}
+}
+
+@layer components {
+	.button-solid {
+		@apply inline-block p-3 font-medium leading-none tracking-wide text-white transition duration-200 bg-gray-700 rounded shadow-md active-press;
+	}
+}
+
+@layer utilities {
+	.active-press:active {
+		transform: translateY(1px);
+		transition: none;
+	}
+}

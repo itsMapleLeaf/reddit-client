@@ -12,15 +12,10 @@ const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams
 	},
 )}`
 
-export default function LoginPage() {
+export default function RedditLoginButton() {
 	return (
-		<main className="container p-4 mx-auto">
-			<a
-				href={redditAuthUrl}
-				className="inline-block p-3 font-medium leading-none tracking-wide text-white transition duration-200 rounded shadow-md bg-gradient-to-br from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
-			>
-				Login
-			</a>
-		</main>
+		<a href={redditAuthUrl} className="button-solid">
+			Login with reddit
+		</a>
 	)
 }
