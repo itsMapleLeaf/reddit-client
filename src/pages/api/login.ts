@@ -1,7 +1,7 @@
+import { setSession } from "app/api-session"
+import * as reddit from "app/reddit/auth"
 import { NextApiRequest, NextApiResponse } from "next"
 import * as z from "zod"
-import { setSession } from "../../app/api-session"
-import * as reddit from "../../app/reddit/auth"
 
 const loginBodySchema = z.object({
 	authCode: z.string(),

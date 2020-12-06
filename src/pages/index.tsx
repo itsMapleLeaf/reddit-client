@@ -1,11 +1,11 @@
+import { useSessionQuery } from "app/client-session"
+import { useRedditInfiniteQuery } from "app/reddit/api"
+import RedditLoginButton from "app/reddit/RedditLoginButton"
+import { ListingResponse } from "app/reddit/types"
 import marked from "marked"
 import { useRouter } from "next/router"
 import React from "react"
 import { useMutation } from "react-query"
-import { useSessionQuery } from "../app/client-session"
-import { useRedditInfiniteQuery } from "../app/reddit/api"
-import RedditLoginButton from "../app/reddit/RedditLoginButton"
-import { ListingResponse } from "../app/reddit/types"
 
 export default function Index() {
 	const listing = useRedditInfiniteQuery<ListingResponse>("/hot.json")

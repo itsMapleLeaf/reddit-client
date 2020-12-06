@@ -1,6 +1,6 @@
+import { getSession, setSession } from "app/api-session"
+import { getRefreshedTokens } from "app/reddit/auth"
 import { NextApiRequest, NextApiResponse } from "next"
-import { getSession, setSession } from "../../app/api-session"
-import { getRefreshedTokens } from "../../app/reddit/auth"
 
 export default async function session(
 	req: NextApiRequest,

@@ -1,5 +1,5 @@
+import { clearSession } from "app/api-session"
 import { NextApiRequest, NextApiResponse } from "next"
-import { clearSession } from "../../app/api-session"
 
 export default async function logout(
 	_req: NextApiRequest,

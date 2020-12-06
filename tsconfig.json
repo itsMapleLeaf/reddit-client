@@ -15,7 +15,8 @@
 		"jsx": "preserve",
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"noUncheckedIndexedAccess": true
+		"noUncheckedIndexedAccess": true,
+		"baseUrl": "src"
 	},
 	"include": ["next-env.d.ts", "src"],
 	"exclude": []
