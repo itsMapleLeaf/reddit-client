@@ -1,28 +1,14 @@
 import marked from "marked"
 import { useRouter } from "next/router"
 import React from "react"
-import { useMutation, useQuery } from "react-query"
-import { sessionQuery } from "../app/client-session"
+import { useMutation } from "react-query"
+import { useSessionQuery } from "../app/client-session"
 import { useRedditInfiniteQuery } from "../app/reddit/api"
 import RedditLoginButton from "../app/reddit/RedditLoginButton"
 import { ListingResponse } from "../app/reddit/types"
 
 export default function Index() {
-	const session = useQuery(sessionQuery())
 	const listing = useRedditInfiniteQuery<ListingResponse>("/hot.json")
-	const router = useRouter()
-
-	const { mutate: logout } = useMutation(
-		() =>
-			fetch(`/api/logout`, { credentials: "include" }).then((res) =>
-				res.json(),
-			),
-		{
-			onSuccess() {
-				router.reload()
-			},
-		},
-	)
 
 	return (
 		<div className="space-y-4">
@@ -52,19 +38,7 @@ export default function Index() {
 					<p className="text-sm leading-none text-gray-400">Hot</p>
 				</div>
 
-				<div>
-					{session.data?.session ? (
-						<button
-							type="button"
-							className="button-solid"
-							onClick={() => logout()}
-						>
-							Log out
-						</button>
-					) : (
-						<RedditLoginButton />
-					)}
-				</div>
+				<AuthButton />
 			</header>
 
 			<main>
@@ -96,5 +70,34 @@ export default function Index() {
 				)}
 			</main>
 		</div>
+	)
+}
+
+function AuthButton() {
+	const session = useSessionQuery()
+	const router = useRouter()
+
+	const { mutate: logout } = useMutation(
+		async () => {
+			const res = await fetch(`/api/logout`, { credentials: "include" })
+			return res.json()
+		},
+		{
+			onSuccess: () => router.reload(),
+		},
+	)
+
+	if (session.isLoading) {
+		return null
+	}
+
+	if (!session.data?.session) {
+		return <RedditLoginButton />
+	}
+
+	return (
+		<button type="button" className="button-solid" onClick={() => logout()}>
+			Log out
+		</button>
 	)
 }
