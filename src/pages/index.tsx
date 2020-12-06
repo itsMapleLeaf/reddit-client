@@ -4,25 +4,24 @@ import RedditLoginButton from "app/reddit/RedditLoginButton"
 import { ListingResponse } from "app/reddit/types"
 import marked from "marked"
 import { useRouter } from "next/router"
-import React from "react"
 import { useMutation } from "react-query"
 
 export default function Index() {
 	const listing = useRedditInfiniteQuery<ListingResponse>("/hot.json")
 
 	return (
-		<div className="space-y-4">
+		<div class="space-y-4">
 			<header
-				className="sticky top-0 flex items-center px-2 space-x-2 bg-gray-800 shadow-md bg-opacity-80"
+				class="sticky top-0 flex items-center px-2 space-x-2 bg-gray-800 shadow-md bg-opacity-80"
 				style={{ backdropFilter: `blur(4px)` }}
 			>
-				<button type="button" className="p-2 -m-2" title="Menu">
+				<button type="button" class="p-2 -m-2" title="Menu">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
-						className="w-6"
+						class="w-6"
 					>
 						<path
 							strokeLinecap="round"
@@ -33,9 +32,9 @@ export default function Index() {
 					</svg>
 				</button>
 
-				<div className="flex-1 py-2 space-y-1">
-					<h1 className="text-lg leading-none font-condensed">Home</h1>
-					<p className="text-sm leading-none text-gray-400">Hot</p>
+				<div class="flex-1 py-2 space-y-1">
+					<h1 class="text-lg leading-none font-condensed">Home</h1>
+					<p class="text-sm leading-none text-gray-400">Hot</p>
 				</div>
 
 				<AuthButton />
@@ -45,18 +44,18 @@ export default function Index() {
 				{listing.isLoading && <p>Loading...</p>}
 				{listing.error && <p>{String(listing.error)}</p>}
 				{listing.data && (
-					<ul className="space-y-4">
+					<ul class="space-y-4">
 						{listing.data.pages
 							.flatMap((page) => page.data.children)
 							.map((post) => (
 								<li key={post.data.id}>
-									<div className="p-3 space-y-4 bg-gray-800 shadow-md">
-										<h1 className="text-2xl font-light font-condensed">
+									<div class="p-3 space-y-4 bg-gray-800 shadow-md">
+										<h1 class="text-2xl font-light font-condensed">
 											{post.data.title}
 										</h1>
 										{post.data.selftext && (
 											<div
-												className="space-y-4"
+												class="space-y-4"
 												dangerouslySetInnerHTML={{
 													__html: marked(post.data.selftext),
 												}}
@@ -96,7 +95,7 @@ function AuthButton() {
 	}
 
 	return (
-		<button type="button" className="button-solid" onClick={() => logout()}>
+		<button type="button" class="button-solid" onClick={() => logout()}>
 			Log out
 		</button>
 	)

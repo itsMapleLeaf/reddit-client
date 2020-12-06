@@ -1,7 +1,6 @@
 import "app/styles.css"
 import { AppProps } from "next/app"
 import Head from "next/head"
-import React from "react"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query-devtools"
 
