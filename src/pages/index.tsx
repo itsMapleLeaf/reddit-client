@@ -8,16 +8,16 @@ export default function Index() {
 	const listing = useRedditListingQuery<Post>("/hot.json")
 
 	return (
-		<div class="pt-20 relative">
+		<div class="space-y-2">
 			<header
-				class="fixed inset-x-0 h-16 top-0 flex items-center px-2 space-x-2 bg-gray-800 shadow-md bg-opacity-80 z-10"
+				class="sticky top-0 flex items-center p-3 space-x-3 bg-gray-800 shadow-md bg-opacity-80 z-10"
 				style={{ backdropFilter: `blur(4px)` }}
 			>
 				<button type="button" class="p-2 -m-2" title="Menu">
 					<MenuIcon class="w-6" />
 				</button>
 
-				<div class="flex-1 py-2 space-y-1">
+				<div class="flex-1 space-y-1">
 					<h1 class="text-lg leading-none font-condensed">Home</h1>
 					<p class="text-sm leading-none text-gray-400">Hot</p>
 				</div>
