@@ -1,63 +1,66 @@
 import AspectRatio from "app/ui/AspectRatio"
 import Gallery from "app/ui/Gallery"
-import { formatDistanceToNow } from "date-fns"
+import { formatDistanceToNowStrict } from "date-fns"
 import { Post } from "./types"
 
-export default function PostCard(props: Post) {
+export default function PostCard({ data }: Post) {
+	const createdDate = new Date(data.created_utc * 1000)
+	const timeAgo = formatDistanceToNowStrict(createdDate, { addSuffix: true })
+
 	return (
 		<article class="bg-gray-800 shadow-md">
-			<div class="p-3">
-				<address class="text-xs text-gray-400 italic">
-					<span class="text-gray-100 text-sm">/r/{props.data.subreddit}</span>
-					<br />
-					<span>posted by</span>{" "}
-					<span class="text-gray-100">/u/{props.data.author}</span>{" "}
-					<time>
-						{formatDistanceToNow(new Date(props.data.created_utc * 1000), {
-							includeSeconds: true,
-						})}{" "}
-						ago
+			<div class="p-3 space-y-1">
+				<div class="leading-snug italic text-xs text-gray-400">
+					<span class="text-sm leading-none ">
+						/r/<span className="text-gray-100">{data.subreddit}</span>
+					</span>
+					<span> • </span>
+					<span class="inline-block">posted by /u/{data.author}</span>{" "}
+					<time class="inline-block" dateTime={createdDate.toISOString()}>
+						{timeAgo}
 					</time>
-				</address>
+				</div>
 
-				<h1 class="text-2xl font-light font-condensed mt-1">
-					{props.data.title}
-				</h1>
+				<h1 class="text-2xl font-light font-condensed">{data.title}</h1>
 			</div>
 
 			<div class="bg-black bg-opacity-25">
-				{props.data.post_hint === "image" && (
+				{data.post_hint === "image" && (
 					<img
-						src={props.data.url}
+						src={data.url}
 						role="presentation"
 						class="w-full object-contain"
 						style={{ maxHeight: "24rem" }}
 					/>
 				)}
 
-				{props.data.gallery_data && (
+				{data.gallery_data && (
 					<AspectRatio ratio={1 / 1}>
 						<Gallery<string>
-							items={props.data.gallery_data.items.map(
-								({ media_id }: { media_id: string }) => {
-									return props.data.media_metadata[media_id].s.u.replaceAll(
-										"&amp;",
-										"&",
-									)
-								},
+							items={data.gallery_data.items.map(
+								({ media_id }: { media_id: string }) =>
+									data.media_metadata[media_id].s.u.replaceAll("&amp;", "&"),
 							)}
-							renderItem={(url) => <img src={url} role="presentation" />}
+							renderItem={(url) => (
+								<img
+									src={url}
+									role="presentation"
+									class="w-full h-full object-contain"
+								/>
+							)}
 						/>
 					</AspectRatio>
 				)}
 
-				{props.data.secure_media?.reddit_video && (
-					<AspectRatio ratio={1 / 1}>
-						<video controls class="w-full h-full object-contain">
-							<source src={props.data.secure_media.reddit_video.hls_url} />
-							<source src={props.data.secure_media.reddit_video.fallback_url} />
-						</video>
-					</AspectRatio>
+				{data.secure_media?.reddit_video && (
+					<video
+						controls
+						class="w-full object-contain"
+						style={{ maxHeight: "24rem" }}
+					>
+						<source src={data.secure_media.reddit_video.hls_url} />
+						<source src={data.secure_media.reddit_video.fallback_url} />
+					</video>
 				)}
 			</div>
 		</article>

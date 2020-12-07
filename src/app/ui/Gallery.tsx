@@ -1,6 +1,7 @@
-import { mod } from "app/common/math"
+import { decrement, increment, mod } from "app/common/number"
 import { ComponentChildren } from "preact"
 import { useState } from "preact/hooks"
+import { ChevronLeftIcon, ChevronRightIcon } from "./icons"
 
 export default function Gallery<T>(props: {
 	items: T[]
@@ -9,53 +10,29 @@ export default function Gallery<T>(props: {
 	const [index, setIndex] = useState(0)
 	const currentItem = props.items[mod(index, props.items.length)]
 
-	const buttonClass = "rounded-full bg-gray-700 shadow-md p-1"
+	const buttonClass =
+		"rounded-full bg-gray-700 shadow-md p-1 pointer-events-auto"
 
 	return (
-		<div class="flex items-center justify-center h-full">
+		<div class="h-full relative">
 			{currentItem != null ? props.renderItem(currentItem) : null}
 
-			<button
-				type="button"
-				class={`${buttonClass} absolute left-3`}
-				onClick={() => setIndex((i) => i - 1)}
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					class="w-6"
+			<div className="absolute inset-0 flex flex-row items-center justify-between p-4 pointer-events-none">
+				<button
+					type="button"
+					class={buttonClass}
+					onClick={() => setIndex(decrement)}
 				>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						strokeWidth={2}
-						d="M15 19l-7-7 7-7"
-					/>
-				</svg>
-			</button>
-
-			<button
-				type="button"
-				class={`${buttonClass} absolute right-3`}
-				onClick={() => setIndex((i) => i + 1)}
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					class="w-6"
+					<ChevronLeftIcon class="w-6" />
+				</button>
+				<button
+					type="button"
+					class={buttonClass}
+					onClick={() => setIndex(increment)}
 				>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						strokeWidth={2}
-						d="M9 5l7 7-7 7"
-					/>
-				</svg>
-			</button>
+					<ChevronRightIcon class="w-6" />
+				</button>
+			</div>
 		</div>
 	)
 }
