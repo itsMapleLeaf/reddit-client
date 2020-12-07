@@ -6,6 +6,10 @@
 	:root {
 		@apply text-gray-100 break-words bg-gray-900;
 	}
+
+	[data-js-focus-visible] :focus:not([data-focus-visible-added]) {
+		outline: none;
+	}
 }
 
 @layer components {

@@ -9,6 +9,7 @@
 	"dependencies": {
 		"cookie": "^0.4.1",
 		"date-fns": "^2.16.1",
+		"focus-visible": "^5.2.0",
 		"isomorphic-fetch": "^3.0.0",
 		"marked": "^1.2.5",
 		"next": "^10.0.3",
