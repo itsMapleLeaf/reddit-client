@@ -16,11 +16,14 @@ export function getAccessToken(authCode: string) {
 	})
 }
 
-export function getRefreshedTokens(refreshToken: string) {
-	return authFetch({
+export async function getRefreshedTokens(
+	refreshToken: string,
+): Promise<RedditAuthData> {
+	const result: Omit<RedditAuthData, "refresh_token"> = await authFetch({
 		grant_type: "refresh_token",
 		refresh_token: refreshToken,
 	})
+	return { ...result, refresh_token: refreshToken }
 }
 
 async function authFetch(body: UriParamsObject): Promise<RedditAuthData> {
