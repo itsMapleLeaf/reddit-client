@@ -5,12 +5,12 @@ import { Post } from "app/reddit/types"
 import { MenuIcon } from "app/ui/icons"
 
 export default function Index() {
-	const listing = useRedditListingQuery<Post>("/new.json")
+	const listing = useRedditListingQuery<Post>("/hot.json")
 
 	return (
-		<div class="space-y-4 pt-20 relative">
+		<div class="pt-20 relative">
 			<header
-				class="fixed inset-x-0 h-16 top-0 flex items-center px-2 space-x-2 bg-gray-800 shadow-md bg-opacity-80"
+				class="fixed inset-x-0 h-16 top-0 flex items-center px-2 space-x-2 bg-gray-800 shadow-md bg-opacity-80 z-10"
 				style={{ backdropFilter: `blur(4px)` }}
 			>
 				<button type="button" class="p-2 -m-2" title="Menu">
