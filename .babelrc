@@ -1,0 +1,8 @@
+{
+	"presets": ["next/babel"],
+	"env": {
+		"development": {
+			"plugins": ["@babel/plugin-transform-react-jsx-source"]
+		}
+	}
+}
