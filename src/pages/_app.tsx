@@ -1,9 +1,9 @@
-import "app/styles.css"
 import "focus-visible"
 import { AppProps } from "next/app"
 import Head from "next/head"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query-devtools"
+import "../styles.css"
 
 const queryClient = new QueryClient({
 	defaultOptions: {

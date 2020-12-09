@@ -1,6 +1,6 @@
-import { encodeUriParams, UriParamsObject } from "app/common/url"
+import { raise } from "helpers/error"
+import { encodeUriParams, UriParamsObject } from "helpers/uri"
 import fetch from "isomorphic-fetch"
-import * as constants from "./constants"
 
 export type RedditAuthData = {
 	access_token: string
@@ -8,15 +8,30 @@ export type RedditAuthData = {
 	expires_in: number
 }
 
-export function getAccessToken(authCode: string) {
+export const getRedditAppId = () =>
+	process.env.NEXT_PUBLIC_REDDIT_APP_ID ||
+	raise("env NEXT_PUBLIC_REDDIT_APP_ID not defined")
+
+export const getRedditRedirectUri = () =>
+	process.env.NEXT_PUBLIC_REDDIT_APP_REDIRECT_URI ||
+	raise("env NEXT_PUBLIC_REDDIT_APP_REDIRECT_URI not defined")
+
+export const getRedditAppSecret = () =>
+	process.env.REDDIT_APP_SECRET || raise("env REDDIT_APP_SECRET not defined")
+
+export const getRedditAppUserAgent = () =>
+	process.env.NEXT_PUBLIC_REDDIT_USER_AGENT ||
+	raise("env NEXT_PUBLIC_REDDIT_USER_AGENT not defined")
+
+export function fetchAccessToken(authCode: string) {
 	return authFetch({
 		grant_type: "authorization_code",
 		code: authCode,
-		redirect_uri: constants.redditRedirectUri(),
+		redirect_uri: getRedditRedirectUri(),
 	})
 }
 
-export async function getRefreshedTokens(
+export async function fetchRefreshedTokens(
 	refreshToken: string,
 ): Promise<RedditAuthData> {
 	const result: Omit<RedditAuthData, "refresh_token"> = await authFetch({
@@ -27,7 +42,7 @@ export async function getRefreshedTokens(
 }
 
 async function authFetch(body: UriParamsObject): Promise<RedditAuthData> {
-	const authCredentials = `${constants.redditAppId()}:${constants.redditAppSecret()}`
+	const authCredentials = `${getRedditAppId()}:${getRedditAppSecret()}`
 
 	const response = await fetch(`https://www.reddit.com/api/v1/access_token`, {
 		method: "post",
@@ -36,7 +51,7 @@ async function authFetch(body: UriParamsObject): Promise<RedditAuthData> {
 				"base64",
 			)}`,
 			"Content-Type": "application/x-www-form-urlencoded",
-			"User-Agent": constants.redditAppUserAgent(),
+			"User-Agent": getRedditAppUserAgent(),
 		},
 		body: encodeUriParams(body),
 	})

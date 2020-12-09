@@ -1,6 +1,6 @@
-import AspectRatio from "app/ui/AspectRatio"
-import Gallery from "app/ui/Gallery"
 import { formatDistanceToNowStrict } from "date-fns"
+import AspectRatio from "features/ui/AspectRatio"
+import Gallery from "features/ui/Gallery"
 import { Post } from "./types"
 
 export default function PostCard({ data }: Post) {

@@ -1,7 +1,7 @@
+import { encodeUriParams, UriParamsObject } from "helpers/uri"
 import { useInfiniteQuery, useQuery } from "react-query"
-import { useSessionQuery } from "../client-session"
-import { encodeUriParams, UriParamsObject } from "../common/url"
-import { redditAppUserAgent } from "./constants"
+import { useSessionQuery } from "../session/queries"
+import { getRedditAppUserAgent } from "./helpers"
 import { ListingResponse } from "./types"
 
 const redditErrorUnauthenticated = Symbol("unauthenticated")
@@ -19,7 +19,7 @@ async function redditFetch<T>(
 	if (params) url.search = encodeUriParams(params)
 
 	const headers: { [header: string]: string } = {
-		"User-Agent": redditAppUserAgent(),
+		"User-Agent": getRedditAppUserAgent(),
 	}
 
 	if (token) headers.Authorization = `Bearer ${token}`

@@ -1,6 +1,6 @@
 import { serialize } from "cookie"
 import { NextApiRequest, NextApiResponse } from "next"
-import { RedditAuthData } from "./reddit/auth"
+import { RedditAuthData } from "../reddit/helpers"
 
 type ApiSession = {
 	redditAuth: RedditAuthData

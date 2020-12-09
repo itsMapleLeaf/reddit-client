@@ -1,5 +1,5 @@
-import { useSessionQuery } from "app/client-session"
-import RedditLoginButton from "app/reddit/RedditLoginButton"
+import RedditLoginButton from "features/reddit/RedditLoginButton"
+import { useSessionQuery } from "features/session/queries"
 import { useRouter } from "next/router"
 import { useMutation } from "react-query"
 

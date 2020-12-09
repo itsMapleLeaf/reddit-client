@@ -1,8 +1,8 @@
-import AuthButton from "app/auth/AuthButton"
-import { useRedditListingQuery } from "app/reddit/api"
-import PostCard from "app/reddit/PostCard"
-import { Post } from "app/reddit/types"
-import { MenuIcon } from "app/ui/icons"
+import AuthButton from "features/auth/AuthButton"
+import PostCard from "features/reddit/PostCard"
+import { useRedditListingQuery } from "features/reddit/queries"
+import { Post } from "features/reddit/types"
+import { MenuIcon } from "features/ui/icons"
 
 export default function Index() {
 	const listing = useRedditListingQuery<Post>("/hot.json")

@@ -1,12 +1,12 @@
-import { encodeUriParams } from "../common/url"
-import { redditAppId, redditRedirectUri } from "./constants"
+import { encodeUriParams } from "helpers/uri"
+import { getRedditAppId, getRedditRedirectUri } from "./helpers"
 
 const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams(
 	{
-		client_id: redditAppId(),
+		client_id: getRedditAppId(),
 		response_type: `code`,
 		state: `.`,
-		redirect_uri: redditRedirectUri(),
+		redirect_uri: getRedditRedirectUri(),
 		duration: `permanent`,
 		scope: "identity read",
 	},

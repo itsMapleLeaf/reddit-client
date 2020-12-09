@@ -1,4 +1,4 @@
-import { decrement, increment, mod } from "app/common/number"
+import { decrement, increment, mod } from "helpers/number"
 import { ComponentChildren } from "preact"
 import { useState } from "preact/hooks"
 import { ChevronLeftIcon, ChevronRightIcon } from "./icons"

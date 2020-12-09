@@ -1,5 +1,5 @@
-import { getSession, setSession } from "app/api-session"
-import { getRefreshedTokens } from "app/reddit/auth"
+import { fetchRefreshedTokens } from "features/reddit/helpers"
+import { getSession, setSession } from "features/session/helpers"
 import { NextApiRequest, NextApiResponse } from "next"
 
 export default async function session(
@@ -15,7 +15,7 @@ export default async function session(
 		}
 
 		if (Date.now() > session.expirationDate) {
-			const redditAuth = await getRefreshedTokens(
+			const redditAuth = await fetchRefreshedTokens(
 				session.redditAuth.refresh_token,
 			)
 
