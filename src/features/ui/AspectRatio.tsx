@@ -1,15 +1,13 @@
 import { ReactNode } from "react"
+import "twin.macro"
 
 export default function AspectRatio(props: {
 	ratio: number
 	children: ReactNode
 }) {
 	return (
-		<div
-			className="relative"
-			style={{ paddingBottom: `${(1 / props.ratio) * 100}%` }}
-		>
-			<div className="absolute inset-0">{props.children}</div>
+		<div tw="relative" style={{ paddingBottom: `${(1 / props.ratio) * 100}%` }}>
+			<div tw="absolute inset-0">{props.children}</div>
 		</div>
 	)
 }

@@ -1,5 +1,6 @@
 import { decrement, increment, mod } from "helpers/number"
 import { ReactNode, useState } from "react"
+import tw from "twin.macro"
 import { ChevronLeftIcon, ChevronRightIcon } from "./icons"
 
 export default function Gallery<T>(props: {
@@ -9,27 +10,26 @@ export default function Gallery<T>(props: {
 	const [index, setIndex] = useState(0)
 	const currentItem = props.items[mod(index, props.items.length)]
 
-	const buttonClass =
-		"rounded-full bg-gray-700 shadow-md p-1 pointer-events-auto"
+	const buttonClass = tw`p-1 bg-gray-700 rounded-full shadow-md pointer-events-auto`
 
 	return (
-		<div className="h-full relative">
+		<div tw="h-full relative">
 			{currentItem != null ? props.renderItem(currentItem) : null}
 
-			<div className="absolute inset-0 flex flex-row items-center justify-between p-4 pointer-events-none">
+			<div tw="absolute inset-0 flex flex-row items-center justify-between p-4 pointer-events-none">
 				<button
 					type="button"
-					className={buttonClass}
+					css={buttonClass}
 					onClick={() => setIndex(decrement)}
 				>
-					<ChevronLeftIcon className="w-6" />
+					<ChevronLeftIcon tw="w-6" />
 				</button>
 				<button
 					type="button"
-					className={buttonClass}
+					css={buttonClass}
 					onClick={() => setIndex(increment)}
 				>
-					<ChevronRightIcon className="w-6" />
+					<ChevronRightIcon tw="w-6" />
 				</button>
 			</div>
 		</div>

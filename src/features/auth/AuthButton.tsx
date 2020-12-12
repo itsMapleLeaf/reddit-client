@@ -1,5 +1,6 @@
 import RedditLoginButton from "features/reddit/RedditLoginButton"
 import { useSessionQuery } from "features/session/queries"
+import { buttonSolid } from "features/ui/components"
 import { useRouter } from "next/router"
 import { useMutation } from "react-query"
 
@@ -26,7 +27,7 @@ export default function AuthButton() {
 	}
 
 	return (
-		<button type="button" className="button-solid" onClick={() => logout()}>
+		<button type="button" css={buttonSolid} onClick={() => logout()}>
 			Log out
 		</button>
 	)
