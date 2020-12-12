@@ -1,8 +1,6 @@
-import { JSXInternal } from "preact/src/jsx"
+import { SVGProps } from "react"
 
-type SvgIcon = (
-	props: JSXInternal.SVGAttributes<SVGSVGElement>,
-) => JSXInternal.Element
+type SvgIcon = (props: SVGProps<SVGSVGElement>) => React.ReactElement
 
 export const MenuIcon: SvgIcon = (props) => (
 	<svg

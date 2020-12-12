@@ -8,28 +8,28 @@ export default function PostCard({ data }: Post) {
 	const timeAgo = formatDistanceToNowStrict(createdDate, { addSuffix: true })
 
 	return (
-		<article class="bg-gray-800 shadow-md">
-			<div class="p-3 space-y-1">
-				<div class="leading-snug italic text-xs text-gray-400">
-					<span class="text-sm leading-none ">
+		<article className="bg-gray-800 shadow-md">
+			<div className="p-3 space-y-1">
+				<div className="leading-snug italic text-xs text-gray-400">
+					<span className="text-sm leading-none ">
 						/r/<span className="text-gray-100">{data.subreddit}</span>
 					</span>
 					<span> • </span>
-					<span class="inline-block">posted by /u/{data.author}</span>{" "}
-					<time class="inline-block" dateTime={createdDate.toISOString()}>
+					<span className="inline-block">posted by /u/{data.author}</span>{" "}
+					<time className="inline-block" dateTime={createdDate.toISOString()}>
 						{timeAgo}
 					</time>
 				</div>
 
-				<h1 class="text-2xl font-light font-condensed">{data.title}</h1>
+				<h1 className="text-2xl font-light font-condensed">{data.title}</h1>
 			</div>
 
-			<div class="bg-black bg-opacity-25">
+			<div className="bg-black bg-opacity-25">
 				{data.post_hint === "image" && (
 					<img
 						src={data.url}
 						role="presentation"
-						class="w-full object-contain"
+						className="w-full object-contain"
 						style={{ maxHeight: "24rem" }}
 					/>
 				)}
@@ -45,7 +45,7 @@ export default function PostCard({ data }: Post) {
 								<img
 									src={url}
 									role="presentation"
-									class="w-full h-full object-contain"
+									className="w-full h-full object-contain"
 								/>
 							)}
 						/>
@@ -55,7 +55,7 @@ export default function PostCard({ data }: Post) {
 				{data.secure_media?.reddit_video && (
 					<video
 						controls
-						class="w-full object-contain"
+						className="w-full object-contain"
 						style={{ maxHeight: "24rem" }}
 					>
 						<source src={data.secure_media.reddit_video.hls_url} />

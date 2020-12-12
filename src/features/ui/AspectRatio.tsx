@@ -1,12 +1,12 @@
-import { ComponentChildren } from "preact"
+import { ReactNode } from "react"
 
 export default function AspectRatio(props: {
 	ratio: number
-	children: ComponentChildren
+	children: ReactNode
 }) {
 	return (
 		<div
-			class="relative"
+			className="relative"
 			style={{ paddingBottom: `${(1 / props.ratio) * 100}%` }}
 		>
 			<div className="absolute inset-0">{props.children}</div>

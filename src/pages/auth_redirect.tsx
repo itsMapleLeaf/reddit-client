@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useEffect } from "preact/hooks"
+import { useEffect } from "react"
 import { useMutation } from "react-query"
 
 export default function AuthRedirect() {
