@@ -1,29 +1,63 @@
-import AuthButton from "features/auth/AuthButton"
+import { Menu } from "@headlessui/react"
 import PostCard from "features/reddit/PostCard"
-import { useRedditListingQuery } from "features/reddit/queries"
-import { Post } from "features/reddit/types"
-import { MenuIcon } from "features/ui/icons"
+import { useRedditHotQuery } from "features/reddit/queries"
+import { FilterIcon, MenuIcon } from "features/ui/icons"
+import Link from "next/link"
 import "twin.macro"
 
 export default function Index() {
-	const listing = useRedditListingQuery<Post>("/hot.json")
+	const listing = useRedditHotQuery()
 
 	return (
 		<div tw="space-y-4">
 			<header
-				tw="sticky top-0 flex items-center p-3 space-x-3 bg-gray-800 shadow-md bg-opacity-80 z-10"
-				style={{ backdropFilter: `blur(4px)` }}
+				tw="sticky top-0 grid items-center gap-3 p-3 bg-gray-800 shadow-md bg-opacity-80 z-10"
+				style={{
+					backdropFilter: `blur(4px)`,
+					gridTemplateColumns: "auto 1fr auto",
+				}}
 			>
-				<button type="button" tw="p-2 -m-2" title="Menu">
+				<button type="button" title="Menu" tw="p-2 -m-2 block">
 					<MenuIcon tw="w-6" />
 				</button>
 
-				<div tw="flex-1 space-y-1">
+				<div tw="grid gap-1">
 					<h1 tw="text-lg leading-none font-condensed">Home</h1>
 					<p tw="text-sm leading-none text-gray-400">Hot</p>
 				</div>
 
-				<AuthButton />
+				<div tw="relative">
+					<Menu>
+						<Menu.Button title="Filter" tw="p-2 -m-2 block">
+							<FilterIcon tw="w-5" />
+						</Menu.Button>
+
+						<div tw="absolute right-0">
+							<Menu.Items tw="relative top-2 grid w-max bg-gray-700 shadow-lg">
+								<Menu.Item>
+									<Link href="/" passHref>
+										<a tw="px-3 py-2 leading-none hover:bg-gray-600">Best</a>
+									</Link>
+								</Menu.Item>
+								<Menu.Item>
+									<Link href="/" passHref>
+										<a tw="px-3 py-2 leading-none hover:bg-gray-600">Hot</a>
+									</Link>
+								</Menu.Item>
+								<Menu.Item>
+									<Link href="/" passHref>
+										<a tw="px-3 py-2 leading-none hover:bg-gray-600">New</a>
+									</Link>
+								</Menu.Item>
+								<Menu.Item>
+									<Link href="/" passHref>
+										<a tw="px-3 py-2 leading-none hover:bg-gray-600">Top</a>
+									</Link>
+								</Menu.Item>
+							</Menu.Items>
+						</div>
+					</Menu>
+				</div>
 			</header>
 
 			<main>

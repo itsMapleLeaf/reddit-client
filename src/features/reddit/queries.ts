@@ -2,7 +2,7 @@ import { encodeUriParams, UriParamsObject } from "helpers/uri"
 import { useInfiniteQuery, useQuery } from "react-query"
 import { useSessionQuery } from "../session/queries"
 import { getRedditAppUserAgent } from "./helpers"
-import { ListingResponse } from "./types"
+import { ListingResponse, Post } from "./types"
 
 const redditErrorUnauthenticated = Symbol("unauthenticated")
 const redditErrorUnauthorized = Symbol("unauthorized")
@@ -50,12 +50,12 @@ export function useRedditQuery<T>(endpoint: string) {
 	})
 }
 
-export function useRedditListingQuery<T>(endpoint: string) {
+function useRedditListingQuery<T>(key: string, endpoint: string) {
 	const session = useSessionQuery()
 	const token = session.data?.session?.redditAccessToken
 
 	return useInfiniteQuery<ListingResponse<T>>({
-		queryKey: ["redditInfiniteQuery", endpoint, token],
+		queryKey: [key, endpoint, token],
 		async queryFn({ pageParam }) {
 			return redditFetch(endpoint, token, {
 				limit: 10,
@@ -66,4 +66,12 @@ export function useRedditListingQuery<T>(endpoint: string) {
 			return response.data.after
 		},
 	})
+}
+
+export function useRedditHotQuery() {
+	return useRedditListingQuery<Post>("hotListing", "/hot.json")
+}
+
+export function useRedditNewQuery() {
+	return useRedditListingQuery<Post>("newListing", "/new.json")
 }
