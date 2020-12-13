@@ -1,7 +1,8 @@
 import { Menu } from "@headlessui/react"
 import PostCard from "features/reddit/PostCard"
 import { useRedditHotQuery } from "features/reddit/queries"
-import { FilterIcon, MenuIcon } from "features/ui/icons"
+import Icon from "features/ui/Icon"
+import { filterIcon, menuIcon } from "features/ui/icons"
 import Link from "next/link"
 import "twin.macro"
 
@@ -18,7 +19,7 @@ export default function Index() {
 				}}
 			>
 				<button type="button" title="Menu" tw="p-2 -m-2 block">
-					<MenuIcon tw="w-6" />
+					<Icon name={menuIcon} tw="w-6" />
 				</button>
 
 				<div tw="grid gap-1">
@@ -29,31 +30,25 @@ export default function Index() {
 				<div tw="relative">
 					<Menu>
 						<Menu.Button title="Filter" tw="p-2 -m-2 block">
-							<FilterIcon tw="w-5" />
+							<Icon name={filterIcon} tw="w-5" />
 						</Menu.Button>
 
 						<div tw="absolute right-0">
 							<Menu.Items tw="relative top-2 grid w-max bg-gray-700 shadow-lg">
-								<Menu.Item>
-									<Link href="/" passHref>
-										<a tw="px-3 py-2 leading-none hover:bg-gray-600">Best</a>
-									</Link>
-								</Menu.Item>
-								<Menu.Item>
-									<Link href="/" passHref>
-										<a tw="px-3 py-2 leading-none hover:bg-gray-600">Hot</a>
-									</Link>
-								</Menu.Item>
-								<Menu.Item>
-									<Link href="/" passHref>
-										<a tw="px-3 py-2 leading-none hover:bg-gray-600">New</a>
-									</Link>
-								</Menu.Item>
-								<Menu.Item>
-									<Link href="/" passHref>
-										<a tw="px-3 py-2 leading-none hover:bg-gray-600">Top</a>
-									</Link>
-								</Menu.Item>
+								{[
+									{ name: "Best" },
+									{ name: "Hot" },
+									{ name: "New" },
+									{ name: "Top" },
+								].map((link, index) => (
+									<Menu.Item key={index}>
+										<Link href="/" passHref>
+											<a tw="px-3 py-2 leading-none hover:bg-gray-600">
+												{link.name}
+											</a>
+										</Link>
+									</Menu.Item>
+								))}
 							</Menu.Items>
 						</div>
 					</Menu>
