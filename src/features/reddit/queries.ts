@@ -58,7 +58,6 @@ function useRedditListingQuery<T>(key: string, endpoint: string) {
 		queryKey: [key, endpoint, token],
 		async queryFn({ pageParam }) {
 			return redditFetch(endpoint, token, {
-				limit: 10,
 				after: pageParam,
 			})
 		},
