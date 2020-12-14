@@ -2,7 +2,7 @@ import { raise } from "helpers/error"
 import { encodeUriParams, UriParamsObject } from "helpers/uri"
 import fetch from "isomorphic-fetch"
 
-export type RedditAuthData = {
+export type RedditAuthResponse = {
 	access_token: string
 	refresh_token: string
 	expires_in: number
@@ -33,15 +33,15 @@ export function fetchAccessToken(authCode: string) {
 
 export async function fetchRefreshedTokens(
 	refreshToken: string,
-): Promise<RedditAuthData> {
-	const result: Omit<RedditAuthData, "refresh_token"> = await authFetch({
+): Promise<RedditAuthResponse> {
+	const result: Omit<RedditAuthResponse, "refresh_token"> = await authFetch({
 		grant_type: "refresh_token",
 		refresh_token: refreshToken,
 	})
 	return { ...result, refresh_token: refreshToken }
 }
 
-async function authFetch(body: UriParamsObject): Promise<RedditAuthData> {
+async function authFetch(body: UriParamsObject): Promise<RedditAuthResponse> {
 	const authCredentials = `${getRedditAppId()}:${getRedditAppSecret()}`
 
 	const response = await fetch(`https://www.reddit.com/api/v1/access_token`, {
