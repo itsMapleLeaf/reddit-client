@@ -1,6 +1,5 @@
-import { useWindowSize } from "features/dom/hooks"
-import { useEffectRef } from "helpers/react"
-import { useEffect, useRef } from "react"
+import { useIntersectionObserver } from "features/dom/useIntersectionObserver"
+import { useWindowSize } from "features/dom/useWindowSize"
 import { UseInfiniteQueryResult } from "react-query"
 import "twin.macro"
 import PostCard from "./PostCard"
@@ -34,26 +33,18 @@ export default function InfinitePostList({
 }
 
 function InfiniteScrollCursor(props: { onEndReached: () => void }) {
-	const cursor = useRef<HTMLDivElement>(null)
-	const onEndReachedRef = useEffectRef(props.onEndReached)
-	const windowSize = useWindowSize()
+	const ref = useIntersectionObserver(([entry]) => {
+		if (entry?.isIntersecting) props.onEndReached()
+	})
 
-	useEffect(() => {
-		const observer = new IntersectionObserver(([entry]) => {
-			if (entry!.isIntersecting) {
-				onEndReachedRef.current()
-			}
-		})
-		observer.observe(cursor.current!)
-		return () => observer.disconnect()
-	}, [onEndReachedRef])
+	const windowSize = useWindowSize()
 
 	return (
 		<div tw="relative">
 			<div
 				tw="absolute bottom-0 left-0 w-px"
 				style={{ height: windowSize.height * 2 }}
-				ref={cursor}
+				ref={ref}
 			/>
 		</div>
 	)
