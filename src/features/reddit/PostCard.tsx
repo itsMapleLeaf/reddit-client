@@ -1,6 +1,7 @@
 import { formatDistanceToNowStrict } from "date-fns"
 import AspectRatio from "features/ui/AspectRatio"
 import Gallery from "features/ui/Gallery"
+import { unescape } from "html-escaper"
 import "twin.macro"
 import { Post } from "./types"
 
@@ -38,10 +39,12 @@ export default function PostCard({ data }: Post) {
 				{data.gallery_data && (
 					<AspectRatio ratio={1 / 1}>
 						<Gallery<string>
-							items={data.gallery_data.items.map(
-								({ media_id }: { media_id: string }) =>
-									data.media_metadata[media_id].s.u.replaceAll("&amp;", "&"),
-							)}
+							items={data.gallery_data.items
+								.map(
+									({ media_id }: { media_id: string }) =>
+										data.media_metadata[media_id].s.u,
+								)
+								.map(unescape)}
 							renderItem={(url) => (
 								<img
 									src={url}
