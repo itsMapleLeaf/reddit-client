@@ -5,7 +5,7 @@ import { unescape } from "html-escaper"
 import "twin.macro"
 import { Post } from "./types"
 
-export default function PostCard({ data }: Post) {
+export default function PostCard({ data }: Pick<Post, "data">) {
 	const createdDate = new Date(data.created_utc * 1000)
 	const timeAgo = formatDistanceToNowStrict(createdDate, { addSuffix: true })
 
@@ -38,21 +38,7 @@ export default function PostCard({ data }: Post) {
 
 				{data.gallery_data && (
 					<AspectRatio ratio={1 / 1}>
-						<Gallery<string>
-							items={data.gallery_data.items
-								.map(
-									({ media_id }: { media_id: string }) =>
-										data.media_metadata[media_id].s.u,
-								)
-								.map(unescape)}
-							renderItem={(url) => (
-								<img
-									src={url}
-									role="presentation"
-									tw="w-full h-full object-contain"
-								/>
-							)}
-						/>
+						<PostGallery data={data} />
 					</AspectRatio>
 				)}
 
@@ -68,5 +54,19 @@ export default function PostCard({ data }: Post) {
 				)}
 			</div>
 		</article>
+	)
+}
+
+function PostGallery({ data }: Pick<Post, "data">) {
+	const getGalleryItemUrl = ({ media_id }: { media_id: string }) =>
+		unescape(data.media_metadata[media_id].s.u)
+
+	return (
+		<Gallery<string>
+			items={data.gallery_data.items.map(getGalleryItemUrl)}
+			renderItem={(url) => (
+				<img src={url} role="presentation" tw="w-full h-full object-contain" />
+			)}
+		/>
 	)
 }
