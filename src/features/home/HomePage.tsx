@@ -13,6 +13,7 @@ type Props = {
 	data?: { pages: Array<ListingResponse<Post>> }
 	error: unknown
 	isFetching: boolean
+	isFetched: boolean
 	fetchNextPage: () => void
 }
 
@@ -73,7 +74,11 @@ export default function HomePage(props: Props) {
 			</main>
 
 			{typeof window !== "undefined" && (
-				<InfiniteScrollCursor onEndReached={props.fetchNextPage} />
+				<InfiniteScrollCursor
+					onEndReached={() => {
+						if (props.isFetched) props.fetchNextPage()
+					}}
+				/>
 			)}
 		</div>
 	)

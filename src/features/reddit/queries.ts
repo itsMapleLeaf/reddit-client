@@ -50,6 +50,7 @@ export function useRedditQuery<T>({
 
 	return useQuery<T>({
 		queryKey: queryKey ?? ["reddit", endpoint, token],
+		enabled: session.isFetched,
 		async queryFn() {
 			return redditFetch<T>(endpoint, token)
 		},
@@ -68,6 +69,7 @@ export function useRedditListingQuery<T>({
 
 	return useInfiniteQuery<ListingResponse<T>>({
 		queryKey: queryKey ?? ["redditListing", { endpoint, token }],
+		enabled: session.isFetched,
 		async queryFn({ pageParam }) {
 			return redditFetch(endpoint, token, {
 				after: pageParam,
