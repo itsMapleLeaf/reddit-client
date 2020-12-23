@@ -22,7 +22,7 @@ export default function AuthButton() {
 		return null
 	}
 
-	if (!session.data?.session) {
+	if (!session.data) {
 		return <RedditLoginButton />
 	}
 

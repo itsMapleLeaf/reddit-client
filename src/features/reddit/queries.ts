@@ -1,41 +1,35 @@
 import { encodeUriParams, UriParamsObject } from "helpers/uri"
 import { QueryKey, useInfiniteQuery, useQuery } from "react-query"
-import { useSessionQuery } from "../session/queries"
+import { fetchSession } from "../session/queries"
 import { getRedditAppUserAgent } from "./helpers"
 import { ListingResponse } from "./types"
 
-const redditErrorUnauthenticated = Symbol("unauthenticated")
-const redditErrorUnauthorized = Symbol("unauthorized")
-
 async function redditFetch<T>(
 	endpoint: string,
-	token: string | undefined,
-	params?: UriParamsObject,
+	params: UriParamsObject = {},
 ): Promise<T> {
+	const token = (await fetchSession())?.redditAccessToken
+
 	const url = new URL(
 		token ? `https://oauth.reddit.com` : `https://www.reddit.com`,
 	)
 	url.pathname = endpoint
-	if (params) url.search = encodeUriParams(params)
+	url.search = encodeUriParams(params)
 
 	const headers: { [header: string]: string } = {
 		"User-Agent": getRedditAppUserAgent(),
+		...(token && { Authorization: `Bearer ${token}` }),
 	}
 
-	if (token) headers.Authorization = `Bearer ${token}`
+	const response = await fetch(url.toString(), { headers })
+	const data = await response.json()
 
-	const res = await fetch(url.toString(), {
-		headers,
-	})
-
-	if (res.status === 401) throw redditErrorUnauthenticated
-	if (res.status === 403) throw redditErrorUnauthorized
-
-	if (!res.ok) {
-		throw new Error(`An error occurred (${res.status})`)
+	if (!response.ok || data?.error) {
+		const defaultMessage = `Fetch failed: ${response.statusText} (${response.status})`
+		throw new Error(data?.message || defaultMessage)
 	}
 
-	return res.json()
+	return data
 }
 
 export function useRedditQuery<T>({
@@ -45,14 +39,10 @@ export function useRedditQuery<T>({
 	endpoint: string
 	queryKey?: QueryKey
 }) {
-	const session = useSessionQuery()
-	const token = session.data?.session?.redditAccessToken
-
 	return useQuery<T>({
-		queryKey: queryKey ?? ["reddit", endpoint, token],
-		enabled: session.isFetched,
+		queryKey: queryKey ?? ["reddit", endpoint],
 		async queryFn() {
-			return redditFetch<T>(endpoint, token)
+			return redditFetch<T>(endpoint)
 		},
 	})
 }
@@ -64,16 +54,10 @@ export function useRedditListingQuery<T>({
 	endpoint: string
 	queryKey?: QueryKey
 }) {
-	const session = useSessionQuery()
-	const token = session.data?.session?.redditAccessToken
-
 	return useInfiniteQuery<ListingResponse<T>>({
-		queryKey: queryKey ?? ["redditListing", { endpoint, token }],
-		enabled: session.isFetched,
+		queryKey: queryKey ?? ["redditListing", { endpoint }],
 		async queryFn({ pageParam }) {
-			return redditFetch(endpoint, token, {
-				after: pageParam,
-			})
+			return redditFetch(endpoint, { after: pageParam })
 		},
 		getNextPageParam(response) {
 			return response.data.after

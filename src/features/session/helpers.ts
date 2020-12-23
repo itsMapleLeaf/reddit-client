@@ -20,7 +20,7 @@ export function setSession(
 ) {
 	const session: ApiSession = {
 		redditAuth,
-		expirationDate: Date.now() + redditAuth.expires_in * 1000 - 5 * 60 * 1000,
+		expirationDate: Date.now() + redditAuth.expires_in * 1000,
 	}
 
 	res.setHeader(

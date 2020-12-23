@@ -4,24 +4,26 @@ type ClientSession = {
 	redditAccessToken: string
 }
 
+export async function fetchSession(): Promise<ClientSession | undefined> {
+	const res = await fetch(`/api/session`, {
+		headers: { "Content-Type": "application/json" },
+		credentials: "include",
+	})
+
+	const data = await res.json()
+
+	if (!res.ok) {
+		throw new Error(data.error || `Request failed`)
+	}
+
+	return data?.session
+}
+
 export function useSessionQuery() {
-	return useQuery<{ session?: ClientSession }>({
+	return useQuery({
 		queryKey: ["session"],
-		async queryFn() {
-			const res = await fetch(`/api/session`, {
-				headers: { "Content-Type": "application/json" },
-				credentials: "include",
-			})
-
-			const data = await res.json()
-
-			if (!res.ok) {
-				throw new Error(data.error || `Request failed`)
-			}
-
-			return data
-		},
+		queryFn: fetchSession,
 		retry: false,
-		refetchInterval: 30 * 60 * 1000, // fetch again after 30 minutes
+		refetchInterval: 1000 * 60 * 30,
 	})
 }
