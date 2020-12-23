@@ -1,30 +1,30 @@
 import { useEffect } from "react"
 
 export function useEventTarget<E extends keyof WindowEventMap>(
-	target: Window,
+	target: Window | undefined,
 	event: E,
 	callback: (event: WindowEventMap[E]) => void,
 ): void
 
 export function useEventTarget<E extends keyof DocumentEventMap>(
-	target: Document,
+	target: Document | undefined,
 	event: E,
 	callback: (event: DocumentEventMap[E]) => void,
 ): void
 
 export function useEventTarget<E extends keyof HTMLElementEventMap>(
-	target: HTMLElement,
+	target: HTMLElement | undefined,
 	event: E,
 	callback: (event: HTMLElementEventMap[E]) => void,
 ): void
 
 export function useEventTarget(
-	target: EventTarget,
+	target: EventTarget | undefined,
 	event: string,
 	callback: (event: Event) => void,
 ) {
 	useEffect(() => {
-		target.addEventListener(event, callback)
-		return () => target.removeEventListener(event, callback)
+		target?.addEventListener(event, callback)
+		return () => target?.removeEventListener(event, callback)
 	})
 }
