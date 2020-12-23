@@ -17,11 +17,8 @@ const baseStyle = css({
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
-			refetchOnMount: false,
-			refetchOnReconnect: false,
-			refetchOnWindowFocus: false,
-			cacheTime: Infinity,
-			retry: 1,
+			staleTime: Infinity,
+			retry: process.env.NODE_ENV === "production" ? 3 : false,
 		},
 	},
 })
