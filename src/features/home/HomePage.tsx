@@ -1,9 +1,8 @@
 import { Menu } from "@headlessui/react"
-import { useIntersectionObserver } from "features/dom/useIntersectionObserver"
-import { useWindowSize } from "features/dom/useWindowSize"
 import PostCard from "features/reddit/PostCard"
 import Icon from "features/ui/Icon"
 import { filterIcon, menuIcon } from "features/ui/icons"
+import InfiniteScrollCursor from "features/ui/InfiniteScrollCursor"
 import Link from "next/link"
 import "twin.macro"
 import tw from "twin.macro"
@@ -51,30 +50,31 @@ export default function HomePage(props: Props) {
 				</div>
 			</header>
 
-			<main>
-				<div tw="space-y-4">
-					{props.data != null && (
-						<ul tw="space-y-4">
-							{props.data.pages
-								.flatMap((page) => page.data.children)
-								.map((post) => (
-									<li key={post.data.id}>
-										<PostCard {...post} />
-									</li>
-								))}
-						</ul>
-					)}
-					{props.error && (
-						<p>
-							{props.error instanceof Error
-								? props.error.message
-								: String(props.error)}
-						</p>
-					)}
-					{props.isFetching && <p>Loading...</p>}
-				</div>
-				<InfiniteScrollCursor onEndReached={props.fetchNextPage} />
+			<main tw="grid gap-4">
+				{props.data != null && (
+					<ul tw="grid gap-4">
+						{props.data.pages
+							.flatMap((page) => page.data.children)
+							.map((post) => (
+								<li key={post.data.id}>
+									<PostCard {...post} />
+								</li>
+							))}
+					</ul>
+				)}
+				{props.error && (
+					<p>
+						{props.error instanceof Error
+							? props.error.message
+							: String(props.error)}
+					</p>
+				)}
+				{props.isFetching && <p>Loading...</p>}
 			</main>
+
+			{typeof window !== "undefined" && (
+				<InfiniteScrollCursor onEndReached={props.fetchNextPage} />
+			)}
 		</div>
 	)
 }
@@ -101,22 +101,4 @@ function FilterLinks() {
 			}}
 		</Menu.Item>
 	)) as any
-}
-
-function InfiniteScrollCursor(props: { onEndReached?: () => void }) {
-	const ref = useIntersectionObserver(([entry]) => {
-		if (entry?.isIntersecting) props.onEndReached?.()
-	})
-
-	const windowSize = useWindowSize()
-
-	return (
-		<div tw="relative">
-			<div
-				tw="absolute bottom-0 left-0 w-px"
-				style={{ height: windowSize.height * 2 }}
-				ref={ref}
-			/>
-		</div>
-	)
 }
