@@ -1,21 +1,28 @@
 import { useIntersectionObserver } from "features/dom/useIntersectionObserver"
 import { useWindowSize } from "features/dom/useWindowSize"
-import { UseInfiniteQueryResult } from "react-query"
 import "twin.macro"
 import PostCard from "./PostCard"
 import { ListingResponse, Post } from "./types"
 
+type Props = {
+	data?: { pages: Array<ListingResponse<Post>> }
+	error?: unknown
+	isFetching?: boolean
+	fetchNextPage?: () => void
+}
+
 export default function InfinitePostList({
-	query,
-}: {
-	query: UseInfiniteQueryResult<ListingResponse<Post>>
-}) {
+	data,
+	error,
+	isFetching,
+	fetchNextPage,
+}: Props) {
 	return (
 		<>
 			<div tw="space-y-4">
-				{query.data != null && (
+				{data != null && (
 					<ul tw="space-y-4">
-						{query.data.pages
+						{data.pages
 							.flatMap((page) => page.data.children)
 							.map((post) => (
 								<li key={post.data.id}>
@@ -24,17 +31,19 @@ export default function InfinitePostList({
 							))}
 					</ul>
 				)}
-				{query.isError && <p>{String(query.error)}</p>}
-				{query.isFetching && <p>Loading...</p>}
+				{error && (
+					<p>{error instanceof Error ? error.message : String(error)}</p>
+				)}
+				{isFetching && <p>Loading...</p>}
 			</div>
-			<InfiniteScrollCursor onEndReached={query.fetchNextPage} />
+			<InfiniteScrollCursor onEndReached={fetchNextPage} />
 		</>
 	)
 }
 
-function InfiniteScrollCursor(props: { onEndReached: () => void }) {
+function InfiniteScrollCursor(props: { onEndReached?: () => void }) {
 	const ref = useIntersectionObserver(([entry]) => {
-		if (entry?.isIntersecting) props.onEndReached()
+		if (entry?.isIntersecting) props.onEndReached?.()
 	})
 
 	const windowSize = useWindowSize()

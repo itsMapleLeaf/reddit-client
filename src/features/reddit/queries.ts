@@ -1,8 +1,8 @@
 import { encodeUriParams, UriParamsObject } from "helpers/uri"
-import { useInfiniteQuery, useQuery } from "react-query"
+import { QueryKey, useInfiniteQuery, useQuery } from "react-query"
 import { useSessionQuery } from "../session/queries"
 import { getRedditAppUserAgent } from "./helpers"
-import { ListingResponse, Post } from "./types"
+import { ListingResponse } from "./types"
 
 const redditErrorUnauthenticated = Symbol("unauthenticated")
 const redditErrorUnauthorized = Symbol("unauthorized")
@@ -38,24 +38,36 @@ async function redditFetch<T>(
 	return res.json()
 }
 
-export function useRedditQuery<T>(endpoint: string) {
+export function useRedditQuery<T>({
+	endpoint,
+	queryKey,
+}: {
+	endpoint: string
+	queryKey?: QueryKey
+}) {
 	const session = useSessionQuery()
 	const token = session.data?.session?.redditAccessToken
 
 	return useQuery<T>({
-		queryKey: ["redditQuery", endpoint, token],
+		queryKey: queryKey ?? ["reddit", endpoint, token],
 		async queryFn() {
 			return redditFetch<T>(endpoint, token)
 		},
 	})
 }
 
-function useRedditListingQuery<T>(key: string, endpoint: string) {
+export function useRedditListingQuery<T>({
+	endpoint,
+	queryKey,
+}: {
+	endpoint: string
+	queryKey?: QueryKey
+}) {
 	const session = useSessionQuery()
 	const token = session.data?.session?.redditAccessToken
 
 	return useInfiniteQuery<ListingResponse<T>>({
-		queryKey: [key, endpoint, token],
+		queryKey: queryKey ?? ["redditListing", { endpoint, token }],
 		async queryFn({ pageParam }) {
 			return redditFetch(endpoint, token, {
 				after: pageParam,
@@ -65,12 +77,4 @@ function useRedditListingQuery<T>(key: string, endpoint: string) {
 			return response.data.after
 		},
 	})
-}
-
-export function useRedditHotQuery() {
-	return useRedditListingQuery<Post>("hotListing", "/hot.json")
-}
-
-export function useRedditNewQuery() {
-	return useRedditListingQuery<Post>("newListing", "/new.json")
 }
