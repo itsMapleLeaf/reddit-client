@@ -1,4 +1,4 @@
-import { useEffectRef } from "helpers/react"
+import { useEffectRef } from "features/react/useEffectRef"
 import { useEffect, useState } from "react"
 import useMemoValue from "use-memo-value"
 
