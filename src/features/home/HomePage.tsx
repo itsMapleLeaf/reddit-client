@@ -4,7 +4,6 @@ import Icon from "features/ui/Icon"
 import { filterIcon, menuIcon } from "features/ui/icons"
 import InfiniteScrollCursor from "features/ui/InfiniteScrollCursor"
 import Link from "next/link"
-import "twin.macro"
 import tw from "twin.macro"
 import { ListingResponse, Post } from "../reddit/types"
 
