@@ -40,7 +40,16 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 
 				{data.gallery_data && (
 					<AspectRatio ratio={1 / 1}>
-						<PostGallery data={data} />
+						<Gallery<string>
+							items={getPostGalleryUrls(data)}
+							renderItem={(url) => (
+								<img
+									src={url}
+									role="presentation"
+									tw="w-full h-full object-contain"
+								/>
+							)}
+						/>
 					</AspectRatio>
 				)}
 
@@ -69,16 +78,8 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 	)
 }
 
-function PostGallery({ data }: Pick<Post, "data">) {
-	const getGalleryItemUrl = ({ media_id }: { media_id: string }) =>
-		unescape(data.media_metadata[media_id].s.u)
-
-	return (
-		<Gallery<string>
-			items={data.gallery_data.items.map(getGalleryItemUrl)}
-			renderItem={(url) => (
-				<img src={url} role="presentation" tw="w-full h-full object-contain" />
-			)}
-		/>
+function getPostGalleryUrls(data: Post["data"]): string[] {
+	return data.gallery_data.items.map(({ media_id }: { media_id: string }) =>
+		unescape(data.media_metadata[media_id].s.u),
 	)
 }
