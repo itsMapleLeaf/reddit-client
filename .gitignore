@@ -9,3 +9,9 @@ build
 !/data/.gitkeep
 *.code-workspace
 .next
+.yarn/*
+# !.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
