@@ -1,5 +1,7 @@
 export {
 	mdiAccount as userIcon,
+	mdiArrowDownBold as downArrowIcon,
+	mdiArrowUpBold as upArrowIcon,
 	mdiChevronLeft as chevronLeftIcon,
 	mdiChevronRight as chevronRightIcon,
 	mdiClock as timeIcon,

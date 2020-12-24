@@ -6,9 +6,12 @@ type IconProps = SVGProps<SVGSVGElement> & {
 	name: string
 }
 
+/**
+ * Add a `w-*` class to customize the icon size
+ */
 export default function Icon({ name, ...props }: IconProps) {
 	return (
-		<svg viewBox="0 0 24 24" fill="currentColor" tw="w-auto h-auto" {...props}>
+		<svg viewBox="0 0 24 24" fill="currentColor" tw="w-6 h-auto" {...props}>
 			<path d={name} />
 		</svg>
 	)

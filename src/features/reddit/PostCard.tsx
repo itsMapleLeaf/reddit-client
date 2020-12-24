@@ -1,6 +1,8 @@
 import { formatDistanceToNowStrict } from "date-fns"
 import AspectRatio from "features/ui/AspectRatio"
 import Gallery from "features/ui/Gallery"
+import Icon from "features/ui/Icon"
+import { downArrowIcon, upArrowIcon } from "features/ui/icons"
 import { unescape } from "html-escaper"
 import "twin.macro"
 import { Post } from "./types"
@@ -52,6 +54,16 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 						<source src={data.secure_media.reddit_video.fallback_url} />
 					</video>
 				)}
+			</div>
+
+			<div tw="grid p-2 gap-2 grid-flow-col auto-cols-min">
+				<button type="button">
+					<Icon name={upArrowIcon} />
+				</button>
+				{data.ups}
+				<button type="button">
+					<Icon name={downArrowIcon} />
+				</button>
 			</div>
 		</article>
 	)
