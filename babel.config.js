@@ -1,7 +1,7 @@
 module.exports = {
 	presets: [
 		[
-			"next/babel",
+			require.resolve("next/babel"),
 			{
 				"preset-react": {
 					runtime: "automatic",
@@ -10,5 +10,8 @@ module.exports = {
 			},
 		],
 	],
-	plugins: ["@emotion/babel-plugin", "babel-plugin-macros"],
+	plugins: [
+		require.resolve("@emotion/babel-plugin"),
+		require.resolve("babel-plugin-macros"),
+	],
 }

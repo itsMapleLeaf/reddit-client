@@ -1,7 +1,7 @@
 import { useIntersectionObserver } from "features/dom/useIntersectionObserver"
 import { useWindowSize } from "features/dom/useWindowSize"
-import { isomorphicComponent } from "helpers/react"
 import "twin.macro"
+import { isomorphicComponent } from "../react/isomorphicComponent"
 
 function InfiniteScrollCursor(props: { onEndReached?: () => void }) {
 	const ref = useIntersectionObserver(([entry]) => {
