@@ -3,6 +3,7 @@ import AspectRatio from "features/ui/AspectRatio"
 import Gallery from "features/ui/Gallery"
 import Icon from "features/ui/Icon"
 import { downArrowIcon, upArrowIcon } from "features/ui/icons"
+import { isTruthy } from "helpers/boolean"
 import { unescape } from "html-escaper"
 import "twin.macro"
 import { Post } from "./types"
@@ -79,7 +80,11 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 }
 
 function getPostGalleryUrls(data: Post["data"]): string[] {
-	return data.gallery_data.items.map(({ media_id }: { media_id: string }) =>
-		unescape(data.media_metadata[media_id].s.u),
-	)
+	const items: { media_id: string }[] = data.gallery_data.items
+	return items
+		.map(
+			({ media_id }): string | undefined => data.media_metadata[media_id].s.u,
+		)
+		.filter(isTruthy)
+		.map(unescape)
 }
