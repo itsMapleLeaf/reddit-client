@@ -5,93 +5,105 @@ import { Post } from "features/reddit/types"
 import Icon from "features/ui/Icon"
 import { filterIcon, menuIcon } from "features/ui/icons"
 import InfiniteScrollCursor from "features/ui/InfiniteScrollCursor"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import "twin.macro"
 import tw from "twin.macro"
 
-type Filter = { title: string; endpoint: string }
+type RedditSort = { label: string; endpoint: string }
 
-const defaultFilter: Filter = { title: "Hot", endpoint: "/hot.json" }
+const defaultRedditSort: RedditSort = { label: "Hot", endpoint: "/hot.json" }
 
-const filters: Record<string, Filter> = {
-	hot: defaultFilter,
-	best: { title: "Best", endpoint: "/best.json" },
-	new: { title: "New", endpoint: "/new.json" },
-	top: { title: "Top", endpoint: "/top.json" },
+const redditSortMap: Record<string, RedditSort> = {
+	hot: defaultRedditSort,
+	best: { label: "Best", endpoint: "/best.json" },
+	new: { label: "New", endpoint: "/new.json" },
+	top: { label: "Top", endpoint: "/top.json" },
 }
 
 export default function Home() {
 	const router = useRouter()
-	const filter = filters[String(router.query.filter)] ?? defaultFilter
 
-	const setFilter = (filterName: string) => {
-		router.push(`/home/${filterName}`)
-	}
-
-	const query = useRedditListingQuery<Post>({
-		endpoint: filter.endpoint,
-	})
+	const redditSort =
+		redditSortMap[String(router.query.sort)] ?? defaultRedditSort
 
 	return (
 		<div tw="space-y-4">
-			<header
-				tw="sticky top-0 grid items-center gap-3 p-3 bg-gray-800 shadow-md bg-opacity-80 z-10"
-				style={{
-					backdropFilter: `blur(4px)`,
-					gridTemplateColumns: "auto 1fr auto",
-				}}
-			>
-				<button type="button" title="Menu" tw="p-2 -m-2 block">
-					<Icon name={menuIcon} tw="w-6" />
-				</button>
+			<Header subtitle={redditSort.label} />
+			<PostList endpoint={redditSort.endpoint} />
+		</div>
+	)
+}
 
-				<div tw="grid gap-1">
-					<h1 tw="text-lg leading-none font-condensed">Home</h1>
-					<p tw="text-sm leading-none text-gray-400">{filter.title}</p>
-				</div>
+function Header(props: { subtitle: string }) {
+	return (
+		<header
+			tw="sticky top-0 grid items-center gap-3 p-3 bg-gray-800 shadow-md bg-opacity-80 z-10"
+			style={{
+				backdropFilter: `blur(4px)`,
+				gridTemplateColumns: "auto 1fr auto",
+			}}
+		>
+			<button type="button" title="Menu" tw="p-2 -m-2 block">
+				<Icon name={menuIcon} tw="w-6" />
+			</button>
 
-				<div tw="relative">
-					<Menu>
-						<Menu.Button title="Filter" tw="p-2 -m-2 block">
-							<Icon name={filterIcon} tw="w-5" />
-						</Menu.Button>
+			<div tw="grid gap-1">
+				<h1 tw="text-lg leading-none font-condensed">Home</h1>
+				<p tw="text-sm leading-none text-gray-400">{props.subtitle}</p>
+			</div>
 
-						<div tw="absolute right-0">
-							<Menu.Items tw="relative top-2 grid w-max bg-gray-700 shadow-lg">
-								{Object.entries(filters).map(([key, filter]) => (
-									<FilterLink
-										key={key}
-										text={filter.title}
-										onClick={() => setFilter(key)}
-									/>
-								))}
-							</Menu.Items>
-						</div>
-					</Menu>
-				</div>
-			</header>
+			<div tw="relative">
+				<Menu>
+					<Menu.Button title="Sort by..." tw="p-2 -m-2 block">
+						<Icon name={filterIcon} tw="w-5" />
+					</Menu.Button>
 
-			<main tw="grid gap-4 max-w-screen-md mx-auto">
-				{query.data != null && (
-					<ul tw="grid gap-4">
-						{query.data.pages
-							.flatMap((page) => page.data.children)
-							.map((post) => (
-								<li key={post.data.id}>
-									<PostCard {...post} />
-								</li>
+					<div tw="absolute right-0">
+						<Menu.Items tw="relative top-2 grid w-max bg-gray-700 shadow-lg">
+							{Object.entries(redditSortMap).map(([key, sort]) => (
+								<Menu.Item key={key}>
+									{({ active }) => (
+										<Link href={`/home/${key}`}>
+											<a css={getSortLinkCss(active)}>{sort.label}</a>
+										</Link>
+									)}
+								</Menu.Item>
 							))}
-					</ul>
-				)}
-				{query.error && (
-					<p>
-						{query.error instanceof Error
-							? query.error.message
-							: String(query.error)}
-					</p>
-				)}
-				{query.isFetching && <p>Loading...</p>}
-			</main>
+						</Menu.Items>
+					</div>
+				</Menu>
+			</div>
+		</header>
+	)
+}
+
+function PostList({ endpoint }: { endpoint: string }) {
+	const query = useRedditListingQuery<Post>({ endpoint })
+
+	return (
+		<main tw="grid gap-4 max-w-screen-md mx-auto">
+			{query.data != null && (
+				<ul tw="grid gap-4">
+					{query.data.pages
+						.flatMap((page) => page.data.children)
+						.map((post) => (
+							<li key={post.data.id}>
+								<PostCard {...post} />
+							</li>
+						))}
+				</ul>
+			)}
+
+			{query.error && (
+				<p>
+					{query.error instanceof Error
+						? query.error.message
+						: String(query.error)}
+				</p>
+			)}
+
+			{query.isFetching && <p>Loading...</p>}
 
 			{typeof window !== "undefined" && (
 				<InfiniteScrollCursor
@@ -100,27 +112,11 @@ export default function Home() {
 					}}
 				/>
 			)}
-		</div>
+		</main>
 	)
 }
 
-function FilterLink(props: { text: string; onClick: () => void }): JSX.Element {
-	return (
-		<Menu.Item>
-			{({ active }) => (
-				<button
-					type="button"
-					onClick={props.onClick}
-					css={getFilterLinkCss(active)}
-				>
-					{props.text}
-				</button>
-			)}
-		</Menu.Item>
-	)
-}
-
-function getFilterLinkCss(active: boolean) {
+function getSortLinkCss(active: boolean) {
 	return [
 		tw`px-3 py-2 leading-none hover:bg-gray-600`,
 		active && tw`bg-gray-600`,
