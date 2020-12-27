@@ -8,13 +8,10 @@ module.exports = {
 		return config
 	},
 
-	async redirects() {
+	async rewrites() {
 		return [
-			{
-				source: "/",
-				destination: "/home",
-				permanent: true,
-			},
+			{ source: "/", destination: "/home/hot" },
+			{ source: "/home", destination: "/home/hot" },
 		]
 	},
 }

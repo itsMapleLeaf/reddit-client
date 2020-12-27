@@ -22,8 +22,8 @@ export default function Home() {
 	const router = useRouter()
 	const filter = filters[String(router.query.filter)] ?? defaultFilter
 
-	const setFilter = (filterKey: string) => {
-		router.replace(`${router.pathname}?filter=${filterKey}`)
+	const setFilter = (filterName: string) => {
+		router.push(`/home/${filterName}`)
 	}
 
 	const query = useRedditListingQuery<Post>({
