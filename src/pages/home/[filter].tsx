@@ -9,9 +9,11 @@ import { useRouter } from "next/router"
 import "twin.macro"
 import tw from "twin.macro"
 
-const defaultFilter = { title: "Hot", endpoint: "/hot.json" }
+type Filter = { title: string; endpoint: string }
 
-const filters: Record<string, { title: string; endpoint: string }> = {
+const defaultFilter: Filter = { title: "Hot", endpoint: "/hot.json" }
+
+const filters: Record<string, Filter> = {
 	hot: defaultFilter,
 	best: { title: "Best", endpoint: "/best.json" },
 	new: { title: "New", endpoint: "/new.json" },
