@@ -17,7 +17,8 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noUncheckedIndexedAccess": true,
-		"maxNodeModuleJsDepth": 1
+		"maxNodeModuleJsDepth": 1,
+		"baseUrl": "./src"
 	},
 	"include": ["next-env.d.ts", "src"],
 	"exclude": []
