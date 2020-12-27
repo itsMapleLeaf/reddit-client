@@ -13,7 +13,7 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 	const timeAgo = formatDistanceToNowStrict(createdDate, { addSuffix: true })
 
 	return (
-		<article tw="bg-gray-800 shadow-md">
+		<article tw="bg-gray-800 shadow-lg md:rounded-md overflow-hidden">
 			<div tw="p-3 space-y-1">
 				<div tw="leading-snug italic text-xs text-gray-400">
 					<span tw="text-sm leading-none ">
@@ -29,13 +29,13 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 				<h1 tw="text-2xl font-light font-condensed">{data.title}</h1>
 			</div>
 
-			<div tw="bg-black bg-opacity-25">
+			<div tw="bg-black bg-opacity-40">
 				{data.post_hint === "image" && (
 					<img
 						src={data.url}
 						role="presentation"
 						tw="w-full object-contain"
-						style={{ maxHeight: "24rem" }}
+						style={{ maxHeight: "75vh" }}
 					/>
 				)}
 
@@ -58,7 +58,7 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 					<video
 						controls
 						tw="w-full object-contain"
-						style={{ maxHeight: "24rem" }}
+						style={{ maxHeight: "calc(100vh - 8rem)" }}
 					>
 						<source src={data.secure_media.reddit_video.hls_url} />
 						<source src={data.secure_media.reddit_video.fallback_url} />
@@ -66,7 +66,7 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 				)}
 			</div>
 
-			<div tw="grid p-2 gap-2 grid-flow-col auto-cols-min">
+			<div tw="grid p-2 gap-2 grid-flow-col auto-cols-min bg-black bg-opacity-25">
 				<button type="button">
 					<Icon name={upArrowIcon} />
 				</button>

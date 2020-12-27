@@ -69,7 +69,7 @@ export default function Home() {
 				</div>
 			</header>
 
-			<main tw="grid gap-4">
+			<main tw="grid gap-4 max-w-screen-md mx-auto">
 				{query.data != null && (
 					<ul tw="grid gap-4">
 						{query.data.pages
