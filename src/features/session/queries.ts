@@ -25,5 +25,6 @@ export function useSessionQuery() {
 		queryFn: fetchSession,
 		retry: false,
 		refetchInterval: 1000 * 60 * 30,
+		staleTime: Infinity,
 	})
 }
