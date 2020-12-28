@@ -5,6 +5,7 @@ import Icon from "features/ui/Icon"
 import { downArrowIcon, upArrowIcon } from "features/ui/icons"
 import { isTruthy } from "helpers/boolean"
 import { unescape } from "html-escaper"
+import Link from "next/link"
 import "twin.macro"
 import { Post } from "./types"
 
@@ -15,14 +16,20 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 	return (
 		<article tw="bg-gray-800 shadow-lg md:rounded-md overflow-hidden">
 			<div tw="p-3 space-y-1">
-				<div tw="leading-snug italic text-xs text-gray-400">
-					<span tw="text-sm leading-none ">
-						/r/<span tw="text-gray-100">{data.subreddit}</span>
-					</span>
-					<span> • </span>
-					<span tw="inline-block">posted by /u/{data.author}</span>{" "}
+				<div tw="leading-snug text-xs text-gray-400">
+					<Link href={`/r/${data.subreddit}`} passHref>
+						<a tw="text-sm leading-none hover:underline">
+							/r/<span tw="text-gray-100">{data.subreddit}</span>
+						</a>
+					</Link>
+					{" • "}
+					<Link href={`/u/${data.author}`} passHref>
+						<a tw="inline-block hover:underline">posted by /u/{data.author}</a>
+					</Link>{" "}
 					<time tw="inline-block" dateTime={createdDate.toISOString()}>
-						{timeAgo}
+						<Link href={`/p/${data.id}`} passHref>
+							<a tw="hover:underline">{timeAgo}</a>
+						</Link>
 					</time>
 				</div>
 
