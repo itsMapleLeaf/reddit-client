@@ -1,4 +1,5 @@
 import { Menu } from "@headlessui/react"
+import AuthButton from "features/auth/AuthButton"
 import PostCard from "features/reddit/PostCard"
 import { useRedditListingQuery } from "features/reddit/queries"
 import { Post } from "features/reddit/types"
@@ -38,20 +39,19 @@ export default function Home() {
 function Header(props: { subtitle: string }) {
 	return (
 		<header
-			tw="sticky top-0 grid items-center gap-3 p-3 bg-gray-800 shadow-md bg-opacity-80 z-10"
-			style={{
-				backdropFilter: `blur(4px)`,
-				gridTemplateColumns: "auto 1fr auto",
-			}}
+			tw="sticky top-0 flex items-center space-x-3 p-3 bg-gray-800 shadow-md bg-opacity-80 z-10"
+			style={{ backdropFilter: `blur(4px)` }}
 		>
 			<button type="button" title="Menu" tw="p-2 -m-2 block">
 				<Icon name={menuIcon} tw="w-6" />
 			</button>
 
-			<div tw="grid gap-1">
+			<div tw="space-y-1 flex-1">
 				<h1 tw="text-lg leading-none font-condensed">Home</h1>
 				<p tw="text-sm leading-none text-gray-400">{props.subtitle}</p>
 			</div>
+
+			<AuthButton />
 
 			<div tw="relative">
 				<Menu>
