@@ -4,7 +4,7 @@ type ClientSession = {
 	redditAccessToken: string
 }
 
-export async function fetchSession(): Promise<ClientSession | undefined> {
+async function fetchSession(): Promise<ClientSession | undefined> {
 	const res = await fetch(`/api/session`, {
 		headers: { "Content-Type": "application/json" },
 		credentials: "include",
