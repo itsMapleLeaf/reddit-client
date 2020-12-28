@@ -12,6 +12,7 @@ module.exports = {
 		return [
 			{ source: "/", destination: "/home/hot" },
 			{ source: "/home", destination: "/home/hot" },
+			{ source: "/r/:subreddit", destination: "/r/:subreddit/hot" },
 		]
 	},
 }
