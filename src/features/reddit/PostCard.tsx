@@ -74,11 +74,11 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 			</div>
 
 			<div tw="grid p-2 gap-2 grid-flow-col auto-cols-min bg-black bg-opacity-25">
-				<button type="button">
+				<button type="button" tw="transition hover:text-blue-500">
 					<Icon name={upArrowIcon} />
 				</button>
-				{data.ups}
-				<button type="button">
+				<span>{data.ups}</span>
+				<button type="button" tw="transition hover:text-yellow-500">
 					<Icon name={downArrowIcon} />
 				</button>
 			</div>
