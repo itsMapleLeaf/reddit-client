@@ -31,6 +31,8 @@ export function setSession(
 			path: "/",
 		}),
 	)
+
+	return session
 }
 
 export function clearSession(res: NextApiResponse) {

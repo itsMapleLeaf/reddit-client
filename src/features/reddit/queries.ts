@@ -1,15 +1,14 @@
 import { encodeUriParams, UriParamsObject } from "helpers/uri"
 import { QueryKey, useInfiniteQuery, useQuery } from "react-query"
-import { fetchSession } from "../session/queries"
+import { useSessionQuery } from "../session/queries"
 import { getRedditAppUserAgent } from "./helpers"
 import { ListingResponse } from "./types"
 
 async function redditFetch<T>(
 	endpoint: string,
+	token: string | undefined,
 	params: UriParamsObject = {},
 ): Promise<T> {
-	const token = (await fetchSession())?.redditAccessToken
-
 	const url = new URL(
 		token ? `https://oauth.reddit.com` : `https://www.reddit.com`,
 	)
@@ -39,10 +38,14 @@ export function useRedditQuery<T>({
 	endpoint: string
 	queryKey?: QueryKey
 }) {
+	const { data, isLoading } = useSessionQuery()
+	const token = data?.redditAccessToken
+
 	return useQuery<T>({
-		queryKey: queryKey ?? ["reddit", endpoint],
+		queryKey: queryKey ? [...queryKey, token] : ["reddit", endpoint, token],
+		enabled: !isLoading,
 		async queryFn() {
-			return redditFetch<T>(endpoint)
+			return redditFetch<T>(endpoint, token)
 		},
 	})
 }
@@ -54,11 +57,20 @@ export function useRedditListingQuery<T>({
 	endpoint: string
 	queryKey?: QueryKey
 }) {
+	const { data, isLoading } = useSessionQuery()
+	const token = data?.redditAccessToken
+
 	return useInfiniteQuery<ListingResponse<T>>({
-		queryKey: queryKey ?? ["redditListing", { endpoint }],
+		queryKey: queryKey
+			? [...queryKey, token]
+			: ["redditListing", token, { endpoint }],
+
+		enabled: !isLoading,
+
 		async queryFn({ pageParam }) {
-			return redditFetch(endpoint, { after: pageParam })
+			return redditFetch(endpoint, token, { after: pageParam })
 		},
+
 		getNextPageParam(response) {
 			return response.data.after
 		},

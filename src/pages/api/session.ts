@@ -7,7 +7,7 @@ export default async function session(
 	res: NextApiResponse,
 ) {
 	try {
-		const session = getSession(req)
+		let session = getSession(req)
 
 		if (!session) {
 			res.json({ session: undefined })
@@ -19,7 +19,7 @@ export default async function session(
 				session.redditAuth.refresh_token,
 			)
 
-			setSession(res, redditAuth)
+			session = setSession(res, redditAuth)
 		}
 
 		res.json({
