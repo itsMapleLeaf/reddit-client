@@ -2,6 +2,7 @@ import PostCard from "features/reddit/PostCard"
 import { useRedditListingQuery } from "features/reddit/queries"
 import type { Post } from "features/reddit/types"
 import InfiniteScrollCursor from "features/ui/InfiniteScrollCursor"
+import "twin.macro"
 
 export default function PostList({ endpoint }: { endpoint: string }) {
 	const query = useRedditListingQuery<Post>({ endpoint })
