@@ -4,6 +4,10 @@ module.exports = {
 	purge: ["./src/**/*.{ts,tsx}"],
 	darkMode: false, // or 'media' or 'class'
 	theme: {
+		boxShadow: {
+			DEFAULT: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+		},
+
 		extend: {
 			colors: {
 				blue: colors.lightBlue,
@@ -15,9 +19,6 @@ module.exports = {
 			},
 			transitionDuration: {
 				DEFAULT: "250ms",
-			},
-			boxShadow: {
-				DEFAULT: "0px 3px 8px rgba(0, 0, 0, 0.5)",
 			},
 		},
 	},

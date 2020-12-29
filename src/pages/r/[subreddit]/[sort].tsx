@@ -57,7 +57,7 @@ export default function Subreddit() {
 function Header(props: { title: string; subtitle: string; right: ReactNode }) {
 	return (
 		<header
-			tw="sticky top-0 z-10 grid items-center gap-3 p-3 bg-gray-800 shadow-md bg-opacity-80"
+			tw="sticky top-0 z-10 grid items-center gap-3 p-3 bg-gray-800 shadow bg-opacity-80"
 			style={{
 				backdropFilter: `blur(4px)`,
 				gridTemplateColumns: "auto 1fr auto",

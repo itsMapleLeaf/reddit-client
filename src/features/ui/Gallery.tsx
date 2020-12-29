@@ -11,7 +11,7 @@ export default function Gallery<T>(props: {
 	const [index, setIndex] = useState(0)
 	const currentItem = props.items[mod(index, props.items.length)]
 
-	const buttonCss = tw`bg-gray-700 rounded-full shadow-md pointer-events-auto`
+	const buttonCss = tw`bg-gray-700 rounded-full shadow pointer-events-auto`
 
 	return (
 		<div tw="relative h-full">

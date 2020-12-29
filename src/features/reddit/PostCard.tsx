@@ -16,7 +16,7 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 	const createdDate = dayjs(new Date(data.created_utc * 1000))
 
 	return (
-		<article tw="overflow-hidden bg-gray-800 shadow-lg md:rounded-md">
+		<article tw="overflow-hidden bg-gray-800 shadow md:rounded-md">
 			<div tw="p-3 space-y-1">
 				<div tw="text-xs leading-snug text-gray-400">
 					<Link href={`/r/${data.subreddit}`} passHref>

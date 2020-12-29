@@ -30,7 +30,7 @@ export default function RedditSortMenu(props: {
 			<MenuButton {...menu} title="Sort by..." tw="block p-2 -m-2">
 				<Icon name={filterIcon} tw="w-5" />
 			</MenuButton>
-			<Menu {...menu} tw="grid bg-gray-700 shadow-lg w-max">
+			<Menu {...menu} tw="grid bg-gray-700 shadow w-max">
 				{Object.entries(props.sortMap).map(([key, sort]) => (
 					<Link key={key} href={sort.route} passHref>
 						<MenuItem

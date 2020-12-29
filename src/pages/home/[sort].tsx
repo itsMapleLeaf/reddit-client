@@ -45,10 +45,10 @@ export default function Home() {
 function Header(props: { subtitle: string }) {
 	return (
 		<header
-			tw="sticky top-0 z-10 bg-gray-800 shadow-md bg-opacity-80"
+			tw="sticky top-0 z-10 bg-gray-800 shadow bg-opacity-80"
 			style={{ backdropFilter: `blur(4px)` }}
 		>
-			<div tw="flex items-center max-w-screen-lg p-3 mx-auto">
+			<div tw="flex items-center max-w-screen-lg p-4 mx-auto">
 				<div tw="block mr-4 lg:hidden">
 					<DrawerDialog
 						label="Main Navigation"
