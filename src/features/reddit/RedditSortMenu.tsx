@@ -1,7 +1,7 @@
-import { Menu } from "@headlessui/react"
 import Icon from "features/ui/Icon"
 import { filterIcon } from "features/ui/icons"
 import Link from "next/link"
+import { Menu, MenuButton, MenuItem, useMenuState } from "reakit"
 import tw from "twin.macro"
 
 export type RedditSort = {
@@ -20,27 +20,31 @@ function getSortLinkCss(active: boolean) {
 export default function RedditSortMenu(props: {
 	sortMap: Record<string, RedditSort>
 }) {
-	return (
-		<div tw="relative">
-			<Menu>
-				<Menu.Button title="Sort by..." tw="block p-2 -m-2">
-					<Icon name={filterIcon} tw="w-5" />
-				</Menu.Button>
+	const menu = useMenuState({
+		placement: "bottom-end",
+		gutter: 8,
+	})
 
-				<div tw="absolute right-0">
-					<Menu.Items tw="relative grid bg-gray-700 shadow-lg top-2 w-max">
-						{Object.entries(props.sortMap).map(([key, sort]) => (
-							<Menu.Item key={key}>
-								{({ active }) => (
-									<Link href={sort.route} passHref>
-										<a css={getSortLinkCss(active)}>{sort.label}</a>
-									</Link>
-								)}
-							</Menu.Item>
-						))}
-					</Menu.Items>
-				</div>
+	return (
+		<>
+			<MenuButton {...menu} title="Sort by..." tw="block p-2 -m-2">
+				<Icon name={filterIcon} tw="w-5" />
+			</MenuButton>
+			<Menu {...menu} tw="grid bg-gray-700 shadow-lg w-max">
+				{Object.entries(props.sortMap).map(([key, sort]) => (
+					<Link key={key} href={sort.route} passHref>
+						<MenuItem
+							{...menu}
+							as="a"
+							id={key}
+							css={getSortLinkCss(menu.currentId === key)}
+							onClick={() => menu.hide()}
+						>
+							{sort.label}
+						</MenuItem>
+					</Link>
+				))}
 			</Menu>
-		</div>
+		</>
 	)
 }
