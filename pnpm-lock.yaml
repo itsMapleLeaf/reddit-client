@@ -12,6 +12,7 @@ dependencies:
   next: 10.0.4_c39e9db791ea05e3ec4e0e74abb7a6b5
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
+  react-focus-lock: 2.5.0_@types+react@17.0.0+react@17.0.1
   react-query: 3.5.5_react-dom@17.0.1+react@17.0.1
   reakit: 1.3.2_react-dom@17.0.1+react@17.0.1
   use-memo-value: 1.0.1_react@17.0.1
@@ -24,6 +25,7 @@ devDependencies:
   '@types/isomorphic-fetch': 0.0.35
   '@types/node': 14.14.16
   '@types/react': 17.0.0
+  '@types/react-dom': 17.0.0
   '@typescript-eslint/eslint-plugin': 4.11.0_1b9a0c47bb6bc72fe9ec08ec801e03a4
   '@typescript-eslint/parser': 4.11.0_eslint@7.16.0+typescript@4.1.3
   babel-plugin-macros: 3.0.1
@@ -440,6 +442,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+  /@types/react-dom/17.0.0:
+    dependencies:
+      '@types/react': 17.0.0
+    dev: true
+    resolution:
+      integrity: sha512-lUqY7OlkF/RbNtD5nIq7ot8NquXrdFrjSOR6+w9a9RFQevGi1oZO1dcJbXMeONAPKtZ2UrZOEJ5UOCVsxbLk/g==
   /@types/react/17.0.0:
     dependencies:
       '@types/prop-types': 15.7.3
@@ -1788,6 +1796,10 @@ packages:
     optional: true
     resolution:
       integrity: sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
+  /detect-node-es/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-S4AHriUkTX9FoFvL4G8hXDcx6t3gp2HpfCza3Q0v6S78gul2hKWifLQbeW+ZF89+hSm2ZIc/uF3J97ZgytgTRg==
   /detective/5.2.0:
     dependencies:
       acorn-node: 1.8.2
@@ -2412,6 +2424,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-3Z4XhFZ3992uIq0XOqb9AreonueSYphE6oYbpt5+3u06JWklbsPkNv3ZKkP9Bz/r+1MWCaMoSQ28P85+1Yc77w==
+  /focus-lock/0.8.1:
+    dependencies:
+      tslib: 1.14.1
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-/LFZOIo82WDsyyv7h7oc0MJF9ACOvDRdx9rWPZ2pgMfNWu/z8hQDBtOchuB/0BVLmuFOZjV02YwUVzNsWx/EzA==
   /focus-visible/5.2.0:
     dev: false
     resolution:
@@ -4292,6 +4312,15 @@ packages:
     optional: true
     resolution:
       integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==
+  /react-clientside-effect/1.2.3_react@17.0.1:
+    dependencies:
+      '@babel/runtime': 7.12.5
+      react: 17.0.1
+    dev: false
+    peerDependencies:
+      react: ^15.3.0 || ^16.0.0 || ^17.0.0
+    resolution:
+      integrity: sha512-96HOmjJjjemxZD4qMdaMWFl3d/3Dqm/MAXnThoP8+jQihevYs8VzooqYWlVEPmkp9tVIa06i67R7FF1qsuzUwQ==
   /react-dom/17.0.1_react@17.0.1:
     dependencies:
       loose-envify: 1.4.0
@@ -4303,6 +4332,21 @@ packages:
       react: 17.0.1
     resolution:
       integrity: sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
+  /react-focus-lock/2.5.0_@types+react@17.0.0+react@17.0.1:
+    dependencies:
+      '@babel/runtime': 7.12.5
+      focus-lock: 0.8.1
+      prop-types: 15.7.2
+      react: 17.0.1
+      react-clientside-effect: 1.2.3_react@17.0.1
+      use-callback-ref: 1.2.4_@types+react@17.0.0+react@17.0.1
+      use-sidecar: 1.0.3_react@17.0.1
+    dev: false
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0
+    resolution:
+      integrity: sha512-XLxj6uTXgz0US8TmqNU2jMfnXwZG0mH2r/afQqvPEaX6nyEll5LHVcEXk2XDUQ34RVeLPkO/xK5x6c/qiuSq/A==
   /react-is/16.13.1:
     resolution:
       integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -5522,6 +5566,21 @@ packages:
     dev: false
     resolution:
       integrity: sha1-ODjpfPxgUh63PFJajlW/3Z4uKPE=
+  /use-callback-ref/1.2.4_@types+react@17.0.0+react@17.0.1:
+    dependencies:
+      '@types/react': 17.0.0
+      react: 17.0.1
+    dev: false
+    engines:
+      node: '>=8.5.0'
+    peerDependencies:
+      '@types/react': ^16.8.0
+      react: ^16.8.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    resolution:
+      integrity: sha512-rXpsyvOnqdScyied4Uglsp14qzag1JIemLeTWGKbwpotWht57hbP78aNT+Q4wdFKQfQibbUX4fb6Qb4y11aVOQ==
   /use-memo-value/1.0.1_react@17.0.1:
     dependencies:
       react: 17.0.1
@@ -5531,6 +5590,18 @@ packages:
       react: ^16.8.0
     resolution:
       integrity: sha512-1DqRcvh5XguuuO8QXw9KeAp7MDUKrLPrCv3+GawjFqxjwRJN9FjzayW0Z3RBvWi826l5mim8ov+kCFSTs70svg==
+  /use-sidecar/1.0.3_react@17.0.1:
+    dependencies:
+      detect-node-es: 1.0.0
+      react: 17.0.1
+      tslib: 1.14.1
+    dev: false
+    engines:
+      node: '>=8.5.0'
+    peerDependencies:
+      react: ^16.8.0
+    resolution:
+      integrity: sha512-ygJwGUBeQfWgDls7uTrlEDzJUUR67L8Rm14v/KfFtYCdHhtjHZx1Krb3DIQl3/Q5dJGfXLEQ02RY8BdNBv87SQ==
   /use-subscription/1.5.1_react@17.0.1:
     dependencies:
       object-assign: 4.1.1
@@ -5742,6 +5813,7 @@ specifiers:
   '@types/isomorphic-fetch': 0.0.35
   '@types/node': ^14.14.16
   '@types/react': ^17.0.0
+  '@types/react-dom': ^17.0.0
   '@typescript-eslint/eslint-plugin': ^4.11.0
   '@typescript-eslint/parser': ^4.11.0
   babel-plugin-macros: ^3.0.1
@@ -5757,6 +5829,7 @@ specifiers:
   prettier: ^2.2.1
   react: ^17.0.1
   react-dom: ^17.0.1
+  react-focus-lock: ^2.5.0
   react-query: ^3.5.5
   reakit: ^1.3.2
   tailwindcss: ^2.0.2
