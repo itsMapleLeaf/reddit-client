@@ -1,26 +1,27 @@
-import { Menu } from "@headlessui/react"
 import AuthButton from "features/auth/AuthButton"
 import PostCard from "features/reddit/PostCard"
 import { useRedditListingQuery } from "features/reddit/queries"
+import RedditSortMenu, { RedditSort } from "features/reddit/RedditSortMenu"
 import type { Post } from "features/reddit/types"
 import DrawerDialog from "features/ui/DrawerDialog"
 import Icon from "features/ui/Icon"
-import { filterIcon, menuIcon } from "features/ui/icons"
+import { menuIcon } from "features/ui/icons"
 import InfiniteScrollCursor from "features/ui/InfiniteScrollCursor"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import "twin.macro"
 import tw from "twin.macro"
 
-type RedditSort = { label: string; endpoint: string }
-
-const defaultRedditSort: RedditSort = { label: "Hot", endpoint: "/hot.json" }
+const defaultRedditSort: RedditSort = {
+	label: "Hot",
+	endpoint: "/hot.json",
+	route: "/home/hot",
+}
 
 const redditSortMap: Record<string, RedditSort> = {
 	hot: defaultRedditSort,
-	best: { label: "Best", endpoint: "/best.json" },
-	new: { label: "New", endpoint: "/new.json" },
-	top: { label: "Top", endpoint: "/top.json" },
+	best: { label: "Best", endpoint: "/best.json", route: "/home/best" },
+	new: { label: "New", endpoint: "/new.json", route: "/home/new" },
+	top: { label: "Top", endpoint: "/top.json", route: "/home/top" },
 }
 
 export default function Home() {
@@ -68,27 +69,7 @@ function Header(props: { subtitle: string }) {
 
 			<AuthButton />
 
-			<div tw="relative">
-				<Menu>
-					<Menu.Button title="Sort by..." tw="block p-2 -m-2">
-						<Icon name={filterIcon} tw="w-5" />
-					</Menu.Button>
-
-					<div tw="absolute right-0">
-						<Menu.Items tw="relative grid bg-gray-700 shadow-lg top-2 w-max">
-							{Object.entries(redditSortMap).map(([key, sort]) => (
-								<Menu.Item key={key}>
-									{({ active }) => (
-										<Link href={`/home/${key}`}>
-											<a css={getSortLinkCss(active)}>{sort.label}</a>
-										</Link>
-									)}
-								</Menu.Item>
-							))}
-						</Menu.Items>
-					</div>
-				</Menu>
-			</div>
+			<RedditSortMenu sortMap={redditSortMap} />
 		</header>
 	)
 }
