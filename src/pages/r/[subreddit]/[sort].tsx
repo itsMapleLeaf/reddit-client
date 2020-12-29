@@ -64,13 +64,13 @@ export default function Subreddit() {
 function Header(props: { title: string; subtitle: string; right: ReactNode }) {
 	return (
 		<header
-			tw="sticky top-0 grid items-center gap-3 p-3 bg-gray-800 shadow-md bg-opacity-80 z-10"
+			tw="sticky top-0 z-10 grid items-center gap-3 p-3 bg-gray-800 shadow-md bg-opacity-80"
 			style={{
 				backdropFilter: `blur(4px)`,
 				gridTemplateColumns: "auto 1fr auto",
 			}}
 		>
-			<button type="button" title="Menu" tw="p-2 -m-2 block">
+			<button type="button" title="Menu" tw="block p-2 -m-2">
 				<Icon name={menuIcon} tw="w-6" />
 			</button>
 			<div tw="grid gap-1">
@@ -86,7 +86,7 @@ function PostList({ endpoint }: { endpoint: string }) {
 	const query = useRedditListingQuery<Post>({ endpoint })
 
 	return (
-		<main tw="grid gap-4 max-w-screen-md mx-auto">
+		<main tw="grid max-w-screen-md gap-4 mx-auto">
 			{query.data != null && (
 				<ul tw="grid gap-4">
 					{query.data.pages
@@ -124,12 +124,12 @@ function SortMenu(props: { sortMap: Record<string, RedditSort> }) {
 	return (
 		<div tw="relative">
 			<Menu>
-				<Menu.Button title="Sort by..." tw="p-2 -m-2 block">
+				<Menu.Button title="Sort by..." tw="block p-2 -m-2">
 					<Icon name={filterIcon} tw="w-5" />
 				</Menu.Button>
 
 				<div tw="absolute right-0">
-					<Menu.Items tw="relative top-2 grid w-max bg-gray-700 shadow-lg">
+					<Menu.Items tw="relative grid bg-gray-700 shadow-lg top-2 w-max">
 						{Object.entries(props.sortMap).map(([key, sort]) => (
 							<Menu.Item key={key}>
 								{({ active }) => (

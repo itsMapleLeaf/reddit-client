@@ -14,7 +14,7 @@ export default function Gallery<T>(props: {
 	const buttonCss = tw`bg-gray-700 rounded-full shadow-md pointer-events-auto`
 
 	return (
-		<div tw="h-full relative">
+		<div tw="relative h-full">
 			{currentItem != null ? props.renderItem(currentItem) : null}
 
 			<div tw="absolute inset-0 flex flex-row items-center justify-between p-4 pointer-events-none">

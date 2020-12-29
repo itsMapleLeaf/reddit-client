@@ -14,9 +14,9 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 	const timeAgo = formatDistanceToNowStrict(createdDate, { addSuffix: true })
 
 	return (
-		<article tw="bg-gray-800 shadow-lg md:rounded-md overflow-hidden">
+		<article tw="overflow-hidden bg-gray-800 shadow-lg md:rounded-md">
 			<div tw="p-3 space-y-1">
-				<div tw="leading-snug text-xs text-gray-400">
+				<div tw="text-xs leading-snug text-gray-400">
 					<Link href={`/r/${data.subreddit}`} passHref>
 						<a tw="text-sm leading-none hover:underline">
 							/r/<span tw="text-gray-100">{data.subreddit}</span>
@@ -41,7 +41,7 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 					<img
 						src={data.url}
 						role="presentation"
-						tw="w-full object-contain"
+						tw="object-contain w-full"
 						style={{ maxHeight: "75vh" }}
 					/>
 				)}
@@ -54,7 +54,7 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 								<img
 									src={url}
 									role="presentation"
-									tw="w-full h-full object-contain"
+									tw="object-contain w-full h-full"
 								/>
 							)}
 						/>
@@ -64,7 +64,7 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 				{data.secure_media?.reddit_video && (
 					<video
 						controls
-						tw="w-full object-contain"
+						tw="object-contain w-full"
 						style={{ maxHeight: "calc(100vh - 8rem)" }}
 					>
 						<source src={data.secure_media.reddit_video.hls_url} />
@@ -73,7 +73,7 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 				)}
 			</div>
 
-			<div tw="grid p-2 gap-2 grid-flow-col auto-cols-min bg-black bg-opacity-25">
+			<div tw="grid grid-flow-col gap-2 p-2 bg-black bg-opacity-25 auto-cols-min">
 				<button type="button" tw="transition hover:text-blue-500">
 					<Icon name={upArrowIcon} />
 				</button>

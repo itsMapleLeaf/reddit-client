@@ -39,14 +39,14 @@ export default function Home() {
 function Header(props: { subtitle: string }) {
 	return (
 		<header
-			tw="sticky top-0 flex items-center space-x-3 p-3 bg-gray-800 shadow-md bg-opacity-80 z-10"
+			tw="sticky top-0 z-10 flex items-center p-3 space-x-3 bg-gray-800 shadow-md bg-opacity-80"
 			style={{ backdropFilter: `blur(4px)` }}
 		>
-			<button type="button" title="Menu" tw="p-2 -m-2 block">
+			<button type="button" title="Menu" tw="block p-2 -m-2">
 				<Icon name={menuIcon} tw="w-6" />
 			</button>
 
-			<div tw="space-y-1 flex-1">
+			<div tw="flex-1 space-y-1">
 				<h1 tw="text-lg leading-none font-condensed">Home</h1>
 				<p tw="text-sm leading-none text-gray-400">{props.subtitle}</p>
 			</div>
@@ -55,12 +55,12 @@ function Header(props: { subtitle: string }) {
 
 			<div tw="relative">
 				<Menu>
-					<Menu.Button title="Sort by..." tw="p-2 -m-2 block">
+					<Menu.Button title="Sort by..." tw="block p-2 -m-2">
 						<Icon name={filterIcon} tw="w-5" />
 					</Menu.Button>
 
 					<div tw="absolute right-0">
-						<Menu.Items tw="relative top-2 grid w-max bg-gray-700 shadow-lg">
+						<Menu.Items tw="relative grid bg-gray-700 shadow-lg top-2 w-max">
 							{Object.entries(redditSortMap).map(([key, sort]) => (
 								<Menu.Item key={key}>
 									{({ active }) => (
@@ -82,7 +82,7 @@ function PostList({ endpoint }: { endpoint: string }) {
 	const query = useRedditListingQuery<Post>({ endpoint })
 
 	return (
-		<main tw="grid gap-4 max-w-screen-md mx-auto">
+		<main tw="grid max-w-screen-md gap-4 mx-auto">
 			{query.data != null && (
 				<ul tw="grid gap-4">
 					{query.data.pages
