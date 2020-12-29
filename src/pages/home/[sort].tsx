@@ -32,7 +32,12 @@ export default function Home() {
 	return (
 		<div tw="space-y-4">
 			<Header subtitle={redditSort.label} />
-			<PostList endpoint={redditSort.endpoint} />
+			<div tw="flex max-w-screen-lg mx-auto md:px-4">
+				<div tw="hidden w-64 mr-4 lg:block">
+					<MainNavigation />
+				</div>
+				<PostList endpoint={redditSort.endpoint} />
+			</div>
 		</div>
 	)
 }
@@ -40,28 +45,34 @@ export default function Home() {
 function Header(props: { subtitle: string }) {
 	return (
 		<header
-			tw="sticky top-0 z-10 flex items-center p-3 space-x-3 bg-gray-800 shadow-md bg-opacity-80"
+			tw="sticky top-0 z-10 bg-gray-800 shadow-md bg-opacity-80"
 			style={{ backdropFilter: `blur(4px)` }}
 		>
-			<DrawerDialog
-				label="Main Navigation"
-				trigger={
-					<button title="Menu" tw="block p-2 -m-2">
-						<Icon name={menuIcon} tw="w-6" />
-					</button>
-				}
-			>
-				<MainNavigation />
-			</DrawerDialog>
+			<div tw="flex items-center max-w-screen-lg p-3 mx-auto">
+				<div tw="block mr-4 lg:hidden">
+					<DrawerDialog
+						label="Main Navigation"
+						trigger={
+							<button title="Menu" tw="block p-2 -m-2 ">
+								<Icon name={menuIcon} tw="w-6" />
+							</button>
+						}
+					>
+						<MainNavigation />
+					</DrawerDialog>
+				</div>
 
-			<div tw="flex-1 space-y-1">
-				<h1 tw="text-lg leading-none font-condensed">Home</h1>
-				<p tw="text-sm leading-none text-gray-400">{props.subtitle}</p>
+				<div tw="flex-1 space-y-1">
+					<h1 tw="text-lg leading-none font-condensed">Home</h1>
+					<p tw="text-sm leading-none text-gray-400">{props.subtitle}</p>
+				</div>
+
+				<AuthButton />
+
+				<div tw="w-4" />
+
+				<RedditSortMenu sortMap={redditSortMap} />
 			</div>
-
-			<AuthButton />
-
-			<RedditSortMenu sortMap={redditSortMap} />
 		</header>
 	)
 }
@@ -70,7 +81,7 @@ function PostList({ endpoint }: { endpoint: string }) {
 	const query = useRedditListingQuery<Post>({ endpoint })
 
 	return (
-		<main tw="grid max-w-screen-md gap-4 mx-auto">
+		<main tw="grid gap-4 mx-auto">
 			{query.data != null && (
 				<ul tw="grid gap-4">
 					{query.data.pages
