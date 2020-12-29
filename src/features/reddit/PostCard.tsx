@@ -1,4 +1,5 @@
-import { formatDistanceToNowStrict } from "date-fns"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
 import AspectRatio from "features/ui/AspectRatio"
 import Gallery from "features/ui/Gallery"
 import Icon from "features/ui/Icon"
@@ -9,9 +10,10 @@ import Link from "next/link"
 import "twin.macro"
 import { Post } from "./types"
 
+dayjs.extend(relativeTime)
+
 export default function PostCard({ data }: Pick<Post, "data">) {
-	const createdDate = new Date(data.created_utc * 1000)
-	const timeAgo = formatDistanceToNowStrict(createdDate, { addSuffix: true })
+	const createdDate = dayjs(new Date(data.created_utc * 1000))
 
 	return (
 		<article tw="overflow-hidden bg-gray-800 shadow-lg md:rounded-md">
@@ -28,7 +30,7 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 					</Link>{" "}
 					<time tw="inline-block" dateTime={createdDate.toISOString()}>
 						<Link href={`/p/${data.id}`} passHref>
-							<a tw="hover:underline">{timeAgo}</a>
+							<a tw="hover:underline">{createdDate.fromNow()}</a>
 						</Link>
 					</time>
 				</div>
