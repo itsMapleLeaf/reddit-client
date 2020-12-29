@@ -9,7 +9,6 @@ import { menuIcon } from "features/ui/icons"
 import InfiniteScrollCursor from "features/ui/InfiniteScrollCursor"
 import { useRouter } from "next/router"
 import "twin.macro"
-import tw from "twin.macro"
 
 const defaultRedditSort: RedditSort = {
 	label: "Hot",
@@ -39,13 +38,6 @@ export default function Home() {
 }
 
 function Header(props: { subtitle: string }) {
-	function getSortLinkCss(active: boolean) {
-		return [
-			tw`px-3 py-2 leading-none hover:bg-gray-600`,
-			active && tw`bg-gray-600`,
-		]
-	}
-
 	return (
 		<header
 			tw="sticky top-0 z-10 flex items-center p-3 space-x-3 bg-gray-800 shadow-md bg-opacity-80"
