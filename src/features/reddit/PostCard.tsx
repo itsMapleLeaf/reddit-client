@@ -8,7 +8,7 @@ import { isTruthy } from "helpers/boolean"
 import { unescape } from "html-escaper"
 import Link from "next/link"
 import "twin.macro"
-import { Post } from "./types"
+import type { Post } from "./types"
 
 dayjs.extend(relativeTime)
 

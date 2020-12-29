@@ -1,7 +1,7 @@
 import { cache } from "@emotion/css"
 import { CacheProvider, Global } from "@emotion/react"
 import "focus-visible"
-import { AppProps } from "next/app"
+import type { AppProps } from "next/app"
 import Head from "next/head"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"

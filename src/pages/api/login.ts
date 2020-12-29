@@ -1,6 +1,6 @@
 import { fetchAccessToken } from "features/reddit/helpers"
 import { setSession } from "features/session/helpers"
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 import * as z from "zod"
 
 const loginBodySchema = z.object({

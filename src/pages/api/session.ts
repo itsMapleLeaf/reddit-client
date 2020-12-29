@@ -1,6 +1,6 @@
 import { fetchRefreshedTokens } from "features/reddit/helpers"
 import { getSession, setSession } from "features/session/helpers"
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async function session(
 	req: NextApiRequest,

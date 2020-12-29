@@ -1,5 +1,5 @@
 import { clearSession } from "features/session/helpers"
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async function logout(
 	_req: NextApiRequest,

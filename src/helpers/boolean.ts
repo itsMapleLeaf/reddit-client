@@ -1,4 +1,4 @@
-import { Falsy } from "utility-types"
+import type { Falsy } from "utility-types"
 
 export const toggle = (bool: boolean) => !bool
 

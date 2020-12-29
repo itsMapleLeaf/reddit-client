@@ -2,7 +2,7 @@ import { encodeUriParams, UriParamsObject } from "helpers/uri"
 import { QueryKey, useInfiniteQuery, useQuery } from "react-query"
 import { useSessionQuery } from "../session/queries"
 import { getRedditAppUserAgent } from "./helpers"
-import { ListingResponse } from "./types"
+import type { ListingResponse } from "./types"
 
 async function redditFetch<T>(
 	endpoint: string,
