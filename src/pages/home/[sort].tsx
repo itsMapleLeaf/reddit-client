@@ -5,6 +5,7 @@ import RedditSortMenu, { RedditSort } from "features/reddit/RedditSortMenu"
 import DrawerDialog from "features/ui/DrawerDialog"
 import Icon from "features/ui/Icon"
 import { menuIcon } from "features/ui/icons"
+import StickyContainer from "features/ui/StickyContainer"
 import { useRouter } from "next/router"
 import "twin.macro"
 
@@ -31,10 +32,16 @@ export default function Home() {
 		<div tw="space-y-4">
 			<Header subtitle={redditSort.label} />
 			<div tw="flex items-start max-w-screen-lg mx-auto md:px-4">
-				<div tw="hidden w-64 p-3 mr-4 bg-gray-800 rounded-md shadow lg:block">
-					<MainNavigation />
+				<div tw="hidden w-64 mr-4 lg:block">
+					<StickyContainer>
+						<div tw="p-3 mb-4 bg-gray-800 rounded-md shadow">
+							<MainNavigation />
+						</div>
+					</StickyContainer>
 				</div>
-				<PostList endpoint={redditSort.endpoint} />
+				<div tw="flex-1">
+					<PostList endpoint={redditSort.endpoint} />
+				</div>
 			</div>
 		</div>
 	)

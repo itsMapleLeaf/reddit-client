@@ -15,6 +15,7 @@ dependencies:
   react-query: 3.5.5_react-dom@17.0.1+react@17.0.1
   reakit: 1.3.2_react-dom@17.0.1+react@17.0.1
   use-memo-value: 1.0.1_react@17.0.1
+  use-resize-observer: 7.0.0_react-dom@17.0.1+react@17.0.1
   utility-types: 3.10.0
   zod: 1.11.11
 devDependencies:
@@ -4518,6 +4519,10 @@ packages:
       node: '>=0.10'
     resolution:
       integrity: sha1-jcrkcOHIirwtYA//Sndihtp15jc=
+  /resize-observer-polyfill/1.5.1:
+    dev: false
+    resolution:
+      integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
   /resolve-from/4.0.0:
     engines:
       node: '>=4'
@@ -5579,6 +5584,17 @@ packages:
       react: ^16.8.0
     resolution:
       integrity: sha512-1DqRcvh5XguuuO8QXw9KeAp7MDUKrLPrCv3+GawjFqxjwRJN9FjzayW0Z3RBvWi826l5mim8ov+kCFSTs70svg==
+  /use-resize-observer/7.0.0_react-dom@17.0.1+react@17.0.1:
+    dependencies:
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
+      resize-observer-polyfill: 1.5.1
+    dev: false
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    resolution:
+      integrity: sha512-+RjrQsk/mL8aKy4TGBDiPkUv6whyeoGDMIZYk0gOGHOlnrsjImC+jG6lfAFcBCKAG9epGRL419adhDNdkDCQkA==
   /use-sidecar/1.0.3_react@17.0.1:
     dependencies:
       detect-node-es: 1.0.0
@@ -5824,5 +5840,6 @@ specifiers:
   twin.macro: ^2.0.7
   typescript: ~4.1.3
   use-memo-value: ^1.0.1
+  use-resize-observer: ^7.0.0
   utility-types: ^3.10.0
   zod: ^1.11.11
