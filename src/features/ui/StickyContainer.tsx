@@ -1,15 +1,14 @@
-import { useWindowEvent } from "features/dom/useDomEvent"
 import type { ChildrenProps } from "helpers/types"
 import { useRef } from "react"
-import useResizeObserver from "use-resize-observer"
+import { useEvent, useMeasure } from "react-use"
 
 export default function StickyContainer({ children }: ChildrenProps) {
 	const innerRef = useRef<HTMLDivElement>(null)
-	const outerRect = useResizeObserver()
+	const [outerRef, outerRect] = useMeasure<HTMLDivElement>()
 	const scroll = useRef(typeof window !== "undefined" ? window.scrollY : 0)
 	const offset = useRef(0)
 
-	useWindowEvent("scroll", () => {
+	useEvent("scroll", () => {
 		const delta = window.scrollY - scroll.current
 		scroll.current = window.scrollY
 
@@ -38,7 +37,7 @@ export default function StickyContainer({ children }: ChildrenProps) {
 	})
 
 	return (
-		<div tw="w-full" ref={outerRect.ref}>
+		<div tw="w-full" ref={outerRef}>
 			<div
 				ref={innerRef}
 				style={{ position: "fixed", width: outerRect?.width }}

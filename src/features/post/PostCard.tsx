@@ -8,11 +8,11 @@ import { isTruthy } from "helpers/boolean"
 import { unescape } from "html-escaper"
 import Link from "next/link"
 import "twin.macro"
-import type { Post } from "./types"
+import type { PostData } from "./types"
 
 dayjs.extend(relativeTime)
 
-export default function PostCard({ data }: Pick<Post, "data">) {
+export default function PostCard({ data }: { data: PostData }) {
 	const createdDate = dayjs(new Date(data.created_utc * 1000))
 
 	return (
@@ -88,7 +88,7 @@ export default function PostCard({ data }: Pick<Post, "data">) {
 	)
 }
 
-function getPostGalleryUrls(data: Post["data"]): string[] {
+function getPostGalleryUrls(data: PostData): string[] {
 	const items: { media_id: string }[] = data.gallery_data.items
 	return items
 		.map(

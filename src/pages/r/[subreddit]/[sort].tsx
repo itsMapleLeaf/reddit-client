@@ -1,11 +1,8 @@
-import PostCard from "features/reddit/PostCard"
-import { useRedditListingQuery } from "features/reddit/queries"
+import PostList from "features/post/PostList"
 import type { RedditSort } from "features/reddit/RedditSortMenu"
 import RedditSortMenu from "features/reddit/RedditSortMenu"
-import type { Post } from "features/reddit/types"
 import Icon from "features/ui/Icon"
 import { menuIcon } from "features/ui/icons"
-import InfiniteScrollCursor from "features/ui/InfiniteScrollCursor"
 import { useRouter } from "next/router"
 import type { ReactNode } from "react"
 import "twin.macro"
@@ -72,43 +69,5 @@ function Header(props: { title: string; subtitle: string; right: ReactNode }) {
 			</div>
 			{props.right}
 		</header>
-	)
-}
-
-function PostList({ endpoint }: { endpoint: string }) {
-	const query = useRedditListingQuery<Post>({ endpoint })
-
-	return (
-		<main tw="grid max-w-screen-md gap-4 mx-auto">
-			{query.data != null && (
-				<ul tw="grid gap-4">
-					{query.data.pages
-						.flatMap((page) => page.data.children)
-						.map((post) => (
-							<li key={post.data.id}>
-								<PostCard {...post} />
-							</li>
-						))}
-				</ul>
-			)}
-
-			{query.error && (
-				<p>
-					{query.error instanceof Error
-						? query.error.message
-						: String(query.error)}
-				</p>
-			)}
-
-			{query.isFetching && <p>Loading...</p>}
-
-			{typeof window !== "undefined" && (
-				<InfiniteScrollCursor
-					onEndReached={() => {
-						if (query.isFetched) query.fetchNextPage()
-					}}
-				/>
-			)}
-		</main>
 	)
 }

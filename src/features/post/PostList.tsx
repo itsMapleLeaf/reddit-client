@@ -1,11 +1,11 @@
-import PostCard from "features/reddit/PostCard"
+import PostCard from "features/post/PostCard"
+import type { PostData } from "features/post/types"
 import { useRedditListingQuery } from "features/reddit/queries"
-import type { Post } from "features/reddit/types"
 import InfiniteScrollCursor from "features/ui/InfiniteScrollCursor"
 import "twin.macro"
 
 export default function PostList({ endpoint }: { endpoint: string }) {
-	const query = useRedditListingQuery<Post>({ endpoint })
+	const query = useRedditListingQuery<PostData>({ endpoint })
 
 	return (
 		<main tw="grid gap-4 mx-auto">

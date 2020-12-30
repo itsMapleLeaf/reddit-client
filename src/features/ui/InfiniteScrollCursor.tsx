@@ -1,19 +1,23 @@
-import { useIntersectionObserver } from "features/dom/useIntersectionObserver"
-import { useWindowSize } from "features/dom/useWindowSize"
+import { useEffectRef } from "features/react/useEffectRef"
+import { useEffect, useRef } from "react"
+import { useIntersection, useWindowSize } from "react-use"
 import "twin.macro"
 
 function InfiniteScrollCursor(props: { onEndReached?: () => void }) {
-	const ref = useIntersectionObserver(([entry]) => {
-		if (entry?.isIntersecting) props.onEndReached?.()
-	})
+	const ref = useRef<HTMLDivElement>(null)
+	const entry = useIntersection(ref, {})
+	const propsRef = useEffectRef(props)
+	const { height } = useWindowSize()
 
-	const windowSize = useWindowSize()
+	useEffect(() => {
+		if (entry?.isIntersecting) propsRef.current.onEndReached?.()
+	}, [entry?.isIntersecting, propsRef])
 
 	return (
 		<div tw="relative">
 			<div
 				tw="absolute bottom-0 left-0 w-px"
-				style={{ height: windowSize.height * 2 }}
+				style={{ height: height * 2 }}
 				ref={ref}
 			/>
 		</div>
