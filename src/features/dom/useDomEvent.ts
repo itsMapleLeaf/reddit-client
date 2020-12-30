@@ -1,30 +1,44 @@
 import { useEffect } from "react"
 
-export function useDomEvent<E extends keyof WindowEventMap>(
-	target: Window | undefined,
-	event: E,
-	callback: (event: WindowEventMap[E]) => void,
-): void
+type EventTargetLike<E extends Event> = {
+	addEventListener(
+		event: string,
+		handler: (event: E) => void,
+		options?: AddEventListenerOptions,
+	): void
 
-export function useDomEvent<E extends keyof DocumentEventMap>(
-	target: Document | undefined,
-	event: E,
-	callback: (event: DocumentEventMap[E]) => void,
-): void
+	removeEventListener(
+		event: string,
+		handler: (event: E) => void,
+		options?: EventListenerOptions,
+	): void
+}
 
-export function useDomEvent<E extends keyof HTMLElementEventMap>(
-	target: HTMLElement | undefined,
-	event: E,
-	callback: (event: HTMLElementEventMap[E]) => void,
-): void
-
-export function useDomEvent(
-	target: EventTarget | undefined,
+export function useDomEvent<E extends Event>(
+	target: EventTargetLike<E> | undefined,
 	event: string,
-	callback: (event: Event) => void,
+	callback: (event: E) => void,
+	options?: AddEventListenerOptions,
 ) {
 	useEffect(() => {
-		target?.addEventListener(event, callback)
-		return () => target?.removeEventListener(event, callback)
+		target?.addEventListener(event, callback, options)
+		return () => {
+			target?.removeEventListener(event, callback, {
+				capture: options?.capture,
+			})
+		}
 	})
+}
+
+export function useWindowEvent<E extends keyof WindowEventMap>(
+	event: E,
+	callback: (event: WindowEventMap[E]) => void,
+	options?: AddEventListenerOptions,
+) {
+	useDomEvent(
+		typeof window !== "undefined" ? window : undefined,
+		event,
+		callback,
+		options,
+	)
 }

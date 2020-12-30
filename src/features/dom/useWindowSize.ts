@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState } from "react"
-import { useDomEvent } from "./useDomEvent"
+import { useWindowEvent } from "./useDomEvent"
 
 export function useWindowSize() {
 	const [width, setWidth] = useState(0)
@@ -11,7 +11,7 @@ export function useWindowSize() {
 	}
 
 	useLayoutEffect(updateSize, [])
-	useDomEvent(window, "resize", updateSize)
+	useWindowEvent("resize", updateSize)
 
 	return { width, height }
 }
