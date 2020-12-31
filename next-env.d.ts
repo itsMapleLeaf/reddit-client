@@ -5,7 +5,6 @@
 import { css as cssImport } from "@emotion/react"
 import styledImport from "@emotion/styled"
 import "react"
-import "twin.macro"
 
 declare module "twin.macro" {
 	// The styled and css imports

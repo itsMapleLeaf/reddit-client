@@ -27,7 +27,7 @@ export default function AuthButton() {
 	}
 
 	return (
-		<button type="button" css={buttonSolid} onClick={() => logout()}>
+		<button type="button" className={buttonSolid} onClick={() => logout()}>
 			Log out
 		</button>
 	)

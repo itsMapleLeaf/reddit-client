@@ -1,8 +1,11 @@
-import { css } from "@emotion/react"
+import { tw } from "twind"
+import { css } from "twind/css"
 
-export const activePress = css({
-	":active": {
-		transform: "translateY(1px)",
-		transition: "none",
-	},
-})
+export const activePress = tw(
+	css({
+		":active": {
+			transform: "translateY(1px)",
+			transition: "none",
+		},
+	}),
+)

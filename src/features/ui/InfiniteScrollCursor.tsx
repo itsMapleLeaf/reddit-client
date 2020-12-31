@@ -1,7 +1,7 @@
 import { useEffectRef } from "features/react/useEffectRef"
 import { useEffect, useRef } from "react"
 import { useIntersection, useWindowSize } from "react-use"
-import "twin.macro"
+import { tw } from "twind"
 
 function InfiniteScrollCursor(props: { onEndReached?: () => void }) {
 	const ref = useRef<HTMLDivElement>(null)
@@ -14,9 +14,9 @@ function InfiniteScrollCursor(props: { onEndReached?: () => void }) {
 	}, [entry?.isIntersecting, propsRef])
 
 	return (
-		<div tw="relative">
+		<div className={tw`relative`}>
 			<div
-				tw="absolute bottom-0 left-0 w-px"
+				className={tw`absolute bottom-0 left-0 w-px`}
 				style={{ height: height * 2 }}
 				ref={ref}
 			/>

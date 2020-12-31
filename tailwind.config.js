@@ -1,5 +1,6 @@
 const colors = require("tailwindcss/colors")
 
+/** @type {import('twind').Configuration} */
 module.exports = {
 	purge: ["./src/**/*.{ts,tsx}"],
 	darkMode: false, // or 'media' or 'class'
