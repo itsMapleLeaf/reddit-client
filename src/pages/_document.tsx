@@ -1,12 +1,7 @@
+import { sheet } from "features/tw"
 import Document, { DocumentContext } from "next/document"
 import * as React from "react"
-import { setup } from "twind"
-import { asyncVirtualSheet, getStyleTagProperties } from "twind/server"
-import tailwindConfig from "../../tailwind.config"
-
-const sheet = asyncVirtualSheet()
-
-setup({ ...tailwindConfig, sheet })
+import { getStyleTagProperties } from "twind/server"
 
 export default class MyDocument extends Document {
 	static async getInitialProps(ctx: DocumentContext) {
