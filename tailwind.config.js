@@ -1,3 +1,4 @@
+// @ts-check
 const colors = require("tailwindcss/colors")
 
 /** @type {import('twind').Configuration} */
@@ -27,4 +28,15 @@ module.exports = {
 		extend: {},
 	},
 	plugins: [],
+	preflight: (preflight, { theme }) => ({
+		...preflight,
+		":root": {
+			backgroundColor: theme("colors.gray.900"),
+			color: theme("colors.gray.100"),
+			overflowWrap: "break-word",
+		},
+		"[data-js-focus-visible] :focus:not([data-focus-visible-added])": {
+			outline: "none",
+		},
+	}),
 }
