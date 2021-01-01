@@ -1,4 +1,3 @@
-import { tw } from "features/tw"
 import "focus-visible"
 import type { AppProps } from "next/app"
 import Head from "next/head"
@@ -6,7 +5,13 @@ import { useEffect } from "react"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { Provider as ReakitProvider } from "reakit/Provider"
+import { setup, tw } from "twind"
+import tailwindConfig from "../../tailwind.config"
 import "../focus-visible.css"
+
+if (typeof window !== undefined) {
+	setup(tailwindConfig)
+}
 
 const queryClient = new QueryClient({
 	defaultOptions: {
