@@ -31,13 +31,11 @@ export default function PostList({ endpoint }: { endpoint: string }) {
 
 			{query.isFetching && <p>Loading...</p>}
 
-			{typeof window !== "undefined" && (
-				<InfiniteScrollCursor
-					onEndReached={() => {
-						if (query.isFetched) query.fetchNextPage()
-					}}
-				/>
-			)}
+			<InfiniteScrollCursor
+				onEndReached={() => {
+					if (query.isFetched) query.fetchNextPage()
+				}}
+			/>
 		</main>
 	)
 }
