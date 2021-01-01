@@ -9,7 +9,7 @@ import { setup, tw } from "twind"
 import tailwindConfig from "../../tailwind.config"
 import "../focus-visible.css"
 
-if (typeof window !== undefined) {
+if (typeof window !== "undefined") {
 	setup(tailwindConfig)
 }
 
