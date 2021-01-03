@@ -21,6 +21,5 @@
 		"baseUrl": "./src",
 		"importsNotUsedAsValues": "error"
 	},
-	"include": ["next-env.d.ts", "src"],
-	"exclude": []
+	"include": ["next-env.d.ts", "src"]
 }
