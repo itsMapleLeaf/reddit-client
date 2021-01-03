@@ -1,7 +1,7 @@
 import { useEffectRef } from "features/react/useEffectRef"
 import { useEffect, useRef } from "react"
 import { useIntersection, useWindowSize } from "react-use"
-import { tw } from "twind"
+import "twind.macro"
 
 export default function InfiniteScrollCursor(props: {
 	onEndReached?: () => void
@@ -16,9 +16,9 @@ export default function InfiniteScrollCursor(props: {
 	}, [entry?.isIntersecting, propsRef])
 
 	return (
-		<div className={tw`relative`}>
+		<div tw="relative">
 			<div
-				className={tw`absolute bottom-0 left-0 w-px`}
+				tw="absolute bottom-0 left-0 w-px"
 				style={{ height: height * 2 }}
 				ref={ref}
 				// the height will differ between client and server, so suppress the warning

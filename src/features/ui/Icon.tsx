@@ -1,5 +1,5 @@
 import type { SVGProps } from "react"
-import { tw } from "twind"
+import "twind.macro"
 
 type IconProps = SVGProps<SVGSVGElement> & {
 	/** Use an export from ./icons.ts */
@@ -11,12 +11,7 @@ type IconProps = SVGProps<SVGSVGElement> & {
  */
 export default function Icon({ name, ...props }: IconProps) {
 	return (
-		<svg
-			viewBox="0 0 24 24"
-			fill="currentColor"
-			className={tw`w-6 h-auto`}
-			{...props}
-		>
+		<svg viewBox="0 0 24 24" fill="currentColor" tw="w-6 h-auto" {...props}>
 			<path d={name} />
 		</svg>
 	)
