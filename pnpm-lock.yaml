@@ -32,7 +32,7 @@ devDependencies:
   eslint-plugin-react: 7.22.0_eslint@7.17.0
   eslint-plugin-react-hooks: 4.2.0_eslint@7.17.0
   prettier: 2.2.1
-  twind.macro: github.com/itsMapleLeaf/twind.macro/e1085deb108dc9e4aa9361b4e2e14cd5f55f4f35_twind@0.11.0
+  twind.macro: github.com/itsMapleLeaf/twind.macro/59e111445f538eedbc781cba7957497479bef1fd_twind@0.11.0
   typescript: 4.1.3
 lockfileVersion: 5.2
 packages:
@@ -5918,21 +5918,21 @@ packages:
     dev: false
     resolution:
       integrity: sha512-q1YeBpu+c7eUX5fDFMyfP97sD74TUQ+UN8va/nvbxnArr5euYsNO6fjiY0SdDkHKNZ+xBR2ZQToaeLgJ6fsB2A==
-  github.com/itsMapleLeaf/twind.macro/e1085deb108dc9e4aa9361b4e2e14cd5f55f4f35_twind@0.11.0:
+  github.com/itsMapleLeaf/twind.macro/59e111445f538eedbc781cba7957497479bef1fd_twind@0.11.0:
     dependencies:
       '@types/babel-plugin-macros': 2.8.4
       babel-plugin-macros: 3.0.1
       twind: 0.11.0_typescript@4.1.3
     dev: true
-    id: github.com/itsMapleLeaf/twind.macro/e1085deb108dc9e4aa9361b4e2e14cd5f55f4f35
+    id: github.com/itsMapleLeaf/twind.macro/59e111445f538eedbc781cba7957497479bef1fd
     name: twind.macro
     optionalDependencies:
       '@types/react': 17.0.0
     peerDependencies:
       twind: '*'
     resolution:
-      tarball: 'https://codeload.github.com/itsMapleLeaf/twind.macro/tar.gz/e1085deb108dc9e4aa9361b4e2e14cd5f55f4f35'
-    version: 1.0.0
+      tarball: 'https://codeload.github.com/itsMapleLeaf/twind.macro/tar.gz/59e111445f538eedbc781cba7957497479bef1fd'
+    version: 1.1.0
 specifiers:
   '@mdi/js': ^5.8.55
   '@next/bundle-analyzer': ^10.0.4
