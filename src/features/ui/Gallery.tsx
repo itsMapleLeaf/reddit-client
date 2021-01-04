@@ -1,7 +1,6 @@
 import { decrement, increment, mod } from "helpers/number"
 import { ReactNode, useState } from "react"
-import { tw } from "twind"
-import "twind.macro"
+import { tw } from "twind.macro"
 import Icon from "./Icon"
 import { chevronLeftIcon, chevronRightIcon } from "./icons"
 
