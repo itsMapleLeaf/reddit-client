@@ -7,7 +7,7 @@ import { downArrowIcon, upArrowIcon } from "features/ui/icons"
 import { isTruthy } from "helpers/boolean"
 import { unescape } from "html-escaper"
 import Link from "next/link"
-import { tw } from "twind"
+import "twind.macro"
 import type { PostData } from "./types"
 
 dayjs.extend(relativeTime)
@@ -16,39 +16,34 @@ export default function PostCard({ data }: { data: PostData }) {
 	const createdDate = dayjs(new Date(data.created_utc * 1000))
 
 	return (
-		<article className={tw`overflow-hidden bg-gray-800 shadow md:rounded-md`}>
-			<div className={tw`p-3 space-y-1`}>
-				<div className={tw`text-xs leading-snug text-gray-400`}>
+		<article tw="overflow-hidden bg-gray-800 shadow md:rounded-md">
+			<div tw="p-3 space-y-1">
+				<div tw="text-xs leading-snug text-gray-400">
 					<Link href={`/r/${data.subreddit}`} passHref>
-						<a className={tw`text-sm leading-none hover:underline`}>
-							/r/<span className={tw`text-gray-100`}>{data.subreddit}</span>
+						<a tw="text-sm leading-none hover:underline">
+							/r/<span tw="text-gray-100">{data.subreddit}</span>
 						</a>
 					</Link>
 					{" • "}
 					<Link href={`/u/${data.author}`} passHref>
-						<a className={tw`inline-block hover:underline`}>
-							posted by /u/{data.author}
-						</a>
+						<a tw="inline-block hover:underline">posted by /u/{data.author}</a>
 					</Link>{" "}
-					<time
-						className={tw`inline-block`}
-						dateTime={createdDate.toISOString()}
-					>
+					<time tw="inline-block" dateTime={createdDate.toISOString()}>
 						<Link href={`/p/${data.id}`} passHref>
-							<a className={tw`hover:underline`}>{createdDate.fromNow()}</a>
+							<a tw="hover:underline">{createdDate.fromNow()}</a>
 						</Link>
 					</time>
 				</div>
 
-				<h1 className={tw`text-2xl font-light font-condensed`}>{data.title}</h1>
+				<h1 tw="text-2xl font-light font-condensed">{data.title}</h1>
 			</div>
 
-			<div className={tw`bg-black bg-opacity-40`}>
+			<div tw="bg-black bg-opacity-40">
 				{data.post_hint === "image" && (
 					<img
 						src={data.url}
 						role="presentation"
-						className={tw`object-contain w-full`}
+						tw="object-contain w-full"
 						style={{ maxHeight: "75vh" }}
 					/>
 				)}
@@ -61,7 +56,7 @@ export default function PostCard({ data }: { data: PostData }) {
 								<img
 									src={url}
 									role="presentation"
-									className={tw`object-contain w-full h-full`}
+									tw="object-contain w-full h-full"
 								/>
 							)}
 						/>
@@ -71,7 +66,7 @@ export default function PostCard({ data }: { data: PostData }) {
 				{data.secure_media?.reddit_video && (
 					<video
 						controls
-						className={tw`object-contain w-full`}
+						tw="object-contain w-full"
 						style={{ maxHeight: "calc(100vh - 8rem)" }}
 					>
 						<source src={data.secure_media.reddit_video.hls_url} />
@@ -83,13 +78,13 @@ export default function PostCard({ data }: { data: PostData }) {
 			<div
 				// slight visual bug here,
 				// specificity issue is causing the bg opacity not to apply
-				className={tw`grid grid-flow-col gap-2 p-2 bg-black bg-opacity-25 auto-cols-min`}
+				tw="grid grid-flow-col gap-2 p-2 bg-black bg-opacity-25 auto-cols-min"
 			>
-				<button type="button" className={tw`transition hover:text-blue-500`}>
+				<button type="button" tw="transition hover:text-blue-500">
 					<Icon name={upArrowIcon} />
 				</button>
 				<span>{data.ups}</span>
-				<button type="button" className={tw`transition hover:text-yellow-500`}>
+				<button type="button" tw="transition hover:text-yellow-500">
 					<Icon name={downArrowIcon} />
 				</button>
 			</div>

@@ -1,7 +1,7 @@
 import type { ChildrenProps } from "helpers/types"
 import { useRef } from "react"
 import { useEvent, useMeasure } from "react-use"
-import { tw } from "twind"
+import "twind.macro"
 
 export default function StickyContainer({ children }: ChildrenProps) {
 	const innerRef = useRef<HTMLDivElement>(null)
@@ -38,7 +38,7 @@ export default function StickyContainer({ children }: ChildrenProps) {
 	})
 
 	return (
-		<div className={tw`w-full`} ref={outerRef}>
+		<div tw="w-full" ref={outerRef}>
 			<div
 				ref={innerRef}
 				style={{ position: "fixed", width: outerRect?.width }}

@@ -2,7 +2,7 @@ import Icon from "features/ui/Icon"
 import { filterIcon } from "features/ui/icons"
 import Link from "next/link"
 import { Menu, MenuButton, MenuItem, useMenuState } from "reakit"
-import { tw } from "twind"
+import { tw } from "twind.macro"
 
 export type RedditSort = {
 	label: string
@@ -27,10 +27,10 @@ export default function RedditSortMenu(props: {
 
 	return (
 		<>
-			<MenuButton {...menu} title="Sort by..." className={tw`block p-2 -m-2`}>
-				<Icon name={filterIcon} className={tw`w-5`} />
+			<MenuButton {...menu} title="Sort by..." tw="block p-2 -m-2">
+				<Icon name={filterIcon} tw="w-5" />
 			</MenuButton>
-			<Menu {...menu} className={tw`grid bg-gray-700 shadow w-max`}>
+			<Menu {...menu} tw="grid bg-gray-700 shadow w-max">
 				{Object.entries(props.sortMap).map(([key, sort]) => (
 					<Link key={key} href={sort.route} passHref>
 						<MenuItem

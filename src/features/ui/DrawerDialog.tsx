@@ -7,7 +7,7 @@ import {
 	DialogDisclosure,
 	useDialogState,
 } from "reakit"
-import { tw } from "twind"
+import { tw } from "twind.macro"
 import { css } from "twind/css"
 
 export default function DrawerDialog({

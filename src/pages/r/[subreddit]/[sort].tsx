@@ -5,7 +5,7 @@ import Icon from "features/ui/Icon"
 import { menuIcon } from "features/ui/icons"
 import { useRouter } from "next/router"
 import type { ReactNode } from "react"
-import { tw } from "twind"
+import "twind.macro"
 
 export default function Subreddit() {
 	const router = useRouter()
@@ -40,7 +40,7 @@ export default function Subreddit() {
 		redditSortMap[String(router.query.sort)] ?? defaultRedditSort
 
 	return (
-		<div className={tw`space-y-4`}>
+		<div tw="space-y-4">
 			<Header
 				title={`/r/${subreddit}`}
 				subtitle={redditSort.label}
@@ -54,22 +54,18 @@ export default function Subreddit() {
 function Header(props: { title: string; subtitle: string; right: ReactNode }) {
 	return (
 		<header
-			className={tw`sticky top-0 z-10 grid items-center gap-3 p-3 bg-gray-800 shadow bg-opacity-80`}
+			tw="sticky top-0 z-10 grid items-center gap-3 p-3 bg-gray-800 shadow bg-opacity-80"
 			style={{
 				backdropFilter: `blur(4px)`,
 				gridTemplateColumns: "auto 1fr auto",
 			}}
 		>
-			<button type="button" title="Menu" className={tw`block p-2 -m-2`}>
-				<Icon name={menuIcon} className={tw`w-6`} />
+			<button type="button" title="Menu" tw="block p-2 -m-2">
+				<Icon name={menuIcon} tw="w-6" />
 			</button>
-			<div className={tw`grid gap-1`}>
-				<h1 className={tw`text-lg leading-none font-condensed`}>
-					{props.title}
-				</h1>
-				<p className={tw`text-sm leading-none text-gray-400`}>
-					{props.subtitle}
-				</p>
+			<div tw="grid gap-1">
+				<h1 tw="text-lg leading-none font-condensed">{props.title}</h1>
+				<p tw="text-sm leading-none text-gray-400">{props.subtitle}</p>
 			</div>
 			{props.right}
 		</header>

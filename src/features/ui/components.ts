@@ -1,4 +1,4 @@
-import { tw } from "twind"
+import { tw } from "twind.macro"
 import { activePress } from "./utilities"
 
 export const buttonSolid = tw([
