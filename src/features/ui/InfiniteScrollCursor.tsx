@@ -1,7 +1,7 @@
+import "@twind/macro"
 import { useEffectRef } from "features/react/useEffectRef"
 import { useEffect, useRef } from "react"
 import { useIntersection, useWindowSize } from "react-use"
-import "twind.macro"
 
 export default function InfiniteScrollCursor(props: {
 	onEndReached?: () => void

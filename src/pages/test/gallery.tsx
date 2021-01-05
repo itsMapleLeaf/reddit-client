@@ -1,6 +1,6 @@
+import "@twind/macro"
 import AspectRatio from "features/ui/AspectRatio"
 import Gallery from "features/ui/Gallery"
-import "twind.macro"
 
 export default function GalleryTest() {
 	return (

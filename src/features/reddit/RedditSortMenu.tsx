@@ -1,8 +1,8 @@
+import { tw } from "@twind/macro"
 import Icon from "features/ui/Icon"
 import { filterIcon } from "features/ui/icons"
 import Link from "next/link"
 import { Menu, MenuButton, MenuItem, useMenuState } from "reakit"
-import { tw } from "twind.macro"
 
 export type RedditSort = {
 	label: string

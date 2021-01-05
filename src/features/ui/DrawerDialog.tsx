@@ -1,3 +1,4 @@
+import { tw } from "@twind/macro"
 import Portal from "features/ui/Portal"
 import { cloneElement, ReactElement, ReactNode } from "react"
 import FocusLock from "react-focus-lock"
@@ -7,7 +8,6 @@ import {
 	DialogDisclosure,
 	useDialogState,
 } from "reakit"
-import { tw } from "twind.macro"
 import { css } from "twind/css"
 
 export default function DrawerDialog({

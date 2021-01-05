@@ -1,3 +1,4 @@
+import "@twind/macro"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
 import AspectRatio from "features/ui/AspectRatio"
@@ -7,7 +8,6 @@ import { downArrowIcon, upArrowIcon } from "features/ui/icons"
 import { isTruthy } from "helpers/boolean"
 import { unescape } from "html-escaper"
 import Link from "next/link"
-import "twind.macro"
 import type { PostData } from "./types"
 
 dayjs.extend(relativeTime)

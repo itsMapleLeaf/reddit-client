@@ -1,7 +1,7 @@
+import "@twind/macro"
 import type { ChildrenProps } from "helpers/types"
 import { useRef } from "react"
 import { useEvent, useMeasure } from "react-use"
-import "twind.macro"
 
 export default function StickyContainer({ children }: ChildrenProps) {
 	const innerRef = useRef<HTMLDivElement>(null)

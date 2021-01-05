@@ -1,8 +1,8 @@
+import "@twind/macro"
 import PostCard from "features/post/PostCard"
 import type { PostData } from "features/post/types"
 import { useRedditListingQuery } from "features/reddit/queries"
 import InfiniteScrollCursor from "features/ui/InfiniteScrollCursor"
-import "twind.macro"
 
 export default function PostList({ endpoint }: { endpoint: string }) {
 	const query = useRedditListingQuery<PostData>({ endpoint })
