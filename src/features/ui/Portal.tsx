@@ -1,4 +1,4 @@
-import type { ChildrenProps } from "helpers/types"
+import type { ChildrenProps } from "helpers/react"
 import { useEffect, useState } from "react"
 import ReactDOM from "react-dom"
 

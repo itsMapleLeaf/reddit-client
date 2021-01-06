@@ -1,5 +1,5 @@
 import "@twind/macro"
-import type { ChildrenProps } from "helpers/types"
+import type { ChildrenProps } from "helpers/react"
 import { useRef } from "react"
 import { useEvent, useMeasure } from "react-use"
 
