@@ -1,8 +1,8 @@
+import "@twind/macro"
 import PostCard from "features/post/PostCard"
 import type { PostData } from "features/post/types"
 import { useRedditListingQuery } from "features/reddit/queries"
 import InfiniteScrollCursor from "features/ui/InfiniteScrollCursor"
-import "twin.macro"
 
 export default function PostList({ endpoint }: { endpoint: string }) {
 	const query = useRedditListingQuery<PostData>({ endpoint })
@@ -31,13 +31,11 @@ export default function PostList({ endpoint }: { endpoint: string }) {
 
 			{query.isFetching && <p>Loading...</p>}
 
-			{typeof window !== "undefined" && (
-				<InfiniteScrollCursor
-					onEndReached={() => {
-						if (query.isFetched) query.fetchNextPage()
-					}}
-				/>
-			)}
+			<InfiniteScrollCursor
+				onEndReached={() => {
+					if (query.isFetched) query.fetchNextPage()
+				}}
+			/>
 		</main>
 	)
 }

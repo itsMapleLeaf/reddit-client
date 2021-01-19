@@ -1,5 +1,5 @@
+import "@twind/macro"
 import type { ReactNode } from "react"
-import "twin.macro"
 
 export default function AspectRatio(props: {
 	ratio: number

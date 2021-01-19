@@ -1,5 +1,5 @@
+import "@twind/macro"
 import type { SVGProps } from "react"
-import "twin.macro"
 
 type IconProps = SVGProps<SVGSVGElement> & {
 	/** Use an export from ./icons.ts */

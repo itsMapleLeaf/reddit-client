@@ -1,3 +1,4 @@
+import "@twind/macro"
 import PostList from "features/post/PostList"
 import type { RedditSort } from "features/reddit/RedditSortMenu"
 import RedditSortMenu from "features/reddit/RedditSortMenu"
@@ -5,7 +6,6 @@ import Icon from "features/ui/Icon"
 import { menuIcon } from "features/ui/icons"
 import { useRouter } from "next/router"
 import type { ReactNode } from "react"
-import "twin.macro"
 
 export default function Subreddit() {
 	const router = useRouter()

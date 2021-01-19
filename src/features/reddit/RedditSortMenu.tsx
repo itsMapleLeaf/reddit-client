@@ -1,8 +1,8 @@
+import { tw } from "@twind/macro"
 import Icon from "features/ui/Icon"
 import { filterIcon } from "features/ui/icons"
 import Link from "next/link"
 import { Menu, MenuButton, MenuItem, useMenuState } from "reakit"
-import tw from "twin.macro"
 
 export type RedditSort = {
 	label: string
@@ -11,10 +11,10 @@ export type RedditSort = {
 }
 
 function getSortLinkCss(active: boolean) {
-	return [
+	return tw(
 		tw`px-3 py-2 leading-none hover:bg-gray-600`,
 		active && tw`bg-gray-600`,
-	]
+	)
 }
 
 export default function RedditSortMenu(props: {
@@ -37,7 +37,7 @@ export default function RedditSortMenu(props: {
 							{...menu}
 							as="a"
 							id={key}
-							css={getSortLinkCss(menu.currentId === key)}
+							className={getSortLinkCss(menu.currentId === key)}
 							onClick={() => menu.hide()}
 						>
 							{sort.label}

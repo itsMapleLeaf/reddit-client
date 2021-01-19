@@ -15,7 +15,7 @@ const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams
 
 export default function RedditLoginButton() {
 	return (
-		<a href={redditAuthUrl} css={buttonSolid}>
+		<a href={redditAuthUrl} className={buttonSolid}>
 			Login with reddit
 		</a>
 	)

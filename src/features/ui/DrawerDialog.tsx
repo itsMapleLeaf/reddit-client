@@ -1,3 +1,4 @@
+import { tw } from "@twind/macro"
 import Portal from "features/ui/Portal"
 import { cloneElement, ReactElement, ReactNode } from "react"
 import FocusLock from "react-focus-lock"
@@ -7,7 +8,7 @@ import {
 	DialogDisclosure,
 	useDialogState,
 } from "reakit"
-import tw from "twin.macro"
+import { css } from "twind/css"
 
 export default function DrawerDialog({
 	label,
@@ -29,15 +30,22 @@ export default function DrawerDialog({
 				<FocusLock returnFocus>
 					<DialogBackdrop
 						{...dialog}
-						tw="fixed inset-0 z-10 transition-opacity bg-black bg-opacity-50 opacity-0"
-						css={{ "&[data-enter]": tw`opacity-100` }}
+						className={tw(
+							`fixed inset-0 z-10 transition-opacity bg-black bg-opacity-50 opacity-0`,
+							css({ "&[data-enter]": { opacity: 100 } }),
+						)}
 					>
 						<Dialog
 							{...dialog}
 							aria-label={label}
 							tabIndex={0}
-							tw="fixed inset-y-0 left-0 w-64 min-h-full overflow-y-auto transition-transform transform -translate-x-full bg-gray-800 shadow"
-							css={{ "&[data-enter]": tw`translate-x-0` }}
+							className={tw(
+								`fixed inset-y-0 left-0 w-64 min-h-full overflow-y-auto transition-transform bg-gray-800 shadow`,
+								css({
+									"transform": `translateX(-100%)`,
+									"&[data-enter]": { transform: `translateX(0)` },
+								}),
+							)}
 						>
 							{children}
 						</Dialog>

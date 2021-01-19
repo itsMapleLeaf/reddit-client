@@ -1,3 +1,4 @@
+import "@twind/macro"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
 import AspectRatio from "features/ui/AspectRatio"
@@ -7,7 +8,6 @@ import { downArrowIcon, upArrowIcon } from "features/ui/icons"
 import { isTruthy } from "helpers/boolean"
 import { unescape } from "html-escaper"
 import Link from "next/link"
-import "twin.macro"
 import type { PostData } from "./types"
 
 dayjs.extend(relativeTime)
@@ -75,7 +75,11 @@ export default function PostCard({ data }: { data: PostData }) {
 				)}
 			</div>
 
-			<div tw="grid grid-flow-col gap-2 p-2 bg-black bg-opacity-25 auto-cols-min">
+			<div
+				// slight visual bug here,
+				// specificity issue is causing the bg opacity not to apply
+				tw="grid grid-flow-col gap-2 p-2 bg-black bg-opacity-25 auto-cols-min"
+			>
 				<button type="button" tw="transition hover:text-blue-500">
 					<Icon name={upArrowIcon} />
 				</button>

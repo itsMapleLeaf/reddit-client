@@ -1,3 +1,4 @@
+import "@twind/macro"
 import MainNavigation from "features/app/MainNavigation"
 import AuthButton from "features/auth/AuthButton"
 import PostList from "features/post/PostList"
@@ -7,7 +8,6 @@ import Icon from "features/ui/Icon"
 import { menuIcon } from "features/ui/icons"
 import StickyContainer from "features/ui/StickyContainer"
 import { useRouter } from "next/router"
-import "twin.macro"
 
 const defaultRedditSort: RedditSort = {
 	label: "Hot",
