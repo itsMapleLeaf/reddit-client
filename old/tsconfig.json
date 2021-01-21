@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"target": "es2020",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"jsxImportSource": "react",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noUncheckedIndexedAccess": true,
+		"maxNodeModuleJsDepth": 1,
+		"baseUrl": "./src",
+		"importsNotUsedAsValues": "error"
+	},
+	"include": ["next-env.d.ts", "src"],
+	"exclude": []
+}
