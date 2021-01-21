@@ -1,6 +1,11 @@
+import { useEffect } from "preact/hooks"
 import { Logo } from "./logo"
 
 export function App() {
+	useEffect(() => {
+		fetch("/session", { credentials: "include" })
+	}, [])
+
 	return (
 		<>
 			<Logo />

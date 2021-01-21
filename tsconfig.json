@@ -2,11 +2,9 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
-		"types": [],
 		"allowJs": false,
 		"skipLibCheck": false,
-		"esModuleInterop": false,
-		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
 		"module": "ESNext",

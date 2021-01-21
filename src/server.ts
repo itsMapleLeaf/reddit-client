@@ -1,9 +1,11 @@
+import "dotenv/config"
 import { readFile } from "fs/promises"
 import Koa from "koa"
 import koaConnect from "koa-connect"
 import koaStatic from "koa-static"
 import { join } from "path"
 import * as vite from "vite"
+import { routes } from "./api/routes"
 
 async function main() {
 	const app = new Koa()
@@ -18,8 +20,10 @@ async function main() {
 		}
 	})
 
+	app.use(routes.middleware())
+
 	if (process.env.NODE_ENV === "production") {
-		app.use(koaStatic(join(__dirname, "dist")))
+		app.use(koaStatic(join(__dirname, "../dist")))
 	} else {
 		const viteServer = await vite.createServer({
 			server: {
@@ -30,7 +34,7 @@ async function main() {
 		app.use(koaConnect(viteServer.middlewares))
 
 		app.use(async (ctx) => {
-			const content = await readFile(join(__dirname, "index.html"), "utf-8")
+			const content = await readFile(join(__dirname, "../index.html"), "utf-8")
 			const viteClientScript = `<script type="module" src="/@vite/client"></script>`
 			ctx.body = content.replace(`</head>`, `${viteClientScript}</head>`)
 		})
