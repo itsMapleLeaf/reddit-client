@@ -1,13 +1,25 @@
-import express from "express"
 import { readFile } from "fs/promises"
+import Koa from "koa"
+import koaConnect from "koa-connect"
+import koaStatic from "koa-static"
 import { join } from "path"
 import * as vite from "vite"
 
 async function main() {
-	const app = express()
+	const app = new Koa()
+
+	app.use(async (ctx, next) => {
+		try {
+			await next()
+		} catch (error) {
+			console.warn(error)
+			ctx.status = 500
+			ctx.body = { error: "An internal error occurred" }
+		}
+	})
 
 	if (process.env.NODE_ENV === "production") {
-		app.use("/", express.static(join(__dirname, "dist")))
+		app.use(koaStatic(join(__dirname, "dist")))
 	} else {
 		const viteServer = await vite.createServer({
 			server: {
@@ -15,15 +27,12 @@ async function main() {
 			},
 		})
 
-		app.use(viteServer.middlewares)
+		app.use(koaConnect(viteServer.middlewares))
 
-		app.use("*", async (req, res) => {
-			const indexContent = await readFile(
-				join(__dirname, "index.html"),
-				"utf-8",
-			)
+		app.use(async (ctx) => {
+			const content = await readFile(join(__dirname, "index.html"), "utf-8")
 			const viteClientScript = `<script type="module" src="/@vite/client"></script>`
-			res.send(indexContent.replace(`</head>`, `${viteClientScript}</head>`))
+			ctx.body = content.replace(`</head>`, `${viteClientScript}</head>`)
 		})
 	}
 
