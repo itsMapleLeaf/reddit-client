@@ -1,17 +1,5 @@
 node_modules
 .DS_Store
 dist
-build
+dist-ssr
 *.local
-.vscode
-.env
-/data/*
-!/data/.gitkeep
-*.code-workspace
-.next
-.yarn/*
-# !.yarn/cache
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
