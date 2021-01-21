@@ -7,7 +7,4 @@ export default defineConfig({
 		jsxFragment: "Fragment",
 	},
 	plugins: [preactRefresh()],
-	optimizeDeps: {
-		exclude: ["express"],
-	},
 })

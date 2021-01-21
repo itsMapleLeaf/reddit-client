@@ -1,26 +1,31 @@
 import express from "express"
+import { readFile } from "fs/promises"
 import { join } from "path"
-import vite from "vite"
+import * as vite from "vite"
 
 async function main() {
 	const app = express()
 
-	// create vite dev server in middleware mode
-	// so vite creates the hmr websocket server on its own.
-	// the ws server will be listening at port 24678 by default, and can be
-	// configured via server.hmr.port
-	const viteServer = await vite.createServer({
-		server: {
-			middlewareMode: true,
-		},
-	})
+	if (process.env.NODE_ENV === "production") {
+		app.use("/", express.static(join(__dirname, "dist")))
+	} else {
+		const viteServer = await vite.createServer({
+			server: {
+				middlewareMode: true,
+			},
+		})
 
-	// use vite's connect instance as middleware
-	app.use(viteServer.middlewares)
+		app.use(viteServer.middlewares)
 
-	app.use("*", (req, res) => {
-		res.sendFile(join(__dirname, "index.html"))
-	})
+		app.use("*", async (req, res) => {
+			const indexContent = await readFile(
+				join(__dirname, "index.html"),
+				"utf-8",
+			)
+			const viteClientScript = `<script type="module" src="/@vite/client"></script>`
+			res.send(indexContent.replace(`</head>`, `${viteClientScript}</head>`))
+		})
+	}
 
 	const port = 3000
 	app.listen(port, () => {
