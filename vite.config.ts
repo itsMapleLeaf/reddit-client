@@ -7,6 +7,18 @@ export default defineConfig({
 		jsxFactory: "h",
 		jsxFragment: "Fragment",
 	},
+	alias: {
+		"react": "preact/compat",
+		"react-dom": "preact/compat",
+	},
+	optimizeDeps: {
+		include: [
+			"preact",
+			"preact/compat",
+			"preact/hooks",
+			"react-query/devtools",
+		],
+	},
 	plugins: [preactRefresh()],
 	clearScreen: false,
 })

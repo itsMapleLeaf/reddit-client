@@ -1,7 +1,7 @@
 import { serialize } from "cookie"
-import { Context } from "koa"
+import type { Context } from "koa"
 import * as qs from "querystring"
-import { RedditAuthResponse } from "./reddit-auth"
+import type { RedditAuthResponse } from "./reddit-auth"
 
 let session
 type ApiSession = {

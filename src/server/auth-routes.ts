@@ -3,26 +3,26 @@ import * as z from "zod"
 import { fetchAccessToken, fetchRefreshedTokens } from "./reddit-auth"
 import { clearSession, getSession, setSession } from "./session"
 
-export const routes = new Router()
+export const authRoutes = new Router()
 
-routes.post("/login", async (ctx) => {
+authRoutes.post("/login", async (ctx) => {
 	const schema = z.object({
 		authCode: z.string(),
 	})
 
-	const body = schema.parse(ctx.body)
+	const body = schema.parse(ctx.request.body)
 
 	const redditAuth = await fetchAccessToken(body.authCode)
 	setSession(ctx, redditAuth)
 	ctx.body = { success: true }
 })
 
-routes.post("/logout", async (ctx) => {
+authRoutes.post("/logout", async (ctx) => {
 	clearSession(ctx)
 	ctx.body = { success: true }
 })
 
-routes.get("/session", async (ctx) => {
+authRoutes.get("/session", async (ctx) => {
 	let session = getSession(ctx)
 
 	if (!session) {

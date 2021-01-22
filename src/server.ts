@@ -1,11 +1,12 @@
 import "dotenv/config"
 import { readFile } from "fs/promises"
 import Koa from "koa"
+import koaBody from "koa-body"
 import koaConnect from "koa-connect"
 import koaStatic from "koa-static"
 import { join } from "path"
 import * as vite from "vite"
-import { routes } from "./api/routes"
+import { authRoutes } from "./server/auth-routes"
 
 async function main() {
 	const app = new Koa()
@@ -20,7 +21,8 @@ async function main() {
 		}
 	})
 
-	app.use(routes.middleware())
+	app.use(koaBody())
+	app.use(authRoutes.prefix("/api").middleware())
 
 	if (process.env.NODE_ENV === "production") {
 		app.use(koaStatic(join(__dirname, "../dist")))
