@@ -1,5 +1,5 @@
 import type { ComponentChildren, ComponentType } from "preact"
-import { useLayoutEffect, useState } from "preact/hooks"
+import { useEffect, useState } from "preact/hooks"
 import { useMatch } from "react-router-dom"
 import type { ParamsFromString } from "./route"
 
@@ -23,7 +23,7 @@ export function LazyRoute<Path extends string>({
 	const match = useMatch(path)
 	const hasMatch = match != null
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		if (hasMatch) {
 			let cancelled = false
 
@@ -46,7 +46,7 @@ export function LazyRoute<Path extends string>({
 				cancelled = true
 			}
 		}
-	}, [hasMatch, path, loader])
+	})
 
 	if (!match) {
 		return null
