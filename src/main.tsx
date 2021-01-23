@@ -1,10 +1,8 @@
 import { render } from "preact"
-import { useEffect } from "preact/hooks"
 import { QueryClient, QueryClientProvider } from "react-query"
 import devtools from "react-query/devtools"
-import { BrowserRouter, Link, Routes } from "react-router-dom"
-import { AuthRedirect } from "./auth-redirect"
-import { LazyRoute } from "./lazy-route"
+import { BrowserRouter, Routes } from "react-router-dom"
+import { LazyRoute as LazyRouteBase, LazyRouteProps } from "./lazy-route"
 import { Route } from "./route"
 
 const { ReactQueryDevtools } = devtools
@@ -18,26 +16,24 @@ const queryClient = new QueryClient({
 	},
 })
 
+function LazyRoute<Path extends string>(
+	props: Omit<LazyRouteProps<Path>, "placeholder">,
+) {
+	return <LazyRouteBase {...props} placeholder={() => <p>Loading...</p>} />
+}
+
 const root = (
 	<QueryClientProvider client={queryClient}>
 		<BrowserRouter>
 			<Routes>
-				<LazyRoute
-					path="/"
-					loader={() => import("./home")}
-					placeholder={<>Loading...</>}
-				/>
-				<Route path="/home">
-					{() => (
-						<>
-							<p>this is home</p>
-							<Link to="/">go root</Link>
-						</>
-					)}
-				</Route>
-				<Route path="/home/:sort">{({ sort }) => <p>this is {sort}</p>}</Route>
+				<LazyRoute path="/" loader={() => import("./home")} />
+				<LazyRoute path="/home" loader={() => import("./home")} />
+				<LazyRoute path="/home/:sort" loader={() => import("./home")} />
 				<Route path="/r/:subreddit/:sort" />
-				<Route path="/auth_redirect" component={AuthRedirect} />
+				<LazyRoute
+					path="/auth_redirect"
+					loader={() => import("./auth-redirect")}
+				/>
 			</Routes>
 		</BrowserRouter>
 		<ReactQueryDevtools />
@@ -45,12 +41,3 @@ const root = (
 )
 
 render(root, document.getElementById("app")!)
-
-function Test() {
-	useEffect(() => {
-		fetch("/api/session")
-			.then((res) => res.json())
-			.then(console.log)
-	}, [])
-	return null
-}

@@ -3,6 +3,12 @@ import { useEffect, useState } from "preact/hooks"
 import { useMatch } from "react-router-dom"
 import type { ParamsFromString } from "./route"
 
+export type LazyRouteProps<Path extends string> = {
+	path: Path
+	loader: () => Promise<LoaderResult<ComponentType<ParamsFromString<Path>>>>
+	placeholder: ComponentChildren
+}
+
 type LoaderResult<Component> =
 	| Component
 	| { [key: string]: Component | undefined }
@@ -13,11 +19,7 @@ export function LazyRoute<Path extends string>({
 	path,
 	loader,
 	placeholder,
-}: {
-	path: Path
-	loader: () => Promise<LoaderResult<ComponentType<ParamsFromString<Path>>>>
-	placeholder: ComponentChildren
-}) {
+}: LazyRouteProps<Path>) {
 	const [Component, setComponent] = useState(() => cache.get(path))
 
 	const match = useMatch(path)
