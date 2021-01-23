@@ -1,5 +1,5 @@
 import { serialize } from "cookie"
-import type { Context } from "koa"
+import type { Request, Response } from "express"
 import * as qs from "querystring"
 import type { RedditAuthResponse } from "./reddit-auth"
 
@@ -9,18 +9,18 @@ type ApiSession = {
 }
 const sessionKey = "clientSession"
 
-export function getSession(ctx: Context): ApiSession | undefined {
-	const value = ctx.cookies.get(sessionKey)
+export function getSession(req: Request): ApiSession | undefined {
+	const value = req.cookies[sessionKey]
 	return value && JSON.parse(qs.unescape(value))
 }
 
-export function setSession(ctx: Context, redditAuth: RedditAuthResponse) {
+export function setSession(res: Response, redditAuth: RedditAuthResponse) {
 	const session: ApiSession = {
 		redditAuth,
 		expirationDate: Date.now() + redditAuth.expires_in * 1000,
 	}
 
-	ctx.set(
+	res.header(
 		"Set-Cookie",
 		serialize(sessionKey, JSON.stringify(session), {
 			httpOnly: true,
@@ -32,8 +32,8 @@ export function setSession(ctx: Context, redditAuth: RedditAuthResponse) {
 	return session
 }
 
-export function clearSession(ctx: Context) {
-	ctx.set(
+export function clearSession(res: Response) {
+	res.header(
 		"Set-Cookie",
 		serialize(sessionKey, "", {
 			httpOnly: true,

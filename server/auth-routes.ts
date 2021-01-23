@@ -1,32 +1,32 @@
-import Router from "@koa/router"
+import Router from "express-promise-router"
 import * as z from "zod"
 import { fetchAccessToken, fetchRefreshedTokens } from "./reddit-auth"
 import { clearSession, getSession, setSession } from "./session"
 
-export const authRoutes = new Router()
+export const authRoutes = Router()
 
-authRoutes.post("/login", async (ctx) => {
+authRoutes.post("/login", async (req, res) => {
 	const schema = z.object({
 		authCode: z.string(),
 	})
 
-	const body = schema.parse(ctx.request.body)
+	const body = schema.parse(req.body)
 
 	const redditAuth = await fetchAccessToken(body.authCode)
-	setSession(ctx, redditAuth)
-	ctx.body = { success: true }
+	setSession(res, redditAuth)
+	res.json({ success: true })
 })
 
-authRoutes.post("/logout", async (ctx) => {
-	clearSession(ctx)
-	ctx.body = { success: true }
+authRoutes.post("/logout", async (req, res) => {
+	clearSession(res)
+	res.json({ success: true })
 })
 
-authRoutes.get("/session", async (ctx) => {
-	let session = getSession(ctx)
+authRoutes.get("/session", async (req, res) => {
+	let session = getSession(req)
 
 	if (!session) {
-		ctx.body = { session: undefined }
+		res.json({ session: undefined })
 		return
 	}
 
@@ -35,12 +35,12 @@ authRoutes.get("/session", async (ctx) => {
 			session.redditAuth.refresh_token,
 		)
 
-		session = setSession(ctx, redditAuth)
+		session = setSession(res, redditAuth)
 	}
 
-	ctx.body = {
+	res.json({
 		session: {
 			redditAccessToken: session.redditAuth.access_token,
 		},
-	}
+	})
 })

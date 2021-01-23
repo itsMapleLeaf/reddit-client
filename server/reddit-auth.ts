@@ -4,8 +4,8 @@ import {
 	getRedditAppSecret,
 	getRedditAppUserAgent,
 	getRedditRedirectUri,
-} from "../env"
-import { encodeUriParams, UriParamsObject } from "../helpers/uri"
+} from "../src/env"
+import { encodeUriParams, UriParamsObject } from "../src/helpers/uri"
 
 export type RedditAuthResponse = {
 	access_token: string
@@ -37,7 +37,9 @@ async function authFetch(body: UriParamsObject): Promise<RedditAuthResponse> {
 	const response = await fetch(`https://www.reddit.com/api/v1/access_token`, {
 		method: "post",
 		headers: {
-			Authorization: `Basic ${Buffer.from(authCredentials).toString("base64")}`,
+			"Authorization": `Basic ${Buffer.from(authCredentials).toString(
+				"base64",
+			)}`,
 			"Content-Type": "application/x-www-form-urlencoded",
 			"User-Agent": getRedditAppUserAgent(),
 		},
