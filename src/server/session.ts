@@ -3,7 +3,6 @@ import type { Context } from "koa"
 import * as qs from "querystring"
 import type { RedditAuthResponse } from "./reddit-auth"
 
-let session
 type ApiSession = {
 	redditAuth: RedditAuthResponse
 	expirationDate: number

@@ -1,7 +1,7 @@
 import type { ComponentChildren, ComponentType } from "preact"
 import { useMatch } from "react-router-dom"
 
-type ParamsFromString<PathString extends string> = {
+export type ParamsFromString<PathString extends string> = {
 	[_ in ParamNamesFromString<PathString>]: string
 }
 
