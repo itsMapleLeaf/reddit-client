@@ -1,13 +1,13 @@
-import type {
-	ComponentChildren,
-	ComponentType,
-	FunctionComponent,
-} from "preact"
+import type { ComponentChildren, ComponentType } from "preact"
 import { useLayoutEffect, useState } from "preact/hooks"
 import { useMatch } from "react-router-dom"
 import type { ParamsFromString } from "./route"
 
-const cache = new Map<string, FunctionComponent>()
+type LoaderResult<Component> =
+	| Component
+	| { [key: string]: Component | undefined }
+
+const cache = new Map<string, ComponentType>()
 
 export function LazyRoute<Path extends string>({
 	path,
@@ -15,12 +15,10 @@ export function LazyRoute<Path extends string>({
 	placeholder,
 }: {
 	path: Path
-	loader: () => Promise<Record<string, ComponentType<ParamsFromString<Path>>>>
+	loader: () => Promise<LoaderResult<ComponentType<ParamsFromString<Path>>>>
 	placeholder: ComponentChildren
 }) {
-	const [Component, setComponent] = useState<
-		ComponentType<ParamsFromString<Path>> | undefined
-	>()
+	const [Component, setComponent] = useState(() => cache.get(path))
 
 	const match = useMatch(path)
 	const hasMatch = match != null
@@ -31,7 +29,13 @@ export function LazyRoute<Path extends string>({
 
 			loader().then((result) => {
 				if (cancelled) return
-				const component = Object.values(result).find(isComponent)
+
+				const component =
+					typeof result === "function"
+						? result
+						: result.default ??
+						  Object.values(result).find<ComponentType>(isFunction)
+
 				if (component) {
 					setComponent(() => component)
 					cache.set(path, component)
@@ -55,8 +59,6 @@ export function LazyRoute<Path extends string>({
 	return <Component {...match.params} />
 }
 
-function isComponent(thing: unknown): thing is FunctionComponent {
-	return (
-		typeof thing === "function" && thing.name[0] === thing.name[0].toUpperCase()
-	)
+function isFunction(value: unknown): value is (...args: any[]) => any {
+	return typeof value === "function"
 }
