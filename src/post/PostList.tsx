@@ -1,5 +1,5 @@
 import "@twind/macro"
-import { useRedditListingQuery } from "../listing/queries"
+import { useRedditListingQuery } from "../reddit/queries"
 import InfiniteScrollCursor from "../ui/InfiniteScrollCursor"
 import PostCard from "./PostCard"
 import type { PostData } from "./types"
