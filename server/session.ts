@@ -22,7 +22,7 @@ export function setSession(
 	req: Request,
 	redditAuth: RedditAuthResponse,
 ): ApiSession {
-	return (req.session!.apiSession ??= {
+	return (req.session!.apiSession = {
 		redditAuth,
 		expirationDate: Date.now() + redditAuth.expires_in * 1000,
 	})
