@@ -23,8 +23,11 @@ const root = (
 				<Route path="/" component={HomePage} />
 				<Route path="/home" component={HomePage} />
 				<Route path="/home/:sort" component={HomePage} />
-				<Route path="/r/:subreddit/:sort" />
+				{/* <Route path="/r/:subreddit/:sort" /> */}
 				<Route path="/auth_redirect" component={AuthRedirect} />
+				<Route path="*">
+					<p>page not found :(</p>
+				</Route>
 			</Routes>
 		</BrowserRouter>
 		<ReactQueryDevtools />
