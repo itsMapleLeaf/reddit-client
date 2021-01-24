@@ -5,6 +5,7 @@ import { BrowserRouter, Routes } from "react-router-dom"
 import { HomePage } from "./app/HomePage"
 import { AuthRedirect } from "./auth/AuthRedirect"
 import { Route } from "./routing/Route"
+import { SubredditPage } from "./subreddit/SubredditPage"
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -23,7 +24,8 @@ const root = (
 				<Route path="/" component={HomePage} />
 				<Route path="/home" component={HomePage} />
 				<Route path="/home/:sort" component={HomePage} />
-				{/* <Route path="/r/:subreddit/:sort" /> */}
+				<Route path="/r/:subreddit" component={SubredditPage} />
+				<Route path="/r/:subreddit/:sort" component={SubredditPage} />
 				<Route path="/auth_redirect" component={AuthRedirect} />
 				<Route path="*">
 					<p>page not found :(</p>
