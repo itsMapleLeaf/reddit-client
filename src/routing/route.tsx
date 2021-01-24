@@ -1,28 +1,18 @@
 import type { ComponentType, ReactNode } from "react"
 import { useMatch } from "react-router-dom"
+import type { ParamsFromString } from "./types"
 
-export type ParamsFromString<PathString extends string> = {
-	[_ in ParamNamesFromString<PathString>]: string
-}
-
-type ParamNamesFromString<
-	PathString extends string
-> = PathString extends `${infer Start}/${infer Rest}`
-	? ParamPart<Start> | ParamNamesFromString<Rest>
-	: ParamPart<PathString>
-
-type ParamPart<PartString extends string> = PartString extends `:${infer S}`
-	? S
-	: never
-
-export function Route<PathT extends string>({
+export function Route<
+	Path extends string,
+	Props extends ParamsFromString<Path>
+>({
 	path,
 	component: Component,
 	children,
 }: {
-	path: PathT
-	component?: ComponentType<ParamsFromString<PathT>>
-	children?: ReactNode | ((params: ParamsFromString<PathT>) => ReactNode)
+	path: Path
+	component?: ComponentType<Props>
+	children?: ReactNode | ((params: Props) => ReactNode)
 }) {
 	const match = useMatch(path)
 
@@ -30,7 +20,7 @@ export function Route<PathT extends string>({
 		return null
 	}
 
-	const params = match.params as ParamsFromString<PathT>
+	const params = match.params as Props
 
 	if (Component) {
 		return <Component {...params} />

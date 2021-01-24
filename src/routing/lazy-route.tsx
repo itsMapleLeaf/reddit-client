@@ -1,11 +1,14 @@
 import type { ComponentType, ReactNode } from "react"
 import { useEffect, useState } from "react"
 import { useMatch } from "react-router-dom"
-import type { ParamsFromString } from "./route"
+import type { ParamsFromString } from "./types"
 
-export type LazyRouteProps<Path extends string> = {
+export type LazyRouteProps<
+	Path extends string,
+	Props extends ParamsFromString<Path>
+> = {
 	path: Path
-	loader: () => Promise<LoaderResult<ComponentType<ParamsFromString<Path>>>>
+	loader: () => Promise<LoaderResult<ComponentType<Props>>>
 	placeholder: ReactNode
 }
 
@@ -13,13 +16,12 @@ type LoaderResult<Component> =
 	| Component
 	| { [key: string]: Component | undefined }
 
-const cache = new Map<string, ComponentType>()
+const cache = new Map<string, ComponentType<any>>()
 
-export function LazyRoute<Path extends string>({
-	path,
-	loader,
-	placeholder,
-}: LazyRouteProps<Path>) {
+export function LazyRoute<
+	Path extends string,
+	Props extends ParamsFromString<Path>
+>({ path, loader, placeholder }: LazyRouteProps<Path, Props>) {
 	const [Component, setComponent] = useState(() => cache.get(path))
 
 	const match = useMatch(path)
@@ -36,7 +38,7 @@ export function LazyRoute<Path extends string>({
 					typeof result === "function"
 						? result
 						: result.default ??
-						  Object.values(result).find<ComponentType>(isFunction)
+						  Object.values(result).find<ComponentType<any>>(isFunction)
 
 				if (component) {
 					setComponent(() => component)
