@@ -41,8 +41,9 @@ function babelMacros(): Plugin {
 
 	return {
 		name: "babel-macros",
+		enforce: "pre",
 		transform(code, filename) {
-			if (/(j|t)sx?$/.test(filename)) {
+			if (/(j|t)sx?$/.test(filename) && !filename.includes("node_modules")) {
 				return babel.transformAsync(code, {
 					filename,
 					plugins,
