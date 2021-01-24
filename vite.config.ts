@@ -11,7 +11,13 @@ export default defineConfig({
 			? { "react": "preact/compat", "react-dom": "preact/compat" }
 			: {},
 	optimizeDeps: {
-		include: ["react-query/devtools", "twind/css"],
+		include: [
+			"react-query/devtools",
+			"twind/css",
+			"twind/colors",
+			"dayjs/plugin/relativeTime",
+			require.resolve("./tailwind.config.js"),
+		],
 		exclude: ["reakit"],
 	},
 	server: {
