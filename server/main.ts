@@ -1,3 +1,4 @@
+import cookieSession from "cookie-session"
 import "dotenv/config"
 import express from "express"
 import Router from "express-promise-router"
@@ -13,6 +14,17 @@ function createErrorHandler(): express.ErrorRequestHandler {
 const router = Router()
 
 router.use(express.json())
+
+router.use(
+	cookieSession({
+		name: "clientSession",
+		keys: [process.env.COOKIE_SECRET!],
+		path: "/",
+		httpOnly: true,
+		sameSite: "lax",
+	}),
+)
+
 router.use("/api", authRoutes)
 router.use(createErrorHandler())
 

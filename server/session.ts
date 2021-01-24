@@ -1,44 +1,33 @@
-import { serialize } from "cookie"
-import type { Request, Response } from "express"
-import * as qs from "querystring"
+import type { Request } from "express"
 import type { RedditAuthResponse } from "./reddit-auth"
 
 type ApiSession = {
 	redditAuth: RedditAuthResponse
 	expirationDate: number
 }
-const sessionKey = "clientSession"
+
+declare global {
+	namespace CookieSessionInterfaces {
+		interface CookieSessionObject {
+			apiSession?: ApiSession
+		}
+	}
+}
 
 export function getSession(req: Request): ApiSession | undefined {
-	const value = req.cookies?.[sessionKey]
-	return value && JSON.parse(qs.unescape(value))
+	return req.session?.apiSession
 }
 
-export function setSession(res: Response, redditAuth: RedditAuthResponse) {
-	const session: ApiSession = {
+export function setSession(
+	req: Request,
+	redditAuth: RedditAuthResponse,
+): ApiSession {
+	return (req.session!.apiSession ??= {
 		redditAuth,
 		expirationDate: Date.now() + redditAuth.expires_in * 1000,
-	}
-
-	res.header(
-		"Set-Cookie",
-		serialize(sessionKey, JSON.stringify(session), {
-			httpOnly: true,
-			sameSite: true,
-			path: "/",
-		}),
-	)
-
-	return session
+	})
 }
 
-export function clearSession(res: Response) {
-	res.header(
-		"Set-Cookie",
-		serialize(sessionKey, "", {
-			httpOnly: true,
-			sameSite: true,
-			path: "/",
-		}),
-	)
+export function clearSession(req: Request) {
+	req.session = null
 }

@@ -13,12 +13,12 @@ authRoutes.post("/login", async (req, res) => {
 	const body = schema.parse(req.body)
 
 	const redditAuth = await fetchAccessToken(body.authCode)
-	setSession(res, redditAuth)
+	setSession(req, redditAuth)
 	res.json({ success: true })
 })
 
 authRoutes.post("/logout", async (req, res) => {
-	clearSession(res)
+	clearSession(req)
 	res.json({ success: true })
 })
 
@@ -35,7 +35,7 @@ authRoutes.get("/session", async (req, res) => {
 			session.redditAuth.refresh_token,
 		)
 
-		session = setSession(res, redditAuth)
+		session = setSession(req, redditAuth)
 	}
 
 	res.json({
