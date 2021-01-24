@@ -1,11 +1,9 @@
 import { render } from "preact"
 import { QueryClient, QueryClientProvider } from "react-query"
-import devtools from "react-query/devtools"
+import { ReactQueryDevtools } from "react-query/devtools"
 import { BrowserRouter, Routes } from "react-router-dom"
 import { LazyRoute as LazyRouteBase, LazyRouteProps } from "./lazy-route"
 import { Route } from "./route"
-
-const { ReactQueryDevtools } = devtools
 
 const queryClient = new QueryClient({
 	defaultOptions: {
