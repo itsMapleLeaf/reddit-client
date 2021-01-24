@@ -1,7 +1,7 @@
 // import {buttonSolid} from 'features/ui/components';
 // import {encodeUriParams} from 'helpers/uri';
-import { raise } from "./helpers/error"
-import { encodeUriParams } from "./helpers/uri"
+import { raise } from "../helpers/error"
+import { encodeUriParams } from "../helpers/uri"
 
 const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams(
 	{

@@ -2,8 +2,11 @@ import { render } from "preact"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { BrowserRouter, Routes } from "react-router-dom"
-import { LazyRoute as LazyRouteBase, LazyRouteProps } from "./lazy-route"
-import { Route } from "./route"
+import {
+	LazyRoute as LazyRouteBase,
+	LazyRouteProps,
+} from "./routing/lazy-route"
+import { Route } from "./routing/route"
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -24,13 +27,16 @@ const root = (
 	<QueryClientProvider client={queryClient}>
 		<BrowserRouter>
 			<Routes>
-				<LazyRoute path="/" loader={() => import("./home")} />
-				<LazyRoute path="/home" loader={() => import("./home")} />
-				<LazyRoute path="/home/:sort" loader={() => import("./home")} />
+				<LazyRoute path="/" loader={() => import("./app/home-page")} />
+				<LazyRoute path="/home" loader={() => import("./app/home-page")} />
+				<LazyRoute
+					path="/home/:sort"
+					loader={() => import("./app/home-page")}
+				/>
 				<Route path="/r/:subreddit/:sort" />
 				<LazyRoute
 					path="/auth_redirect"
-					loader={() => import("./auth-redirect")}
+					loader={() => import("./auth/auth-redirect")}
 				/>
 			</Routes>
 		</BrowserRouter>

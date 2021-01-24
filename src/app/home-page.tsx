@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-export function Home() {
+export function HomePage() {
 	return (
 		<>
 			<p>am home</p>

@@ -20,5 +20,5 @@
 			"react-dom": ["./node_modules/preact/compat"]
 		}
 	},
-	"include": ["src", "server/server.ts", "server"]
+	"include": ["src", "server", "types"]
 }
