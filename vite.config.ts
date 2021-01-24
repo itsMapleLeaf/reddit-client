@@ -14,6 +14,14 @@ export default defineConfig({
 		include: ["react-query/devtools", "twind/css"],
 		exclude: ["reakit"],
 	},
+	server: {
+		proxy: {
+			"/api": {
+				target: `http://localhost:4000`,
+				changeOrigin: true,
+			},
+		},
+	},
 	plugins: [reactRefresh(), babelMacros()],
 	clearScreen: false,
 })

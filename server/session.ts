@@ -10,7 +10,7 @@ type ApiSession = {
 const sessionKey = "clientSession"
 
 export function getSession(req: Request): ApiSession | undefined {
-	const value = req.cookies[sessionKey]
+	const value = req.cookies?.[sessionKey]
 	return value && JSON.parse(qs.unescape(value))
 }
 
