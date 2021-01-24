@@ -1,4 +1,4 @@
-import { raise } from "./helpers/error"
+import { raise } from "../src/helpers/error"
 
 export const getRedditAppId = () =>
 	process.env.VITE_REDDIT_APP_ID || raise("env VITE_REDDIT_APP_ID not defined")

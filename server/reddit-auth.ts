@@ -1,11 +1,11 @@
 import fetch from "isomorphic-fetch"
+import { encodeUriParams, UriParamsObject } from "../src/helpers/uri"
 import {
 	getRedditAppId,
 	getRedditAppSecret,
 	getRedditAppUserAgent,
 	getRedditRedirectUri,
-} from "../src/env"
-import { encodeUriParams, UriParamsObject } from "../src/helpers/uri"
+} from "./env"
 
 export type RedditAuthResponse = {
 	access_token: string
