@@ -1,4 +1,4 @@
-import type { ComponentChildren, ComponentType } from "preact"
+import type { ComponentType, ReactNode } from "react"
 import { useMatch } from "react-router-dom"
 
 export type ParamsFromString<PathString extends string> = {
@@ -22,9 +22,7 @@ export function Route<PathT extends string>({
 }: {
 	path: PathT
 	component?: ComponentType<ParamsFromString<PathT>>
-	children?:
-		| ComponentChildren
-		| ((params: ParamsFromString<PathT>) => ComponentChildren)
+	children?: ReactNode | ((params: ParamsFromString<PathT>) => ReactNode)
 }) {
 	const match = useMatch(path)
 

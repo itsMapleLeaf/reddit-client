@@ -3,7 +3,7 @@
 		"target": "ESNext",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"allowJs": false,
-		"skipLibCheck": true,
+		"skipLibCheck": false,
 		"esModuleInterop": true,
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
@@ -13,12 +13,7 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"jsx": "react-jsx",
-		"jsxImportSource": "preact",
-		"importsNotUsedAsValues": "error",
-		"paths": {
-			"react": ["./node_modules/preact/compat"],
-			"react-dom": ["./node_modules/preact/compat"]
-		}
+		"importsNotUsedAsValues": "error"
 	},
 	"include": ["src", "server", "types"]
 }

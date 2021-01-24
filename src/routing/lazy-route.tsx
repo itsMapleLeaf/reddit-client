@@ -1,12 +1,12 @@
-import type { ComponentChildren, ComponentType } from "preact"
-import { useEffect, useState } from "preact/hooks"
+import type { ComponentType, ReactNode } from "react"
+import { useEffect, useState } from "react"
 import { useMatch } from "react-router-dom"
 import type { ParamsFromString } from "./route"
 
 export type LazyRouteProps<Path extends string> = {
 	path: Path
 	loader: () => Promise<LoaderResult<ComponentType<ParamsFromString<Path>>>>
-	placeholder: ComponentChildren
+	placeholder: ReactNode
 }
 
 type LoaderResult<Component> =

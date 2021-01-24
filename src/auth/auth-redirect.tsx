@@ -1,4 +1,4 @@
-import { useEffect } from "preact/hooks"
+import { useEffect } from "react"
 import { useMutation } from "react-query"
 import { useNavigate } from "react-router-dom"
 import { useSearchParam } from "../routing/use-param"

@@ -1,4 +1,4 @@
-import { render } from "preact"
+import { render } from "react-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { BrowserRouter, Routes } from "react-router-dom"
@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
 function LazyRoute<Path extends string>(
 	props: Omit<LazyRouteProps<Path>, "placeholder">,
 ) {
-	return <LazyRouteBase {...props} placeholder={() => <p>Loading...</p>} />
+	return <LazyRouteBase {...props} placeholder={<p>Loading...</p>} />
 }
 
 const root = (
