@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react"
 import ReactDOM from "react-dom"
 
-export default function Portal({ children }: { children: ReactNode }) {
+export function Portal({ children }: { children: ReactNode }) {
 	const [element, setElement] = useState<Element>()
 
 	useEffect(() => {

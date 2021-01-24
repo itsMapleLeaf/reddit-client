@@ -8,9 +8,9 @@ import {
 	useDialogState,
 } from "reakit"
 import { css } from "twind/css"
-import Portal from "./Portal"
+import { Portal } from "./Portal"
 
-export default function DrawerDialog({
+export function DrawerDialog({
 	label,
 	trigger,
 	children,

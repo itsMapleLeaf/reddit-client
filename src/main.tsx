@@ -2,9 +2,9 @@ import { render } from "react-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { BrowserRouter, Routes } from "react-router-dom"
-import { HomePage } from "./app/home-page"
-import { AuthRedirect } from "./auth/auth-redirect"
-import { Route } from "./routing/route"
+import { HomePage } from "./app/HomePage"
+import { AuthRedirect } from "./auth/AuthRedirect"
+import { Route } from "./routing/Route"
 
 const queryClient = new QueryClient({
 	defaultOptions: {

@@ -1,7 +1,6 @@
-// import {buttonSolid} from 'features/ui/components';
-// import {encodeUriParams} from 'helpers/uri';
 import { raise } from "../helpers/error"
 import { encodeUriParams } from "../helpers/uri"
+import { buttonSolid } from "../ui/components"
 
 const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams(
 	{
@@ -16,6 +15,8 @@ const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams
 
 export function RedditLoginButton() {
 	return (
-		<a href={redditAuthUrl} /* className={buttonSolid} */>Login with reddit</a>
+		<a href={redditAuthUrl} className={buttonSolid}>
+			Login with reddit
+		</a>
 	)
 }

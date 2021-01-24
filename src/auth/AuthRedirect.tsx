@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useMutation } from "react-query"
 import { useNavigate } from "react-router-dom"
-import { useSearchParam } from "../routing/use-param"
+import { useSearchParam } from "../routing/useSearchParam"
 
 export function AuthRedirect() {
 	const navigate = useNavigate()

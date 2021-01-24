@@ -1,12 +1,12 @@
 import "@twind/macro"
-import { AuthButton } from "../auth/auth-button"
-import PostList from "../post/PostList"
-import DrawerDialog from "../ui/DrawerDialog"
-import Icon from "../ui/Icon"
+import { AuthButton } from "../auth/AuthButton"
+import { PostCardList } from "../post/PostCardList"
+import { DrawerDialog } from "../ui/DrawerDialog"
+import { Icon } from "../ui/Icon"
 import { menuIcon } from "../ui/icons"
-import StickyContainer from "../ui/StickyContainer"
-import { MainNavigation } from "./main-navigation"
-import { RedditSort, RedditSortMenu } from "./reddit-sort-menu"
+import { StickyContainer } from "../ui/StickyContainer"
+import { MainNavigation } from "./MainNavigation"
+import { RedditSort, RedditSortMenu } from "./RedditSortMenu"
 
 const defaultRedditSort: RedditSort = {
 	label: "Hot",
@@ -36,7 +36,7 @@ export function HomePage({ sort }: { sort?: string }) {
 					</StickyContainer>
 				</div>
 				<div tw="flex-1">
-					<PostList endpoint={redditSort.endpoint} />
+					<PostCardList endpoint={redditSort.endpoint} />
 				</div>
 			</div>
 		</div>

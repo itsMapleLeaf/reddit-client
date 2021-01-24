@@ -2,7 +2,7 @@ import "@twind/macro"
 import { ReactNode, useRef } from "react"
 import { useEvent, useMeasure } from "react-use"
 
-export default function StickyContainer({ children }: { children: ReactNode }) {
+export function StickyContainer({ children }: { children: ReactNode }) {
 	const innerRef = useRef<HTMLDivElement>(null)
 	const [outerRef, outerRect] = useMeasure<HTMLDivElement>()
 	const scroll = useRef(typeof window !== "undefined" ? window.scrollY : 0)

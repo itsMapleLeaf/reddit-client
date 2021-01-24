@@ -3,15 +3,15 @@ import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
 import { Link } from "react-router-dom"
 import { isTruthy } from "../helpers/boolean"
-import AspectRatio from "../ui/AspectRatio"
-import Gallery from "../ui/Gallery"
-import Icon from "../ui/Icon"
+import { AspectRatio } from "../ui/AspectRatio"
+import { Gallery } from "../ui/Gallery"
+import { Icon } from "../ui/Icon"
 import { downArrowIcon, upArrowIcon } from "../ui/icons"
 import type { PostData } from "./types"
 
 dayjs.extend(relativeTime)
 
-export default function PostCard({ data }: { data: PostData }) {
+export function PostCard({ data }: { data: PostData }) {
 	const createdDate = dayjs(new Date(data.created_utc * 1000))
 
 	return (

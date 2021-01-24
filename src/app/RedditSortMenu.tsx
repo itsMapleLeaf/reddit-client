@@ -1,7 +1,7 @@
 import { tw } from "@twind/macro"
 import { Link } from "react-router-dom"
 import { Menu, MenuButton, MenuItem, useMenuState } from "reakit"
-import Icon from "../ui/Icon"
+import { Icon } from "../ui/Icon"
 import { filterIcon } from "../ui/icons"
 
 export type RedditSort = {

@@ -1,19 +1,20 @@
 import "@twind/macro"
-import { useEffect, useRef } from "react"
-import { useIntersection, useWindowSize } from "react-use"
+import { useWindowSize } from "react-use"
+import { useIntersectionCallback } from "../dom/useIntersectionCallback"
 import { useEffectRef } from "../react/useEffectRef"
 
-export default function InfiniteScrollCursor(props: {
+export function InfiniteScrollCursor({
+	onEndReached,
+}: {
 	onEndReached?: () => void
 }) {
-	const ref = useRef<HTMLDivElement>(null)
-	const entry = useIntersection(ref, {})
-	const propsRef = useEffectRef(props)
-	const { height } = useWindowSize(0, 0)
+	const onEndReachedRef = useEffectRef(onEndReached)
 
-	useEffect(() => {
-		if (entry?.isIntersecting) propsRef.current.onEndReached?.()
-	}, [entry?.isIntersecting, propsRef])
+	const ref = useIntersectionCallback(([entry]) => {
+		if (entry?.isIntersecting) onEndReachedRef.current?.()
+	})
+
+	const { height } = useWindowSize(0, 0)
 
 	return (
 		<div tw="relative">

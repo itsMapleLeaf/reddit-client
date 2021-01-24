@@ -1,6 +1,8 @@
 dependencies:
   '@mdi/js': 5.9.55
+  dayjs: 1.10.4
   history: 5.0.0
+  html-escaper: 3.0.0
   preact: 10.5.11
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
@@ -11,6 +13,7 @@ dependencies:
   reakit: 1.3.5_react-dom@17.0.1+react@17.0.1
   tailwindcss: 2.0.2
   twind: 0.14.1_typescript@4.1.3
+  use-memo-value: 1.0.1_react@17.0.1
   utility-types: 3.10.0
 devDependencies:
   '@babel/core': 7.12.10
@@ -30,14 +33,12 @@ devDependencies:
   babel-plugin-macros: 3.0.1
   cookie-session: 1.4.0
   cross-env: 7.0.3
-  dayjs: 1.10.4
   dotenv: 8.2.0
   eslint: 7.18.0
   eslint-plugin-react: 7.22.0_eslint@7.18.0
   eslint-plugin-react-hooks: 4.2.0_eslint@7.18.0
   express: 4.17.1
   express-promise-router: 4.0.1_8d68e4e880e72bdecd40a9912e5637ea
-  html-escaper: 3.0.0
   isomorphic-fetch: 3.0.0
   npm-run-all: 4.1.5
   ts-node: 9.1.1_typescript@4.1.3
@@ -1046,7 +1047,7 @@ packages:
     resolution:
       integrity: sha1-nxJLZ1lMk3/3BpMuSmQsyo27/uk=
   /dayjs/1.10.4:
-    dev: true
+    dev: false
     resolution:
       integrity: sha512-RI/Hh4kqRc1UKLOAf/T5zdMMX5DQIlDxwUe3wSyMMnEbGunnpENCdbUgM+dW7kXidZqCttBrmw7BhN4TMddkCw==
   /debug/2.6.9:
@@ -1739,7 +1740,7 @@ packages:
     resolution:
       integrity: sha512-f/wzC2QaWBs7t9IYqB4T3sR1xviIViXJRJTWBlx2Gf3g0Xi5vI7Yy4koXQ1c9OYDGHN9sBy1DQ2AB8fqZBWhUg==
   /html-escaper/3.0.0:
-    dev: true
+    dev: false
     resolution:
       integrity: sha512-69CofXDozHqdHDl1BZ3YiFp5rYN1qTwSXIVcBhVcZNkzj1vzx6Sko1nT58mzKip19DbKo8lHR9hf6/XeZ9+s3w==
   /html-tags/3.1.0:
@@ -3113,6 +3114,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-JvdAWfbXeIGaZ9cILp38HntZSFSo3mWg6xGcJJsd+d4aRMOqauag1C63dJfDw7OaMYwEbHMOxEZ1lqVRYP2OAw==
+  /shallowequal/1.1.0:
+    dev: false
+    resolution:
+      integrity: sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
   /shebang-command/1.2.0:
     dependencies:
       shebang-regex: 1.0.0
@@ -3625,6 +3630,15 @@ packages:
         optional: true
     resolution:
       integrity: sha512-gN3vgMISAgacF7sqsLPByqoePooY3n2emTH59Ur5d/M8eg4WTWu1xp8i8DHjohftIyEx0S08RiYxbffr4j8Peg==
+  /use-memo-value/1.0.1_react@17.0.1:
+    dependencies:
+      react: 17.0.1
+      shallowequal: 1.1.0
+    dev: false
+    peerDependencies:
+      react: ^16.8.0
+    resolution:
+      integrity: sha512-1DqRcvh5XguuuO8QXw9KeAp7MDUKrLPrCv3+GawjFqxjwRJN9FjzayW0Z3RBvWi826l5mim8ov+kCFSTs70svg==
   /use-sidecar/1.0.4_react@17.0.1:
     dependencies:
       detect-node-es: 1.0.0
@@ -3781,6 +3795,7 @@ specifiers:
   ts-node-dev: ^1.1.1
   twind: ^0.14.1
   typescript: ^4.1.3
+  use-memo-value: ^1.0.1
   utility-types: ^3.10.0
   vite: 2.0.0-beta.37
   zod: ^1.11.11

@@ -1,10 +1,10 @@
 import { tw } from "@twind/macro"
 import { ReactNode, useState } from "react"
 import { decrement, increment, mod } from "../helpers/number"
-import Icon from "./Icon"
+import { Icon } from "./Icon"
 import { chevronLeftIcon, chevronRightIcon } from "./icons"
 
-export default function Gallery<T>(props: {
+export function Gallery<T>(props: {
 	items: T[]
 	renderItem: (item: T) => ReactNode
 }) {

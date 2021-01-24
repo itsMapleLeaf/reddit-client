@@ -1,7 +1,7 @@
 import { useMutation } from "react-query"
 import { buttonSolid } from "../ui/components"
 import { useSessionQuery } from "./queries"
-import { RedditLoginButton } from "./reddit-login-button"
+import { RedditLoginButton } from "./RedditLoginButton"
 
 export function AuthButton() {
 	const session = useSessionQuery()
