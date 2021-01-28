@@ -1,6 +1,6 @@
 import { tw } from "@twind/macro"
 import { ReactNode, useState } from "react"
-import { decrement, increment, mod } from "../helpers/number"
+import { mod } from "../helpers/mod"
 import { Icon } from "./Icon"
 import { chevronLeftIcon, chevronRightIcon } from "./icons"
 
@@ -21,14 +21,14 @@ export function Gallery<T>(props: {
 				<button
 					type="button"
 					className={buttonClass}
-					onClick={() => setIndex(decrement)}
+					onClick={() => setIndex((n) => n - 1)}
 				>
 					<Icon name={chevronLeftIcon} tw="w-8" />
 				</button>
 				<button
 					type="button"
 					className={buttonClass}
-					onClick={() => setIndex(increment)}
+					onClick={() => setIndex((n) => n + 1)}
 				>
 					<Icon name={chevronRightIcon} tw="w-8" />
 				</button>

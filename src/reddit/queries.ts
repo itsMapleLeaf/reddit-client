@@ -1,6 +1,6 @@
 import { QueryKey, useInfiniteQuery, useQuery } from "react-query"
 import { useSessionQuery } from "../auth/queries"
-import { encodeUriParams, UriParamsObject } from "../helpers/uri"
+import { encodeUriParams, UriParamsObject } from "../helpers/encodeUriParams"
 import type { ListingResponse } from "./types"
 
 async function redditFetch<T>(

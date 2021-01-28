@@ -1,5 +1,5 @@
-import { raise } from "../helpers/error"
-import { encodeUriParams } from "../helpers/uri"
+import { encodeUriParams } from "../helpers/encodeUriParams"
+import { raise } from "../helpers/raise"
 import { buttonSolid } from "../ui/components"
 
 const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?${encodeUriParams(

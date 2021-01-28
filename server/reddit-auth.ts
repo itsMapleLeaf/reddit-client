@@ -1,5 +1,8 @@
 import fetch from "isomorphic-fetch"
-import { encodeUriParams, UriParamsObject } from "../src/helpers/uri"
+import {
+	encodeUriParams,
+	UriParamsObject,
+} from "../src/helpers/encodeUriParams"
 import {
 	getRedditAppId,
 	getRedditAppSecret,
