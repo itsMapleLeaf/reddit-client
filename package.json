@@ -5,7 +5,8 @@
 		"dev-web": "vite",
 		"dev-server": "cross-env NODE_ENV=development ts-node-dev --transpile-only --no-notify --project ./tsconfig.server.json ./server/main",
 		"dev": "npm-run-all --parallel --print-label dev-*",
-		"build": "tsc && vite build"
+		"build": "tsc && vite build",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@mdi/js": "^5.9.55",
