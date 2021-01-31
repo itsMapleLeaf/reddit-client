@@ -21,7 +21,6 @@ const root = (
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" component={HomePage} />
-				<Route path="/" component={HomePage} />
 				<Route path="/home" component={HomePage} />
 				<Route path="/home/:sort" component={HomePage} />
 				<Route path="/r/:subreddit" component={SubredditPage} />
