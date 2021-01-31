@@ -1,10 +1,11 @@
 import "@twind/macro"
 import { ReactNode, useRef } from "react"
-import { useEvent, useMeasure } from "react-use"
+import { useEvent } from "react-use"
+import useResizeObserver from "use-resize-observer"
 
 export function StickyContainer({ children }: { children: ReactNode }) {
 	const innerRef = useRef<HTMLDivElement>(null)
-	const [outerRef, outerRect] = useMeasure<HTMLDivElement>()
+	const { ref: outerRef, width } = useResizeObserver()
 	const scroll = useRef(typeof window !== "undefined" ? window.scrollY : 0)
 	const offset = useRef(0)
 
@@ -12,7 +13,7 @@ export function StickyContainer({ children }: { children: ReactNode }) {
 		const delta = window.scrollY - scroll.current
 		scroll.current = window.scrollY
 
-		const { offsetTop, clientHeight } = innerRef.current!
+		const { offsetTop, clientHeight, style } = innerRef.current!
 
 		// if the inner element doesn't extend beyond the sliding area,
 		// just keep it at the top
@@ -33,15 +34,12 @@ export function StickyContainer({ children }: { children: ReactNode }) {
 			}
 		}
 
-		innerRef.current!.style.transform = `translateY(${offset.current}px)`
+		style.transform = `translateY(${offset.current}px)`
 	})
 
 	return (
 		<div tw="w-full" ref={outerRef}>
-			<div
-				ref={innerRef}
-				style={{ position: "fixed", width: outerRect?.width }}
-			>
+			<div ref={innerRef} style={{ position: "fixed", width }}>
 				{children}
 			</div>
 		</div>
