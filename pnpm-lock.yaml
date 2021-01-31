@@ -9,16 +9,16 @@ dependencies:
   react-focus-lock: 2.5.0_@types+react@17.0.0+react@17.0.1
   react-query: 3.6.0_react-dom@17.0.1+react@17.0.1
   react-router-dom: 6.0.0-beta.0_53afffa7a7d3b09b28318c8dd871d9fc
-  react-use: 15.3.8_react-dom@17.0.1+react@17.0.1
+  react-use: 17.0.0_react-dom@17.0.1+react@17.0.1
   reakit: 1.3.5_react-dom@17.0.1+react@17.0.1
-  twind: 0.14.3_typescript@4.1.3
+  twind: 0.14.4_typescript@4.1.3
   use-memo-value: 1.0.1_react@17.0.1
   utility-types: 3.10.0
 devDependencies:
   '@babel/core': 7.12.10
   '@babel/plugin-syntax-jsx': 7.12.1_@babel+core@7.12.10
   '@babel/plugin-syntax-typescript': 7.12.1_@babel+core@7.12.10
-  '@twind/macro': 0.1.2_twind@0.14.3
+  '@twind/macro': 0.1.2_twind@0.14.4
   '@types/babel__core': 7.1.12
   '@types/cookie-session': 2.0.42
   '@types/express': 4.17.11
@@ -28,7 +28,7 @@ devDependencies:
   '@types/react-dom': 17.0.0
   '@typescript-eslint/eslint-plugin': 4.14.1_5aaa83948f53bc6d11a4ce27d9931983
   '@typescript-eslint/parser': 4.14.1_eslint@7.18.0+typescript@4.1.3
-  '@vitejs/plugin-react-refresh': 1.1.2
+  '@vitejs/plugin-react-refresh': 1.1.3
   babel-plugin-macros: 3.0.1
   cookie-session: 1.4.0
   cross-env: 7.0.3
@@ -43,7 +43,7 @@ devDependencies:
   ts-node: 9.1.1_typescript@4.1.3
   ts-node-dev: 1.1.1_typescript@4.1.3
   typescript: 4.1.3
-  vite: 2.0.0-beta.52
+  vite: 2.0.0-beta.59
   zod: 1.11.11
 lockfileVersion: 5.2
 packages:
@@ -298,12 +298,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
-  /@twind/macro/0.1.2_twind@0.14.3:
+  /@twind/macro/0.1.2_twind@0.14.4:
     dependencies:
       '@babel/core': 7.12.10
       '@babel/helper-annotate-as-pure': 7.12.10
       babel-plugin-macros: 3.0.1
-      twind: 0.14.3_typescript@4.1.3
+      twind: 0.14.4_typescript@4.1.3
     dev: true
     optionalDependencies:
       '@types/react': 17.0.0
@@ -381,10 +381,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-DaZNUvLDCAnCTjgwxgiL1eQdxIKEpNLOlTNtAgnZc50bG2copGhRrFN9/PxPBuJe+tZVLCbQ7ls0xveXVRPkvw==
-  /@types/js-cookie/2.2.6:
-    dev: false
-    resolution:
-      integrity: sha512-+oY0FDTO2GYKEV0YPvSshGq9t7YozVkgvXLty7zogQNuCxBhT9/3INX9Q7H1aRZ4SUDRXAKlJuA4EA5nTt7SNw==
   /@types/json-schema/7.0.7:
     dev: true
     resolution:
@@ -551,7 +547,7 @@ packages:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
     resolution:
       integrity: sha512-TAblbDXOI7bd0C/9PE1G+AFo7R5uc+ty1ArDoxmrC1ah61Hn6shURKy7gLdRb1qKJmjHkqu5Oq+e4Kt0jwf1IA==
-  /@vitejs/plugin-react-refresh/1.1.2:
+  /@vitejs/plugin-react-refresh/1.1.3:
     dependencies:
       '@babel/core': 7.12.10
       '@babel/plugin-syntax-import-meta': 7.10.4_@babel+core@7.12.10
@@ -560,7 +556,7 @@ packages:
     engines:
       node: '>=12.0.0'
     resolution:
-      integrity: sha512-iczCmFZRFx2lJTIzwEba63SeIpEiwGTpFdIGxCOJcZAZ5nmCF56gsM8gGYvvRACiUvj8ytZsRE06zdYBhzTvNg==
+      integrity: sha512-xY1VqI4/F59pd8vkMMWuz4GIqk2J4BEy8DGb+ryOOeKidewBRPsLc8PTURTHiFqqU0rVB8TrsA/kTIZscwLLVg==
   /@xobotyi/scrollbar-width/1.9.5:
     dev: false
     resolution:
@@ -2618,9 +2614,8 @@ packages:
       tslib: '*'
     resolution:
       integrity: sha512-dg8yXdcQmvgR13RIlZbTRQOoUrDciFVoSBZILwjE2LFISxZZ8loVJKAkuzswl5js8BHda79bIb2b84ehU8IjXw==
-  /react-use/15.3.8_react-dom@17.0.1+react@17.0.1:
+  /react-use/17.0.0_react-dom@17.0.1+react@17.0.1:
     dependencies:
-      '@types/js-cookie': 2.2.6
       '@xobotyi/scrollbar-width': 1.9.5
       copy-to-clipboard: 3.3.1
       fast-deep-equal: 3.1.3
@@ -2633,7 +2628,7 @@ packages:
       resize-observer-polyfill: 1.5.1
       screenfull: 5.1.0
       set-harmonic-interval: 1.0.1
-      throttle-debounce: 2.3.0
+      throttle-debounce: 3.0.1
       ts-easing: 0.2.0
       tslib: 2.1.0
     dev: false
@@ -2641,7 +2636,7 @@ packages:
       react: ^16.8.0  || ^17.0.0
       react-dom: ^16.8.0  || ^17.0.0
     resolution:
-      integrity: sha512-GeGcrmGuUvZrY5wER3Lnph9DSYhZt5nEjped4eKDq8BRGr2CnLf9bDQWG9RFc7oCPphnscUUdOovzq0E5F2c6Q==
+      integrity: sha512-0hld0A4PzSNYbkQBTJuAoYAtn/CCb2SMnaGarZMKtpaLWA/LDcT7jc5E9cvnI9IBm8CMF7NDJQlEBuDLSZ5Nhg==
   /react/17.0.1:
     dependencies:
       loose-envify: 1.4.0
@@ -3189,12 +3184,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
-  /throttle-debounce/2.3.0:
+  /throttle-debounce/3.0.1:
     dev: false
     engines:
-      node: '>=8'
+      node: '>=10'
     resolution:
-      integrity: sha512-H7oLPV0P7+jgvrk+6mwwwBDmxTaxnu9HMXmloNLXwnNO0ZxZ31Orah2n8lU1eMPvsaowP2CX+USCgyovXfdOFQ==
+      integrity: sha512-dTEWWNu6JmeVXY0ZYoPuH5cRIwc0MeGbJwah9KUNYSJwommQpCzTySTpEe8Gs1J23aeWEuAobe4Ag7EHVt/LOg==
   /to-fast-properties/2.0.0:
     dev: true
     engines:
@@ -3310,7 +3305,7 @@ packages:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     resolution:
       integrity: sha512-RYbuQuvkhuqVeXweWT3tJLKOEJ/UUw9GjNEZGWdrLLlM+611o1gwLHBpxoFJKKl25fLprp2eVthtKs5JOrNeXg==
-  /twind/0.14.3_typescript@4.1.3:
+  /twind/0.14.4_typescript@4.1.3:
     dependencies:
       csstype: 3.0.6
       node-html-parser: 2.0.2
@@ -3325,7 +3320,7 @@ packages:
       typescript:
         optional: true
     resolution:
-      integrity: sha512-xirprw0qHuNFsxHck3uvrygZOrCz18P4tqiUFBosZPm00xA9p+jEksQ7PK1UYeJoYjOYCYqnzCrAV/aaTyrM2Q==
+      integrity: sha512-B6ZfNe7xK2WblbAl4eoY2Y5Snvi11Rm0eK0IxlQeFSOQ+AR4UXSkc8+/n3D0VomJ+BqiOFmqmSyUemWQ6JQbTQ==
   /type-check/0.4.0:
     dependencies:
       prelude-ls: 1.2.1
@@ -3433,7 +3428,7 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
-  /vite/2.0.0-beta.52:
+  /vite/2.0.0-beta.59:
     dependencies:
       esbuild: 0.8.36
       postcss: 8.2.4
@@ -3446,7 +3441,7 @@ packages:
     optionalDependencies:
       fsevents: 2.1.3
     resolution:
-      integrity: sha512-goc3hwnL7ot9NnzRv7jWz4pDMgBpoL272+WuKc3D/gjYtVLd9KG46Z68IlU3OSN5ng334WEI1pmAlawb4iGJ8g==
+      integrity: sha512-tlxEPFpVI1wV+vk+t/ypwBZfNmxKcorok8YF82MrQIqCDeRXnHvp33oWPIsRrO0V7UdnnlkKQOJJiIi3AIUFOA==
   /whatwg-fetch/3.5.0:
     dev: true
     resolution:
@@ -3518,7 +3513,7 @@ specifiers:
   '@types/react-dom': ^17.0.0
   '@typescript-eslint/eslint-plugin': ^4.14.1
   '@typescript-eslint/parser': ^4.14.1
-  '@vitejs/plugin-react-refresh': ^1.1.2
+  '@vitejs/plugin-react-refresh': ^1.1.3
   babel-plugin-macros: ^3.0.1
   cookie-session: ^1.4.0
   cross-env: ^7.0.3
@@ -3539,13 +3534,13 @@ specifiers:
   react-focus-lock: ^2.5.0
   react-query: ^3.6.0
   react-router-dom: ^6.0.0-beta.0
-  react-use: ^15.3.8
+  react-use: ^17.0.0
   reakit: ^1.3.5
   ts-node: ^9.1.1
   ts-node-dev: ^1.1.1
-  twind: ^0.14.3
+  twind: ^0.14.4
   typescript: ^4.1.3
   use-memo-value: ^1.0.1
   utility-types: ^3.10.0
-  vite: ^2.0.0-beta.52
+  vite: ^2.0.0-beta.59
   zod: ^1.11.11
